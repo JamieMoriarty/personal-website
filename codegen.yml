@@ -1,0 +1,14 @@
+schema:
+  - process.env.VITE_CMS_URL:
+      headers:
+        'Authorization': Bearer process.env.VITE_CMS_TOKEN
+documents:
+  - src/**/*.tsx
+generates:
+  ./src/__generated__/:
+    preset: client
+    presetConfig:
+      gqlTagName: gql
+ignoreNoDocuments: true
+
+    
