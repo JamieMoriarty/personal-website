@@ -457,11 +457,19 @@ export type QuerySkillCollectionArgs = {
 /** A skill is the building blocks of knowledge! It could be a framework, a programming language, design methodology. Something that you use to help employers reach their goals in whatever domain you are helping them in! [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/skill) */
 export type Skill = Entry & {
   __typename?: 'Skill';
+  area?: Maybe<SkillArea>;
   category?: Maybe<SkillCategory>;
   contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<SkillLinkingCollections>;
   name?: Maybe<Scalars['String']>;
   sys: Sys;
+};
+
+
+/** A skill is the building blocks of knowledge! It could be a framework, a programming language, design methodology. Something that you use to help employers reach their goals in whatever domain you are helping them in! [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/skill) */
+export type SkillAreaArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -489,7 +497,6 @@ export type SkillArea = Entry & {
   contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<SkillAreaLinkingCollections>;
   name?: Maybe<Scalars['String']>;
-  skillsCollection?: Maybe<SkillAreaSkillsCollection>;
   sys: Sys;
 };
 
@@ -503,15 +510,6 @@ export type SkillAreaLinkedFromArgs = {
 /** An 'area of skill' is some well-understood high-level step in the general web-development process. It could be a layer in the tech stack or some general function in the design and discovery phase. [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/skillArea) */
 export type SkillAreaNameArgs = {
   locale?: InputMaybe<Scalars['String']>;
-};
-
-
-/** An 'area of skill' is some well-understood high-level step in the general web-development process. It could be a layer in the tech stack or some general function in the design and discovery phase. [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/skillArea) */
-export type SkillAreaSkillsCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  locale?: InputMaybe<Scalars['String']>;
-  preview?: InputMaybe<Scalars['Boolean']>;
-  skip?: InputMaybe<Scalars['Int']>;
 };
 
 export type SkillAreaCollection = {
@@ -533,17 +531,25 @@ export type SkillAreaFilter = {
   name_not?: InputMaybe<Scalars['String']>;
   name_not_contains?: InputMaybe<Scalars['String']>;
   name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  skillsCollection_exists?: InputMaybe<Scalars['Boolean']>;
   sys?: InputMaybe<SysFilter>;
 };
 
 export type SkillAreaLinkingCollections = {
   __typename?: 'SkillAreaLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
+  skillCollection?: Maybe<SkillCollection>;
 };
 
 
 export type SkillAreaLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type SkillAreaLinkingCollectionsSkillCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
@@ -562,14 +568,6 @@ export enum SkillAreaOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
-
-export type SkillAreaSkillsCollection = {
-  __typename?: 'SkillAreaSkillsCollection';
-  items: Array<Maybe<Skill>>;
-  limit: Scalars['Int'];
-  skip: Scalars['Int'];
-  total: Scalars['Int'];
-};
 
 /** broad category for skill - but remember that each skill only has one, so they cannot be too high-level! Examples include: framework, library, language, methodology. [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/skillCategory) */
 export type SkillCategory = Entry & {
@@ -660,6 +658,8 @@ export type SkillCollection = {
 export type SkillFilter = {
   AND?: InputMaybe<Array<InputMaybe<SkillFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<SkillFilter>>>;
+  area?: InputMaybe<CfSkillAreaNestedFilter>;
+  area_exists?: InputMaybe<Scalars['Boolean']>;
   category?: InputMaybe<CfSkillCategoryNestedFilter>;
   category_exists?: InputMaybe<Scalars['Boolean']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
@@ -676,19 +676,10 @@ export type SkillFilter = {
 export type SkillLinkingCollections = {
   __typename?: 'SkillLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
-  skillAreaCollection?: Maybe<SkillAreaCollection>;
 };
 
 
 export type SkillLinkingCollectionsEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  locale?: InputMaybe<Scalars['String']>;
-  preview?: InputMaybe<Scalars['Boolean']>;
-  skip?: InputMaybe<Scalars['Int']>;
-};
-
-
-export type SkillLinkingCollectionsSkillAreaCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
@@ -755,6 +746,20 @@ export type SysFilter = {
   publishedVersion_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
 };
 
+export type CfSkillAreaNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfSkillAreaNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfSkillAreaNestedFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  name?: InputMaybe<Scalars['String']>;
+  name_contains?: InputMaybe<Scalars['String']>;
+  name_exists?: InputMaybe<Scalars['Boolean']>;
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  name_not?: InputMaybe<Scalars['String']>;
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
+};
+
 export type CfSkillCategoryNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<CfSkillCategoryNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CfSkillCategoryNestedFilter>>>;
@@ -772,7 +777,7 @@ export type CfSkillCategoryNestedFilter = {
 export type GetSkillsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSkillsQuery = { __typename?: 'Query', skillAreaCollection?: { __typename?: 'SkillAreaCollection', items: Array<{ __typename?: 'SkillArea', name?: string | null, skillsCollection?: { __typename?: 'SkillAreaSkillsCollection', items: Array<{ __typename?: 'Skill', name?: string | null, category?: { __typename?: 'SkillCategory', name?: string | null } | null } | null> } | null } | null> } | null };
+export type GetSkillsQuery = { __typename?: 'Query', skillCollection?: { __typename?: 'SkillCollection', items: Array<{ __typename?: 'Skill', name?: string | null, category?: { __typename?: 'SkillCategory', name?: string | null } | null, area?: { __typename?: 'SkillArea', name?: string | null } | null } | null> } | null };
 
 
-export const GetSkillsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSkills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"skillAreaCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"5"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"skillsCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetSkillsQuery, GetSkillsQueryVariables>;
+export const GetSkillsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSkills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"skillCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"200"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"area"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetSkillsQuery, GetSkillsQueryVariables>;
