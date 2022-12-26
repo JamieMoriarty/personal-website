@@ -15,17 +15,25 @@ export const SKILLS_QUERY = gql(`
       }
     }
   }
-`)
+`);
 
 export const useSkills = function () {
   const { data: rawData, loading, error } = useQuery(SKILLS_QUERY);
   const dataItems = rawData?.skillCollection?.items
-    .map(item => item ? ({ name: item.name, category: item.category?.name, area: item.area?.name }) : item)
-    .filter(item => !!item)
+    .map((item) =>
+      item
+        ? {
+            name: item.name,
+            category: item.category?.name,
+            area: item.area?.name,
+          }
+        : item
+    )
+    .filter((item) => !!item);
 
   return {
     data: dataItems,
     loading,
-    error
-  }
-}
+    error,
+  };
+};

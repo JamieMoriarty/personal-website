@@ -3,7 +3,7 @@ import * as types from './graphql';
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
 /**
- * Map of all GraphQL operations in the project.
+ * Map of all GraphQL operations in the project. 
  *
  * This map has several performance disadvantages:
  * 1. It is not tree-shakeable, so it will include all operations in the project.
