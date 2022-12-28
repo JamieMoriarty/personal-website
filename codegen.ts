@@ -1,4 +1,4 @@
-import { CodegenConfig } from '@graphql-codegen/cli';
+import { CodegenConfig } from "@graphql-codegen/cli";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 
@@ -11,19 +11,19 @@ const config: CodegenConfig = {
   schema: {
     [URL]: {
       headers: {
-        "Authorization": `Bearer ${TOKEN}`
-      }
-    }
+        Authorization: `Bearer ${TOKEN}`,
+      },
+    },
   },
-  documents: ['src/**/*.tsx'],
+  documents: ["src/**/*.tsx"],
   generates: {
-    './src/__generated__/': {
-      preset: 'client',
+    "./src/__generated__/": {
+      preset: "client",
       plugins: [],
       presetConfig: {
-        gqlTagName: 'gql',
-      }
-    }
+        gqlTagName: "gql",
+      },
+    },
   },
   ignoreNoDocuments: true,
 };
