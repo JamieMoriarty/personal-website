@@ -7,6 +7,8 @@ const localEnv = dotenv.parse(fs.readFileSync("./.env.local"));
 const URL = process.env.VITE_CMS_URL ?? localEnv.VITE_CMS_URL;
 const TOKEN = process.env.VITE_CMS_TOKEN ?? localEnv.VITE_CMS_TOKEN;
 
+console.log(URL, TOKEN);
+
 const config: CodegenConfig = {
   schema: {
     [URL]: {
@@ -15,7 +17,7 @@ const config: CodegenConfig = {
       },
     },
   },
-  documents: ["src/**/*.tsx"],
+  documents: ["src/**/*.ts"],
   generates: {
     "./src/__generated__/": {
       preset: "client",

@@ -23,6 +23,8 @@ export type Scalars = {
   Dimension: any;
   /** The 'HexColor' type represents color in `rgb:ffffff` string format. */
   HexColor: any;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSON: any;
   /** The 'Quality' type represents quality as whole numeric values between `1` and `100`. */
   Quality: any;
 };
@@ -177,7 +179,16 @@ export type AssetFilter = {
 
 export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections';
+  employerCollection?: Maybe<EmployerCollection>;
   entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type AssetLinkingCollectionsEmployerCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -236,6 +247,109 @@ export type ContentfulTag = {
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
 };
+
+/** Any person or entity that has payed me for work at some point in time. [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/employer) */
+export type Employer = Entry & {
+  __typename?: 'Employer';
+  contentfulMetadata: ContentfulMetadata;
+  hompageUrl?: Maybe<Scalars['String']>;
+  linkedFrom?: Maybe<EmployerLinkingCollections>;
+  logo?: Maybe<Asset>;
+  name?: Maybe<Scalars['String']>;
+  sys: Sys;
+};
+
+
+/** Any person or entity that has payed me for work at some point in time. [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/employer) */
+export type EmployerHompageUrlArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Any person or entity that has payed me for work at some point in time. [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/employer) */
+export type EmployerLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** Any person or entity that has payed me for work at some point in time. [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/employer) */
+export type EmployerLogoArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Any person or entity that has payed me for work at some point in time. [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/employer) */
+export type EmployerNameArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type EmployerCollection = {
+  __typename?: 'EmployerCollection';
+  items: Array<Maybe<Employer>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type EmployerFilter = {
+  AND?: InputMaybe<Array<InputMaybe<EmployerFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<EmployerFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  hompageUrl?: InputMaybe<Scalars['String']>;
+  hompageUrl_contains?: InputMaybe<Scalars['String']>;
+  hompageUrl_exists?: InputMaybe<Scalars['Boolean']>;
+  hompageUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  hompageUrl_not?: InputMaybe<Scalars['String']>;
+  hompageUrl_not_contains?: InputMaybe<Scalars['String']>;
+  hompageUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  logo_exists?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+  name_contains?: InputMaybe<Scalars['String']>;
+  name_exists?: InputMaybe<Scalars['Boolean']>;
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  name_not?: InputMaybe<Scalars['String']>;
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type EmployerLinkingCollections = {
+  __typename?: 'EmployerLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  positionCollection?: Maybe<PositionCollection>;
+};
+
+
+export type EmployerLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type EmployerLinkingCollectionsPositionCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum EmployerOrder {
+  HompageUrlAsc = 'hompageUrl_ASC',
+  HompageUrlDesc = 'hompageUrl_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export type Entry = {
   contentfulMetadata: ContentfulMetadata;
@@ -363,11 +477,227 @@ export type ImageTransformOptions = {
   width?: InputMaybe<Scalars['Dimension']>;
 };
 
+/** A summary of a particular position I've held at a given employer [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/position) */
+export type Position = Entry & {
+  __typename?: 'Position';
+  additionalSpecifier?: Maybe<Scalars['String']>;
+  contentfulMetadata: ContentfulMetadata;
+  description?: Maybe<PositionDescription>;
+  employer?: Maybe<Employer>;
+  endDate?: Maybe<Scalars['DateTime']>;
+  keyResponsibilities?: Maybe<Array<Maybe<Scalars['String']>>>;
+  linkedFrom?: Maybe<PositionLinkingCollections>;
+  skillsCollection?: Maybe<PositionSkillsCollection>;
+  startDate?: Maybe<Scalars['DateTime']>;
+  sys: Sys;
+  team?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+
+/** A summary of a particular position I've held at a given employer [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/position) */
+export type PositionAdditionalSpecifierArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** A summary of a particular position I've held at a given employer [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/position) */
+export type PositionDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** A summary of a particular position I've held at a given employer [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/position) */
+export type PositionEmployerArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** A summary of a particular position I've held at a given employer [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/position) */
+export type PositionEndDateArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** A summary of a particular position I've held at a given employer [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/position) */
+export type PositionKeyResponsibilitiesArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** A summary of a particular position I've held at a given employer [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/position) */
+export type PositionLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** A summary of a particular position I've held at a given employer [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/position) */
+export type PositionSkillsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+/** A summary of a particular position I've held at a given employer [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/position) */
+export type PositionStartDateArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** A summary of a particular position I've held at a given employer [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/position) */
+export type PositionTeamArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** A summary of a particular position I've held at a given employer [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/position) */
+export type PositionTitleArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type PositionCollection = {
+  __typename?: 'PositionCollection';
+  items: Array<Maybe<Position>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type PositionDescription = {
+  __typename?: 'PositionDescription';
+  json: Scalars['JSON'];
+  links: PositionDescriptionLinks;
+};
+
+export type PositionDescriptionAssets = {
+  __typename?: 'PositionDescriptionAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type PositionDescriptionEntries = {
+  __typename?: 'PositionDescriptionEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type PositionDescriptionLinks = {
+  __typename?: 'PositionDescriptionLinks';
+  assets: PositionDescriptionAssets;
+  entries: PositionDescriptionEntries;
+};
+
+export type PositionFilter = {
+  AND?: InputMaybe<Array<InputMaybe<PositionFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<PositionFilter>>>;
+  additionalSpecifier?: InputMaybe<Scalars['String']>;
+  additionalSpecifier_contains?: InputMaybe<Scalars['String']>;
+  additionalSpecifier_exists?: InputMaybe<Scalars['Boolean']>;
+  additionalSpecifier_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  additionalSpecifier_not?: InputMaybe<Scalars['String']>;
+  additionalSpecifier_not_contains?: InputMaybe<Scalars['String']>;
+  additionalSpecifier_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  description_contains?: InputMaybe<Scalars['String']>;
+  description_exists?: InputMaybe<Scalars['Boolean']>;
+  description_not_contains?: InputMaybe<Scalars['String']>;
+  employer?: InputMaybe<CfEmployerNestedFilter>;
+  employer_exists?: InputMaybe<Scalars['Boolean']>;
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  endDate_exists?: InputMaybe<Scalars['Boolean']>;
+  endDate_gt?: InputMaybe<Scalars['DateTime']>;
+  endDate_gte?: InputMaybe<Scalars['DateTime']>;
+  endDate_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  endDate_lt?: InputMaybe<Scalars['DateTime']>;
+  endDate_lte?: InputMaybe<Scalars['DateTime']>;
+  endDate_not?: InputMaybe<Scalars['DateTime']>;
+  endDate_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  keyResponsibilities_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  keyResponsibilities_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  keyResponsibilities_contains_some?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  keyResponsibilities_exists?: InputMaybe<Scalars['Boolean']>;
+  skillsCollection_exists?: InputMaybe<Scalars['Boolean']>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
+  startDate_exists?: InputMaybe<Scalars['Boolean']>;
+  startDate_gt?: InputMaybe<Scalars['DateTime']>;
+  startDate_gte?: InputMaybe<Scalars['DateTime']>;
+  startDate_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  startDate_lt?: InputMaybe<Scalars['DateTime']>;
+  startDate_lte?: InputMaybe<Scalars['DateTime']>;
+  startDate_not?: InputMaybe<Scalars['DateTime']>;
+  startDate_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  sys?: InputMaybe<SysFilter>;
+  team?: InputMaybe<Scalars['String']>;
+  team_contains?: InputMaybe<Scalars['String']>;
+  team_exists?: InputMaybe<Scalars['Boolean']>;
+  team_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  team_not?: InputMaybe<Scalars['String']>;
+  team_not_contains?: InputMaybe<Scalars['String']>;
+  team_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  title?: InputMaybe<Scalars['String']>;
+  title_contains?: InputMaybe<Scalars['String']>;
+  title_exists?: InputMaybe<Scalars['Boolean']>;
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  title_not?: InputMaybe<Scalars['String']>;
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type PositionLinkingCollections = {
+  __typename?: 'PositionLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type PositionLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum PositionOrder {
+  AdditionalSpecifierAsc = 'additionalSpecifier_ASC',
+  AdditionalSpecifierDesc = 'additionalSpecifier_DESC',
+  EndDateAsc = 'endDate_ASC',
+  EndDateDesc = 'endDate_DESC',
+  StartDateAsc = 'startDate_ASC',
+  StartDateDesc = 'startDate_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TeamAsc = 'team_ASC',
+  TeamDesc = 'team_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
+
+export type PositionSkillsCollection = {
+  __typename?: 'PositionSkillsCollection';
+  items: Array<Maybe<Skill>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
 export type Query = {
   __typename?: 'Query';
   asset?: Maybe<Asset>;
   assetCollection?: Maybe<AssetCollection>;
+  employer?: Maybe<Employer>;
+  employerCollection?: Maybe<EmployerCollection>;
   entryCollection?: Maybe<EntryCollection>;
+  position?: Maybe<Position>;
+  positionCollection?: Maybe<PositionCollection>;
   skill?: Maybe<Skill>;
   skillArea?: Maybe<SkillArea>;
   skillAreaCollection?: Maybe<SkillAreaCollection>;
@@ -394,6 +724,23 @@ export type QueryAssetCollectionArgs = {
 };
 
 
+export type QueryEmployerArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryEmployerCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<EmployerOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<EmployerFilter>;
+};
+
+
 export type QueryEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
@@ -401,6 +748,23 @@ export type QueryEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<EntryFilter>;
+};
+
+
+export type QueryPositionArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryPositionCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<PositionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PositionFilter>;
 };
 
 
@@ -676,10 +1040,19 @@ export type SkillFilter = {
 export type SkillLinkingCollections = {
   __typename?: 'SkillLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
+  positionCollection?: Maybe<PositionCollection>;
 };
 
 
 export type SkillLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type SkillLinkingCollectionsPositionCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
@@ -746,6 +1119,28 @@ export type SysFilter = {
   publishedVersion_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
 };
 
+export type CfEmployerNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfEmployerNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfEmployerNestedFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  hompageUrl?: InputMaybe<Scalars['String']>;
+  hompageUrl_contains?: InputMaybe<Scalars['String']>;
+  hompageUrl_exists?: InputMaybe<Scalars['Boolean']>;
+  hompageUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  hompageUrl_not?: InputMaybe<Scalars['String']>;
+  hompageUrl_not_contains?: InputMaybe<Scalars['String']>;
+  hompageUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  logo_exists?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+  name_contains?: InputMaybe<Scalars['String']>;
+  name_exists?: InputMaybe<Scalars['Boolean']>;
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  name_not?: InputMaybe<Scalars['String']>;
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
+};
+
 export type CfSkillAreaNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<CfSkillAreaNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CfSkillAreaNestedFilter>>>;
@@ -774,10 +1169,16 @@ export type CfSkillCategoryNestedFilter = {
   sys?: InputMaybe<SysFilter>;
 };
 
+export type GetExperienceQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetExperienceQuery = { __typename?: 'Query', positionCollection?: { __typename?: 'PositionCollection', items: Array<{ __typename?: 'Position', title?: string | null, team?: string | null, additionalSpecifier?: string | null, startDate?: any | null, endDate?: any | null, keyResponsibilities?: Array<string | null> | null, sys: { __typename?: 'Sys', id: string }, description?: { __typename?: 'PositionDescription', json: any } | null, employer?: { __typename?: 'Employer', name?: string | null, hompageUrl?: string | null, sys: { __typename?: 'Sys', id: string }, logo?: { __typename?: 'Asset', url?: string | null } | null } | null, skillsCollection?: { __typename?: 'PositionSkillsCollection', items: Array<{ __typename?: 'Skill', sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null };
+
 export type GetSkillsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSkillsQuery = { __typename?: 'Query', skillCollection?: { __typename?: 'SkillCollection', items: Array<{ __typename?: 'Skill', name?: string | null, category?: { __typename?: 'SkillCategory', name?: string | null } | null, area?: { __typename?: 'SkillArea', name?: string | null } | null } | null> } | null };
+export type GetSkillsQuery = { __typename?: 'Query', skillCollection?: { __typename?: 'SkillCollection', items: Array<{ __typename?: 'Skill', name?: string | null, sys: { __typename?: 'Sys', id: string }, category?: { __typename?: 'SkillCategory', name?: string | null, sys: { __typename?: 'Sys', id: string } } | null, area?: { __typename?: 'SkillArea', name?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null };
 
 
-export const GetSkillsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSkills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"skillCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"200"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"area"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetSkillsQuery, GetSkillsQueryVariables>;
+export const GetExperienceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetExperience"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"positionCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"team"}},{"kind":"Field","name":{"kind":"Name","value":"additionalSpecifier"}},{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}},{"kind":"Field","name":{"kind":"Name","value":"keyResponsibilities"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"json"}}]}},{"kind":"Field","name":{"kind":"Name","value":"employer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"logo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"hompageUrl"}}]}},{"kind":"Field","name":{"kind":"Name","value":"skillsCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetExperienceQuery, GetExperienceQueryVariables>;
+export const GetSkillsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSkills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"skillCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"200"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"area"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetSkillsQuery, GetSkillsQueryVariables>;

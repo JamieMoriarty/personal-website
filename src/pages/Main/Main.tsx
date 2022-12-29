@@ -4,6 +4,7 @@ import css from "./Main.module.scss";
 import { SkillsSection } from "./sections/skills";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "../../api";
+import { ExperienceSection } from "./sections/experience";
 
 export const Main = () => {
   return (
@@ -39,6 +40,7 @@ export const Main = () => {
               </p>
             </section>
             <SkillsSection />
+            <ExperienceSection />
           </article>
         )}
       />
