@@ -26,7 +26,7 @@ export const Main = () => {
         nav={(c) => (
           <nav className={classNames(css.nav, c)}>
             <a href="#about-me">About me</a>
-            <a href="#techs">Techs</a>
+            <a href="#skills">Skills</a>
             <a href="#experience">Experience</a>
           </nav>
         )}
