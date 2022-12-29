@@ -1,41 +1,41 @@
 .mainText {
-    text-align: left;
+  text-align: left;
 }
 
 .header {
-    padding: 16px 32px;
-    display: grid;
-    grid-template-columns: auto 100px;
-    grid-template-areas:
-        "title image"
-        "details image";
+  padding: 16px 32px;
+  display: grid;
+  grid-template-columns: auto 100px;
+  grid-template-areas:
+    "title image"
+    "details image";
 }
 
 .headerTitle {
-    text-align: left;
-    margin: 0;
-    grid-area: title;
+  text-align: left;
+  margin: 0;
+  grid-area: title;
 }
 
 .headerDetails {
-    text-align: left;
-    margin-block: 16px 0;
-    grid-area: details;
+  text-align: left;
+  margin-block: 16px 0;
+  grid-area: details;
 }
 
 .headerImage {
-    grid-area: image;
-    align-self: center;
+  grid-area: image;
+  align-self: center;
 }
 
 .nav {
-    padding: 16px 32px;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
+  padding: 16px 32px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .main {
-    padding-inline: 32px;
-    text-align: left;
+  padding-inline: 32px;
+  text-align: left;
 }
