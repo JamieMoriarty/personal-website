@@ -9,7 +9,8 @@
     "compile": "graphql-codegen",
     "watch": "graphql-codegen -w",
     "lint": "npm run format && eslint --fix .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.7.2",
@@ -30,10 +31,15 @@
     "@vitejs/plugin-react": "^2.2.0",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.1.0",
     "prettier": "^2.8.1",
     "typescript": "^4.6.4",
     "vite": "^3.2.3"
+  },
+  "lint-staged": {
+    "*.{js,ts}": "eslint --cache --fix",
+    "*.{js,ts,jsx,tsx,css,md}": "prettier --write"
   }
 }
