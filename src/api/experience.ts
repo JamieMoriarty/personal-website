@@ -1,5 +1,6 @@
-import { useQuery } from "@apollo/client";
+import { ApolloError, useQuery } from "@apollo/client";
 import { gql } from "../__generated__";
+import { GetExperienceQuery } from "../__generated__/graphql";
 
 export const EXPERIENCE_QUERY = gql(`query GetExperience {
     positionCollection {
@@ -38,4 +39,34 @@ export const EXPERIENCE_QUERY = gql(`query GetExperience {
     }
 }`);
 
-export const useApiExperience = () => useQuery(EXPERIENCE_QUERY);
+type ApiResponse =
+    | {
+          loading: true;
+          data: undefined;
+      }
+    | {
+          loading: false;
+          data: GetExperienceQuery;
+      };
+
+export const useApiExperience = function (): ApiResponse {
+    const { data, loading, error } = useQuery(EXPERIENCE_QUERY);
+
+    if (error !== undefined) {
+        throw error;
+    }
+
+    if (loading) {
+        return {
+            loading: true,
+            data: undefined,
+        };
+    } else if (data !== undefined) {
+        return {
+            loading: false,
+            data,
+        };
+    } else {
+        throw Error("data was unexpectedly undefined");
+    }
+};
