@@ -3,7 +3,7 @@ import { useSkills } from "../../../../model/skills/SkillsModel";
 export const SkillsSection = function () {
     const { data, loading } = useSkills();
     console.log("skills loading?", loading);
-    console.log(data);
+    console.log("skills data:", data);
     return (
         <section id="skills">
             <h2>Skills</h2>

@@ -2,9 +2,9 @@ import { useExperience } from "../../../../model/experience/ExperienceModel";
 
 export const ExperienceSection = function ExperienceSection() {
     const { data, loading } = useExperience();
-    console.log("loading?", loading);
+    console.log("experience loading?", loading);
 
-    console.log(data);
+    console.log("experience data:", data);
     return (
         <section id="experience">
             <h2>Experience</h2>
@@ -25,11 +25,13 @@ export const ExperienceSection = function ExperienceSection() {
                                 <br />
                                 {item?.endDate}
                                 <br />
-                                <ul>
-                                    {item?.keyResponsibilities?.map((respons) => (
-                                        <li key={respons ?? "empty"}>{respons}</li>
-                                    ))}
-                                </ul>
+                            </p>
+                            <ul>
+                                {item?.keyResponsibilities?.map((respons) => (
+                                    <li key={respons ?? "empty"}>{respons}</li>
+                                ))}
+                            </ul>
+                            <p>
                                 <br />
                                 <code>{JSON.stringify(item?.description?.json)}</code>
                                 <br />
@@ -44,14 +46,14 @@ export const ExperienceSection = function ExperienceSection() {
                                 </a>
                                 <br />
                                 <img src={item?.employer?.logo?.url ?? "#"} />
-                                <br />
-                                <br />
-                                <ul>
-                                    {item?.skillsCollection?.items.map((item) => (
-                                        <li key={item?.sys.id}>{item?.sys.id}</li>
-                                    ))}
-                                </ul>
                             </p>
+                            <br />
+                            <br />
+                            <ul>
+                                {item?.skillsCollection?.items.map((item) => (
+                                    <li key={item?.sys.id}>{item?.sys.id}</li>
+                                ))}
+                            </ul>
                         </li>
                     ))}
                 </ul>

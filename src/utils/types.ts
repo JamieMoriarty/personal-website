@@ -22,9 +22,7 @@ export function isUndefined(value: unknown): value is undefined {
 export function isShape<T extends object>(
     template: CheckerObj<T>
 ): (value: unknown) => value is T {
-    console.log(template);
     return (value: unknown): value is T => {
-        console.log("checking value:", value);
         return Object.entries<Checker<any>>(template).every(([key, checker]) => {
             return checker((value as OfShape<any>)[key]);
         });
