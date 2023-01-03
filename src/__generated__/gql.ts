@@ -14,7 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "query GetExperience {\n    positionCollection {\n        items {\n        sys {\n            id\n        }\n        title\n        team\n        additionalSpecifier\n        startDate\n        endDate\n        keyResponsibilities\n        description {\n            json\n        }\n        employer {\n            sys {\n            id\n            }\n            name\n            logo {\n            url\n            }\n            hompageUrl\n        }\n        skillsCollection {\n            items {\n            sys {\n                id\n            }\n            }\n        }\n        \n        }\n    }\n}": types.GetExperienceDocument,
-    "\n  query GetSkills {\n    skillCollection (limit: 200) {\n      items {\n        sys {\n          id\n        }\n        name\n        category {\n          sys {\n            id\n          }\n          name\n        }\n        area {\n          sys {\n            id\n          }\n          name\n        }\n      }\n    }\n  }\n": types.GetSkillsDocument,
+    "\n  query GetSkills { \n    skillCollection (limit: 200) {\n      items {\n        sys {\n          id\n        }\n        name\n        category {\n          sys {\n            id\n          }\n          name\n        }\n        area {\n          sys {\n            id\n          }\n          name\n        }\n      }\n    }\n  }\n": types.GetSkillsDocument,
 };
 
 /**
@@ -24,7 +24,7 @@ export function gql(source: "query GetExperience {\n    positionCollection {\n  
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query GetSkills {\n    skillCollection (limit: 200) {\n      items {\n        sys {\n          id\n        }\n        name\n        category {\n          sys {\n            id\n          }\n          name\n        }\n        area {\n          sys {\n            id\n          }\n          name\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetSkills {\n    skillCollection (limit: 200) {\n      items {\n        sys {\n          id\n        }\n        name\n        category {\n          sys {\n            id\n          }\n          name\n        }\n        area {\n          sys {\n            id\n          }\n          name\n        }\n      }\n    }\n  }\n"];
+export function gql(source: "\n  query GetSkills { \n    skillCollection (limit: 200) {\n      items {\n        sys {\n          id\n        }\n        name\n        category {\n          sys {\n            id\n          }\n          name\n        }\n        area {\n          sys {\n            id\n          }\n          name\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetSkills { \n    skillCollection (limit: 200) {\n      items {\n        sys {\n          id\n        }\n        name\n        category {\n          sys {\n            id\n          }\n          name\n        }\n        area {\n          sys {\n            id\n          }\n          name\n        }\n      }\n    }\n  }\n"];
 
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

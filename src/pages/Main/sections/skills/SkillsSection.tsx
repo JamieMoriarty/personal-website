@@ -1,20 +1,13 @@
-import { useExperience } from "../../../../model/experience/ExperienceModel";
 import { useSkills } from "../../../../model/skills/SkillsModel";
 
 export const SkillsSection = function () {
-    const { data, loading /*, error*/ } = useSkills();
-    const {
-        data: experienceData,
-        loading: experienceLoading,
-        error: experienceError,
-    } = useExperience();
-    console.log("loading?", experienceLoading);
-    console.log("error", experienceError);
-    console.log(experienceData);
+    const { data, loading } = useSkills();
+    console.log("skills loading?", loading);
+    console.log(data);
     return (
         <section id="skills">
             <h2>Skills</h2>
-            {loading || data === undefined ? (
+            {loading ? (
                 <p>Loading...</p>
             ) : (
                 <ul>
