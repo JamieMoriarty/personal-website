@@ -28,7 +28,7 @@ export const SKILLS_QUERY = gql(`
   }
 `);
 
-type ApiSkillsResponse = Array<ApiSkills> | undefined;
+export type ApiSkillsResponse = Array<ApiSkills> | undefined;
 
 /**
  * Note: returns undefined while loading. If NOT loading it guarantees to either return data

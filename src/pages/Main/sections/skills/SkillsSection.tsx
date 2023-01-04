@@ -1,17 +1,17 @@
 import { useSkills } from "../../../../model/skills/SkillsModel";
 
 export const SkillsSection = function () {
-    const data = useSkills();
-    console.log("skills loading?", !data);
-    console.log("skills data:", data);
+    const skillsModel = useSkills();
+    console.log("skills loading?", !skillsModel);
+    console.log("skills data:", skillsModel);
     return (
         <section id="skills">
             <h2>Skills</h2>
-            {!data ? (
+            {!skillsModel ? (
                 <p>Loading...</p>
             ) : (
                 <ul>
-                    {data.map((item) => (
+                    {skillsModel.skills.map((item) => (
                         <li key={item?.name ?? "unnamed item"}>
                             <>
                                 {item?.name} <strong>area:</strong> {item?.area.name}{" "}

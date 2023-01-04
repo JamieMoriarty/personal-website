@@ -45,3 +45,11 @@ type Checker<T> = (value: unknown) => value is T;
 type CheckerObj<T extends object> = {
     [key in keyof T]: Checker<T[key]>;
 };
+
+export function toDefined<T>(value: T | undefined): T {
+    if (value === undefined) {
+        throw Error(`value: ${value} is unexpectedly undefined :(`);
+    } else {
+        return value;
+    }
+}
