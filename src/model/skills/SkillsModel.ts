@@ -1,27 +1,16 @@
 import { useApiSkills } from "../../api/skills";
 
-type Skills =
-    | {
-          loading: true;
-          data: undefined;
-      }
-    | {
-          loading: false;
-          data: Array<Skill>;
-      };
+type Skills = Array<Skill> | undefined;
 
+/**
+ *
+ * @returns array of skills IF api data is loaded, otherwise undefined
+ */
 export const useSkills = function (): Skills {
-    const { data: rawData, loading } = useApiSkills();
-
-    if (loading) {
-        return {
-            loading,
-            data: undefined,
-        };
-    }
+    const rawData = useApiSkills();
 
     const dataItems = rawData
-        .map((item) =>
+        ?.map((item) =>
             item
                 ? {
                       id: item.sys.id,
@@ -39,10 +28,7 @@ export const useSkills = function (): Skills {
         )
         .filter((item) => !!item);
 
-    return {
-        data: dataItems,
-        loading,
-    };
+    return dataItems;
 };
 
 export interface Skill {

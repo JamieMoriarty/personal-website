@@ -18,6 +18,11 @@ export function isUndefined(value: unknown): value is undefined {
     return typeof value === "undefined";
 }
 
+export function optional<T>(checker: Checker<T>): Checker<T | undefined> {
+    return (value: unknown): value is T | undefined =>
+        value === undefined || checker(value);
+}
+
 /* eslint-disable @typescript-eslint/no-explicit-any*/
 export function isShape<T extends object>(
     template: CheckerObj<T>

@@ -28,29 +28,27 @@ export const SKILLS_QUERY = gql(`
   }
 `);
 
-type ApiSkillsResponse =
-    | { loading: true; data: undefined }
-    | { loading: false; data: Array<ApiSkills> };
+type ApiSkillsResponse = Array<ApiSkills> | undefined;
 
+/**
+ * Note: returns undefined while loading. If NOT loading it guarantees to either return data
+ *  or throw
+ *
+ * @returns array of Skills as defined by Contentful content model
+ */
 export const useApiSkills = (): ApiSkillsResponse => {
     const { data, loading, error } = useQuery(SKILLS_QUERY);
 
     if (error !== undefined) {
         throw error;
     } else if (loading) {
-        return {
-            data: undefined,
-            loading,
-        };
+        return undefined;
     } else if (data?.skillCollection?.items === undefined) {
         throw Error("data was unexpectedly undefined");
-    } else if (isValidSkillsResponse(data.skillCollection.items)) {
-        return {
-            data: data.skillCollection.items,
-            loading,
-        };
-    } else {
+    } else if (!isValidSkillsResponse(data.skillCollection.items)) {
         throw Error("Data did not have correct shape :(");
+    } else {
+        return data.skillCollection.items;
     }
 };
 

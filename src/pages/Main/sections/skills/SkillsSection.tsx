@@ -1,13 +1,13 @@
 import { useSkills } from "../../../../model/skills/SkillsModel";
 
 export const SkillsSection = function () {
-    const { data, loading } = useSkills();
-    console.log("skills loading?", loading);
+    const data = useSkills();
+    console.log("skills loading?", !data);
     console.log("skills data:", data);
     return (
         <section id="skills">
             <h2>Skills</h2>
-            {loading ? (
+            {!data ? (
                 <p>Loading...</p>
             ) : (
                 <ul>
