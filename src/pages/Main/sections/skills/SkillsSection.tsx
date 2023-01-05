@@ -4,6 +4,10 @@ export const SkillsSection = function () {
     const skillsModel = useSkills();
     console.log("skills loading?", !skillsModel);
     console.log("skills data:", skillsModel);
+    console.log(
+        "filtered skills:",
+        skillsModel?.categories.filterSkillsByArea(skillsModel?.areas[0].id)
+    );
     return (
         <section id="skills">
             <h2>Skills</h2>

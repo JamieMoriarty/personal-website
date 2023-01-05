@@ -5,7 +5,8 @@ import { toDefined } from "../../utils/types";
 interface SkillsModel {
     skills: Array<Skill>;
     areas: Array<SkillsArea>;
-    categories: Array<SkillsCategory>;
+    categories: SkillCategories;
+    getSkillById: (id: string) => Skill;
 }
 
 export interface Skill {
@@ -13,6 +14,10 @@ export interface Skill {
     name: string;
     category: Omit<SkillsCategory, "skills">;
     area: Omit<SkillsArea, "skills">;
+}
+
+interface SkillCategories extends Array<SkillsCategory> {
+    filterSkillsByArea: (areaId: string) => Array<SkillsCategory>;
 }
 
 interface SkillsCategory {
@@ -45,7 +50,21 @@ export function toSkillsModel(apiSkills: ApiSkillsResponse): SkillsModel | undef
     const areas = extractSkillAreas(skills);
     const categories = extractSkillCategories(skills);
 
-    return { skills, areas, categories };
+    const getSkillById = (id: string) => {
+        const skill = skills.find((skill) => skill.id === id);
+        if (!skill) {
+            throw Error(`No skill with id: ${id}`);
+        }
+
+        return skill;
+    };
+
+    return {
+        skills,
+        areas,
+        categories,
+        getSkillById,
+    };
 }
 
 function toSkills(apiSkills: ApiSkillsResponse): Array<Skill> {
@@ -87,7 +106,7 @@ function extractSkillAreas(skills: Array<Skill>): Array<SkillsArea> {
     return areaArray;
 }
 
-function extractSkillCategories(skills: Array<Skill>): Array<SkillsCategory> {
+function extractSkillCategories(skills: Array<Skill>): SkillCategories {
     const categoryArray = new Array<SkillsCategory>();
     skills.forEach((skill) => {
         const areaIndex = categoryArray.findIndex(
@@ -102,5 +121,12 @@ function extractSkillCategories(skills: Array<Skill>): Array<SkillsCategory> {
         }
     });
 
-    return categoryArray;
+    const filterSkillsByArea = (areaId: string) => {
+        return categoryArray.map((category) => ({
+            ...category,
+            skills: category.skills.filter((skill) => skill.area.id === areaId),
+        }));
+    };
+
+    return Object.assign(categoryArray, { filterSkillsByArea });
 }
