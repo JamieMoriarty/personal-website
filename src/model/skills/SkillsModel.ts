@@ -4,24 +4,27 @@ import { toDefined } from "../../utils/types";
 
 interface SkillsModel {
     skills: Array<Skill>;
-    areas: Array<FullSkillArea>;
+    areas: Array<SkillsArea>;
+    categories: Array<SkillsCategory>;
 }
 
 export interface Skill {
     id: string;
     name: string;
-    category: SkillsCategory;
-    area: SkillsArea;
+    category: Omit<SkillsCategory, "skills">;
+    area: Omit<SkillsArea, "skills">;
 }
 
 interface SkillsCategory {
     id: string;
     name: string;
+    skills: Array<Skill>;
 }
 
 interface SkillsArea {
     id: string;
     name: string;
+    skills: Array<Skill>;
 }
 
 /**
@@ -38,13 +41,14 @@ export function toSkillsModel(apiSkills: ApiSkillsResponse): SkillsModel | undef
         return undefined;
     }
 
-    const skills = extractSkills(apiSkills);
+    const skills = toSkills(apiSkills);
     const areas = extractSkillAreas(skills);
+    const categories = extractSkillCategories(skills);
 
-    return { skills, areas };
+    return { skills, areas, categories };
 }
 
-function extractSkills(apiSkills: ApiSkillsResponse): Array<Skill> {
+function toSkills(apiSkills: ApiSkillsResponse): Array<Skill> {
     return toDefined(apiSkills)
         .map((item) =>
             item
@@ -65,12 +69,8 @@ function extractSkills(apiSkills: ApiSkillsResponse): Array<Skill> {
         .filter((item) => !!item);
 }
 
-type FullSkillArea = SkillsArea & {
-    skills: Array<Skill>;
-};
-
-function extractSkillAreas(skills: Array<Skill>): Array<FullSkillArea> {
-    const areaArray = new Array<FullSkillArea>();
+function extractSkillAreas(skills: Array<Skill>): Array<SkillsArea> {
+    const areaArray = new Array<SkillsArea>();
     skills.forEach((skill) => {
         const areaIndex = areaArray.findIndex(
             (existingArea) => existingArea.id === skill.area.id
@@ -85,4 +85,22 @@ function extractSkillAreas(skills: Array<Skill>): Array<FullSkillArea> {
     });
 
     return areaArray;
+}
+
+function extractSkillCategories(skills: Array<Skill>): Array<SkillsCategory> {
+    const categoryArray = new Array<SkillsCategory>();
+    skills.forEach((skill) => {
+        const areaIndex = categoryArray.findIndex(
+            (existingCategory) => existingCategory.id === skill.category.id
+        );
+        if (areaIndex >= 0) {
+            const area = categoryArray[areaIndex];
+            area.skills.push(skill);
+        } else {
+            const area = { ...skill.category, skills: [skill] };
+            categoryArray.push(area);
+        }
+    });
+
+    return categoryArray;
 }
