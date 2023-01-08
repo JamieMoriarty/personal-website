@@ -1,6 +1,5 @@
-import { ApolloError, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { gql } from "../__generated__";
-import { GetExperienceQuery } from "../__generated__/graphql";
 
 export const EXPERIENCE_QUERY = gql(`query GetExperience {
     positionCollection {
@@ -39,34 +38,47 @@ export const EXPERIENCE_QUERY = gql(`query GetExperience {
     }
 }`);
 
-type ApiResponse =
-    | {
-          loading: true;
-          data: undefined;
-      }
-    | {
-          loading: false;
-          data: GetExperienceQuery;
-      };
+type ApiExperienceResponse =
+    | Array<{
+          __typename?: "Position";
+          title?: string | null;
+          team?: string | null;
+          additionalSpecifier?: string | null;
+          startDate?: string | null;
+          endDate?: string | null;
+          keyResponsibilities?: Array<string | null> | null;
+          sys: { __typename?: "Sys"; id: string };
+          description?: {
+              __typename?: "PositionDescription";
+              json: unknown;
+          } | null;
+          employer?: {
+              __typename?: "Employer";
+              name?: string | null;
+              hompageUrl?: string | null;
+              sys: { __typename?: "Sys"; id: string };
+              logo?: { __typename?: "Asset"; url?: string | null } | null;
+          } | null;
+          skillsCollection?: {
+              __typename?: "PositionSkillsCollection";
+              items: Array<{
+                  __typename?: "Skill";
+                  sys: { __typename?: "Sys"; id: string };
+              } | null>;
+          } | null;
+      } | null>
+    | undefined;
 
-export const useApiExperience = function (): ApiResponse {
+export const useApiExperience = function (): ApiExperienceResponse {
     const { data, loading, error } = useQuery(EXPERIENCE_QUERY);
 
     if (error !== undefined) {
         throw error;
-    }
-
-    if (loading) {
-        return {
-            loading: true,
-            data: undefined,
-        };
-    } else if (data !== undefined) {
-        return {
-            loading: false,
-            data,
-        };
-    } else {
+    } else if (loading) {
+        return undefined;
+    } else if (data?.positionCollection?.items === undefined) {
         throw Error("data was unexpectedly undefined");
+    } else {
+        return data.positionCollection.items;
     }
 };

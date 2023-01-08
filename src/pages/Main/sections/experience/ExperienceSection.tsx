@@ -1,18 +1,17 @@
 import { useExperience } from "../../../../model/experience/ExperienceModel";
 
 export const ExperienceSection = function ExperienceSection() {
-    const { data, loading } = useExperience();
-    console.log("experience loading?", loading);
+    const positions = useExperience();
+    console.log("experience loading?", !positions);
 
-    console.log("experience data:", data);
     return (
         <section id="experience">
             <h2>Experience</h2>
-            {loading || data === undefined ? (
+            {!positions ? (
                 <p>Loading...</p>
             ) : (
                 <ul>
-                    {data.positionCollection?.items.map((item) => (
+                    {positions.map((item) => (
                         <li key={item?.sys.id ?? "unnamed item"}>
                             <p>
                                 {item?.title}

@@ -2,12 +2,7 @@ import { useApiExperience } from "../../api/experience";
 import { Scalars } from "../../__generated__/graphql";
 
 export const useExperience = () => {
-    const { data: rawData, loading } = useApiExperience();
-
-    return {
-        data: rawData,
-        loading,
-    };
+    return useApiExperience();
 };
 
 export interface Position {

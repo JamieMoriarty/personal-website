@@ -1,5 +1,4 @@
-import { useApiSkills } from "../../api/skills";
-import { ApiSkillsResponse } from "../../api/skills";
+import { ApiSkillsResponse, useApiSkills } from "../../api/skills";
 import { toDefined } from "../../utils/validations";
 
 interface SkillsModel {
