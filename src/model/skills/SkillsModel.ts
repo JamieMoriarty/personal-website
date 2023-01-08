@@ -1,6 +1,6 @@
 import { useApiSkills } from "../../api/skills";
 import { ApiSkillsResponse } from "../../api/skills";
-import { toDefined } from "../../utils/types";
+import { toDefined } from "../../utils/validations";
 
 interface SkillsModel {
     skills: Array<Skill>;
@@ -17,7 +17,7 @@ export interface Skill {
 }
 
 interface SkillCategories extends Array<SkillsCategory> {
-    filterSkillsByArea: (areaId: string) => Array<SkillsCategory>;
+    filterSkillsByArea: (area: SkillsArea) => Array<SkillsCategory>;
 }
 
 interface SkillsCategory {
@@ -121,10 +121,10 @@ function extractSkillCategories(skills: Array<Skill>): SkillCategories {
         }
     });
 
-    const filterSkillsByArea = (areaId: string) => {
+    const filterSkillsByArea = (area: SkillsArea) => {
         return categoryArray.map((category) => ({
             ...category,
-            skills: category.skills.filter((skill) => skill.area.id === areaId),
+            skills: category.skills.filter((skill) => skill.area.id === area.id),
         }));
     };
 

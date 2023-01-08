@@ -1,6 +1,6 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { isShape, isString } from "../utils/types";
+import { isShape, isString } from "../utils/validations";
 
 const httpLink = createHttpLink({
     uri: import.meta.env.VITE_CMS_URL,

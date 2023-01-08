@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { hasId, WithSysId } from ".";
-import { isArray, isShape, isString } from "../utils/types";
+import { isArray, isShape, isString } from "../utils/validations";
 import { gql } from "../__generated__";
 
 export const SKILLS_QUERY = gql(`
