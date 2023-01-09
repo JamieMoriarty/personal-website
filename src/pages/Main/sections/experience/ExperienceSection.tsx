@@ -12,39 +12,39 @@ export const ExperienceSection = function ExperienceSection() {
             ) : (
                 <ul>
                     {positions.map((item) => (
-                        <li key={item?.sys.id ?? "unnamed item"}>
+                        <li key={item.sys.id ?? "unnamed item"}>
                             <p>
-                                {item?.title}
+                                {item.title}
                                 <br />
-                                {item?.team}
+                                {item.team}
                                 <br />
-                                {item?.additionalSpecifier}
+                                {item?.additionalSpecifier ?? "not present"}
                                 <br />
-                                {item?.startDate}
+                                {item.startDate}
                                 <br />
-                                {item?.endDate}
+                                {item?.endDate ?? "Now"}
                                 <br />
                             </p>
                             <ul>
-                                {item?.keyResponsibilities?.map((respons) => (
-                                    <li key={respons ?? "empty"}>{respons}</li>
+                                {item.keyResponsibilities.map((respons) => (
+                                    <li key={respons}>{respons}</li>
                                 ))}
                             </ul>
                             <p>
                                 <br />
-                                <code>{JSON.stringify(item?.description?.json)}</code>
+                                <code>{JSON.stringify(item.description)}</code>
                                 <br />
-                                {item?.employer?.sys.id}
+                                {item.employer.sys.id}
                                 <br />
                                 <a
-                                    href={item?.employer?.hompageUrl ?? "#"}
+                                    href={item.employer.hompageUrl ?? "#"}
                                     target="_blank"
                                     rel="noreferrer"
                                 >
-                                    {item?.employer?.name}
+                                    {item.employer.name}
                                 </a>
                                 <br />
-                                <img src={item?.employer?.logo?.url ?? "#"} />
+                                <img src={item.employer.logo.url} />
                             </p>
                             <br />
                             <br />

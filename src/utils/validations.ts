@@ -23,14 +23,28 @@ export function optional<T>(checker: Checker<T>): Checker<T | undefined> {
         value === undefined || checker(value);
 }
 
+export function maybeNull<T>(checker: Checker<T>): Checker<T | null> {
+    return (value: unknown): value is T | null => value === null || checker(value);
+}
+
 /* eslint-disable @typescript-eslint/no-explicit-any*/
 export function isShape<T extends object>(
     template: CheckerObj<T>
 ): (value: unknown) => value is T {
     return (value: unknown): value is T => {
-        return Object.entries<Checker<any>>(template).every(([key, checker]) => {
+        const valid = Object.entries<Checker<any>>(template).every(([key, checker]) => {
             return checker((value as OfShape<any>)[key]);
         });
+
+        if (!valid) {
+            Object.entries<Checker<any>>(template).forEach(([key, checker]) => {
+                if (!checker((value as OfShape<any>)[key])) {
+                    throw Error(`unexpected shape for ${key}`);
+                }
+            });
+        }
+
+        return valid;
     };
 }
 /* eslint-enable*/
