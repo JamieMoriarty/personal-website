@@ -27,7 +27,7 @@ export const EXPERIENCE_QUERY = gql(`query GetExperience {
             logo {
             url
             }
-            hompageUrl
+            homepageUrl
         }
         skillsCollection {
             items {
@@ -76,14 +76,14 @@ export interface ExperienceApiResponse {
 
 export interface EmployerApiResponse {
     name: string;
-    hompageUrl: string | null;
+    homepageUrl: string | null;
     sys: { id: string };
     logo: { url: string };
 }
 
 const isEmployer = isShape<EmployerApiResponse>({
     name: isString,
-    hompageUrl: maybeNull(isString),
+    homepageUrl: maybeNull(isString),
     sys: hasId,
     logo: isShape({ url: isString }),
 });

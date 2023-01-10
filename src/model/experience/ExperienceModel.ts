@@ -44,7 +44,8 @@ function toPositions(
 
 function toEmployer(employer: EmployerApiResponse): Employer {
     return {
-        ...employer,
+        name: employer.name,
+        homepageUrl: employer.homepageUrl ?? undefined,
         id: employer.sys.id,
         logo: employer.logo.url,
     };

@@ -252,7 +252,7 @@ export type ContentfulTag = {
 export type Employer = Entry & {
   __typename?: 'Employer';
   contentfulMetadata: ContentfulMetadata;
-  hompageUrl?: Maybe<Scalars['String']>;
+  homepageUrl?: Maybe<Scalars['String']>;
   linkedFrom?: Maybe<EmployerLinkingCollections>;
   logo?: Maybe<Asset>;
   name?: Maybe<Scalars['String']>;
@@ -261,7 +261,7 @@ export type Employer = Entry & {
 
 
 /** Any person or entity that has payed me for work at some point in time. [See type definition](https://app.contentful.com/spaces/24872jp5m9ag/content_types/employer) */
-export type EmployerHompageUrlArgs = {
+export type EmployerHomepageUrlArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
@@ -296,13 +296,13 @@ export type EmployerFilter = {
   AND?: InputMaybe<Array<InputMaybe<EmployerFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<EmployerFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  hompageUrl?: InputMaybe<Scalars['String']>;
-  hompageUrl_contains?: InputMaybe<Scalars['String']>;
-  hompageUrl_exists?: InputMaybe<Scalars['Boolean']>;
-  hompageUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  hompageUrl_not?: InputMaybe<Scalars['String']>;
-  hompageUrl_not_contains?: InputMaybe<Scalars['String']>;
-  hompageUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  homepageUrl?: InputMaybe<Scalars['String']>;
+  homepageUrl_contains?: InputMaybe<Scalars['String']>;
+  homepageUrl_exists?: InputMaybe<Scalars['Boolean']>;
+  homepageUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  homepageUrl_not?: InputMaybe<Scalars['String']>;
+  homepageUrl_not_contains?: InputMaybe<Scalars['String']>;
+  homepageUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   logo_exists?: InputMaybe<Scalars['Boolean']>;
   name?: InputMaybe<Scalars['String']>;
   name_contains?: InputMaybe<Scalars['String']>;
@@ -337,8 +337,8 @@ export type EmployerLinkingCollectionsPositionCollectionArgs = {
 };
 
 export enum EmployerOrder {
-  HompageUrlAsc = 'hompageUrl_ASC',
-  HompageUrlDesc = 'hompageUrl_DESC',
+  HomepageUrlAsc = 'homepageUrl_ASC',
+  HomepageUrlDesc = 'homepageUrl_DESC',
   NameAsc = 'name_ASC',
   NameDesc = 'name_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -1123,13 +1123,13 @@ export type CfEmployerNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<CfEmployerNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CfEmployerNestedFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  hompageUrl?: InputMaybe<Scalars['String']>;
-  hompageUrl_contains?: InputMaybe<Scalars['String']>;
-  hompageUrl_exists?: InputMaybe<Scalars['Boolean']>;
-  hompageUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  hompageUrl_not?: InputMaybe<Scalars['String']>;
-  hompageUrl_not_contains?: InputMaybe<Scalars['String']>;
-  hompageUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  homepageUrl?: InputMaybe<Scalars['String']>;
+  homepageUrl_contains?: InputMaybe<Scalars['String']>;
+  homepageUrl_exists?: InputMaybe<Scalars['Boolean']>;
+  homepageUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  homepageUrl_not?: InputMaybe<Scalars['String']>;
+  homepageUrl_not_contains?: InputMaybe<Scalars['String']>;
+  homepageUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   logo_exists?: InputMaybe<Scalars['Boolean']>;
   name?: InputMaybe<Scalars['String']>;
   name_contains?: InputMaybe<Scalars['String']>;
@@ -1172,7 +1172,7 @@ export type CfSkillCategoryNestedFilter = {
 export type GetExperienceQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetExperienceQuery = { __typename?: 'Query', positionCollection?: { __typename?: 'PositionCollection', items: Array<{ __typename?: 'Position', title?: string | null, team?: string | null, additionalSpecifier?: string | null, startDate?: any | null, endDate?: any | null, keyResponsibilities?: Array<string | null> | null, sys: { __typename?: 'Sys', id: string }, description?: { __typename?: 'PositionDescription', json: any } | null, employer?: { __typename?: 'Employer', name?: string | null, hompageUrl?: string | null, sys: { __typename?: 'Sys', id: string }, logo?: { __typename?: 'Asset', url?: string | null } | null } | null, skillsCollection?: { __typename?: 'PositionSkillsCollection', items: Array<{ __typename?: 'Skill', sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null };
+export type GetExperienceQuery = { __typename?: 'Query', positionCollection?: { __typename?: 'PositionCollection', items: Array<{ __typename?: 'Position', title?: string | null, team?: string | null, additionalSpecifier?: string | null, startDate?: any | null, endDate?: any | null, keyResponsibilities?: Array<string | null> | null, sys: { __typename?: 'Sys', id: string }, description?: { __typename?: 'PositionDescription', json: any } | null, employer?: { __typename?: 'Employer', name?: string | null, homepageUrl?: string | null, sys: { __typename?: 'Sys', id: string }, logo?: { __typename?: 'Asset', url?: string | null } | null } | null, skillsCollection?: { __typename?: 'PositionSkillsCollection', items: Array<{ __typename?: 'Skill', sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null };
 
 export type GetSkillsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1180,5 +1180,5 @@ export type GetSkillsQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetSkillsQuery = { __typename?: 'Query', skillCollection?: { __typename?: 'SkillCollection', items: Array<{ __typename?: 'Skill', name?: string | null, sys: { __typename?: 'Sys', id: string }, category?: { __typename?: 'SkillCategory', name?: string | null, sys: { __typename?: 'Sys', id: string } } | null, area?: { __typename?: 'SkillArea', name?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null };
 
 
-export const GetExperienceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetExperience"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"positionCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"team"}},{"kind":"Field","name":{"kind":"Name","value":"additionalSpecifier"}},{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}},{"kind":"Field","name":{"kind":"Name","value":"keyResponsibilities"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"json"}}]}},{"kind":"Field","name":{"kind":"Name","value":"employer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"logo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"hompageUrl"}}]}},{"kind":"Field","name":{"kind":"Name","value":"skillsCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetExperienceQuery, GetExperienceQueryVariables>;
+export const GetExperienceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetExperience"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"positionCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"team"}},{"kind":"Field","name":{"kind":"Name","value":"additionalSpecifier"}},{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}},{"kind":"Field","name":{"kind":"Name","value":"keyResponsibilities"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"json"}}]}},{"kind":"Field","name":{"kind":"Name","value":"employer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"logo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"homepageUrl"}}]}},{"kind":"Field","name":{"kind":"Name","value":"skillsCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetExperienceQuery, GetExperienceQueryVariables>;
 export const GetSkillsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSkills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"skillCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"200"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"area"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetSkillsQuery, GetSkillsQueryVariables>;
