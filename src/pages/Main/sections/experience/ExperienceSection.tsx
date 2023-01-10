@@ -1,58 +1,60 @@
 import { useExperience } from "../../../../model/experience/ExperienceModel";
 
 export const ExperienceSection = function ExperienceSection() {
-    const positions = useExperience();
-    console.log("experience loading?", !positions);
+    const data = useExperience();
+    console.log("experience loading?", !data);
+    console.log(data?.employmentRuns);
 
     return (
         <section id="experience">
             <h2>Experience</h2>
-            {!positions ? (
+            {!data ? (
                 <p>Loading...</p>
             ) : (
                 <ul>
-                    {positions.map((item) => (
-                        <li key={item.sys.id ?? "unnamed item"}>
-                            <p>
+                    {data.positions.map((item) => (
+                        <li key={item.id}>
+                            <>
                                 {item.title}
                                 <br />
                                 {item.team}
                                 <br />
                                 {item?.additionalSpecifier ?? "not present"}
                                 <br />
-                                {item.startDate}
+                                {item.startDate.toDateString()}
                                 <br />
-                                {item?.endDate ?? "Now"}
+                                {item?.endDate?.toDateString() ?? "Now"}
                                 <br />
-                            </p>
-                            <ul>
-                                {item.keyResponsibilities.map((respons) => (
-                                    <li key={respons}>{respons}</li>
-                                ))}
-                            </ul>
-                            <p>
+
+                                <ul>
+                                    {item.keyResponsibilities.map((respons) => (
+                                        <li key={respons}>{respons}</li>
+                                    ))}
+                                </ul>
+                                <p>
+                                    <br />
+                                    <code>{JSON.stringify(item.description)}</code>
+                                    <br />
+                                    {item.employer?.id}
+                                    <br />
+                                    <a
+                                        href={item.employer?.homepageUrl ?? "#"}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        {item.employer?.name}
+                                    </a>
+                                    <br />
+                                    <img src={item.employer?.logo} />
+                                </p>
                                 <br />
-                                <code>{JSON.stringify(item.description)}</code>
                                 <br />
-                                {item.employer.sys.id}
-                                <br />
-                                <a
-                                    href={item.employer.hompageUrl ?? "#"}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    {item.employer.name}
-                                </a>
-                                <br />
-                                <img src={item.employer.logo.url} />
-                            </p>
-                            <br />
-                            <br />
-                            <ul>
-                                {item?.skillsCollection?.items.map((item) => (
-                                    <li key={item?.sys.id}>{item?.sys.id}</li>
-                                ))}
-                            </ul>
+                                <ul>
+                                    {item?.skills?.map((skillItem) => (
+                                        <li key={skillItem.id}>{skillItem.name}</li>
+                                    ))}
+                                </ul>
+                            </>
                         </li>
                     ))}
                 </ul>

@@ -57,7 +57,7 @@ export const useApiExperience = function (): Array<ExperienceApiResponse> | unde
     }
 };
 
-interface ExperienceApiResponse {
+export interface ExperienceApiResponse {
     title: string;
     team: string;
     additionalSpecifier: string | null;
@@ -66,12 +66,7 @@ interface ExperienceApiResponse {
     keyResponsibilities: Array<string>;
     sys: { id: string };
     description: { json: ContentfulDocument } | null;
-    employer: {
-        name: string;
-        hompageUrl: string | null;
-        sys: { id: string };
-        logo: { url: string };
-    };
+    employer: EmployerApiResponse;
     skillsCollection: {
         items: Array<{
             sys: { id: string };
@@ -79,7 +74,7 @@ interface ExperienceApiResponse {
     };
 }
 
-interface EmployerApiResponse {
+export interface EmployerApiResponse {
     name: string;
     hompageUrl: string | null;
     sys: { id: string };

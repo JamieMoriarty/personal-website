@@ -1,7 +1,7 @@
 import { ApiSkillsResponse, useApiSkills } from "../../api/skills";
 import { toDefined } from "../../utils/validations";
 
-interface SkillsModel {
+export interface SkillsModel {
     skills: Array<Skill>;
     areas: Array<SkillsArea>;
     categories: SkillCategories;
