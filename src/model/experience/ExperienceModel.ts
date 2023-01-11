@@ -4,24 +4,37 @@ import {
     useApiExperience,
 } from "../../api/experience";
 import { Document as ContentfulDocument } from "@contentful/rich-text-types";
-import { Skill, SkillsModel, useSkills } from "../skills/SkillsModel";
+import { Skill, SkillsModel, useSkillsModel } from "../skills/SkillsModel";
 import { compareDesc, differenceInCalendarDays, parseISO } from "date-fns";
 
-export const useExperience = () => {
-    const experienceApiResponse = useApiExperience();
-    const skillsModel = useSkills();
+interface ExperienceModel {
+    positions: Array<Position>;
+    employments: EmploymentsList;
+    employers: Array<Employer>;
+}
 
-    if (!experienceApiResponse || !skillsModel) {
+export const useExperienceModel = () => {
+    const experienceApiResponse = useApiExperience();
+    const skillsModel = useSkillsModel();
+
+    return toExperienceModel(experienceApiResponse, skillsModel);
+};
+
+function toExperienceModel(
+    apiResponse: Array<ExperienceApiResponse> | undefined,
+    skillsModel: SkillsModel | undefined
+): ExperienceModel | undefined {
+    if (!apiResponse || !skillsModel) {
         return undefined;
     }
-    const positions = toPositions(experienceApiResponse, skillsModel);
+    const positions = toPositions(apiResponse, skillsModel);
 
     return {
         positions: positions.sort(comparePositionsByStartDate),
         employments: extractEmployments(positions),
         employers: extractEmployers(positions),
     };
-};
+}
 
 function toPositions(
     apiExperienceResponse: Array<ExperienceApiResponse>,

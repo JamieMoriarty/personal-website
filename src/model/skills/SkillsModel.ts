@@ -34,7 +34,7 @@ interface SkillsArea {
 /**
  * @returns skills model (including convenience methods) IF api data is loaded, otherwise undefined
  */
-export const useSkills = function (): SkillsModel | undefined {
+export const useSkillsModel = function (): SkillsModel | undefined {
     const apiSkills = useApiSkills();
 
     return toSkillsModel(apiSkills);

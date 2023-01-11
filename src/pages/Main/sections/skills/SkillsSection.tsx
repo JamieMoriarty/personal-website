@@ -1,9 +1,9 @@
 import { Fragment } from "react";
-import { useSkills } from "../../../../model/skills/SkillsModel";
+import { useSkillsModel } from "../../../../model/skills/SkillsModel";
 import css from "./SkillsSection.module.css";
 
 export const SkillsSection = function () {
-    const skillsModel = useSkills();
+    const skillsModel = useSkillsModel();
     return (
         <section id="skills">
             <h2>Skills</h2>

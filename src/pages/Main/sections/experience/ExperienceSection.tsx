@@ -1,10 +1,7 @@
-import { useExperience } from "../../../../model/experience/ExperienceModel";
+import { useExperienceModel } from "../../../../model/experience/ExperienceModel";
 
 export const ExperienceSection = function ExperienceSection() {
-    const data = useExperience();
-    console.log("experience loading?", !data);
-    console.log(data?.employments);
-    console.log(data?.employers);
+    const data = useExperienceModel();
 
     const positions = data?.employers.flatMap((employer) => employer.positions);
 
