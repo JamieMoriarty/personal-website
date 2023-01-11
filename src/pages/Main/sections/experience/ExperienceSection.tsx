@@ -3,7 +3,8 @@ import { useExperience } from "../../../../model/experience/ExperienceModel";
 export const ExperienceSection = function ExperienceSection() {
     const data = useExperience();
     console.log("experience loading?", !data);
-    console.log(data?.employmentRuns);
+    console.log(data?.employments);
+    console.log(data?.employers);
 
     return (
         <section id="experience">

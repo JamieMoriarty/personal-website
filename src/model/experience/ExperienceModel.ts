@@ -18,7 +18,8 @@ export const useExperience = () => {
 
     return {
         positions: positions.sort(comparePositionsByStartDate),
-        employmentRuns: extractEmploymentRuns(positions),
+        employments: extractEmployments(positions),
+        employers: extractEmployers(positions),
     };
 };
 
@@ -42,7 +43,7 @@ function toPositions(
     }));
 }
 
-function toEmployer(employer: EmployerApiResponse): Employer {
+function toEmployer(employer: EmployerApiResponse): Omit<Employer, "positions"> {
     return {
         name: employer.name,
         homepageUrl: employer.homepageUrl ?? undefined,
@@ -51,25 +52,10 @@ function toEmployer(employer: EmployerApiResponse): Employer {
     };
 }
 
-function toEmploymentRun(postions: Array<Position>) {
-    const firstPosition = postions[0];
-    const lastPosition = postions[postions.length - 1];
-    return {
-        employer: firstPosition.employer,
-        startDate: firstPosition.startDate,
-        endDate: lastPosition.endDate,
-        positions: postions,
-    };
-}
-
-function comparePositionsByStartDate(left: Position, right: Position) {
-    return compareDesc(left.startDate, right.startDate);
-}
-
-function extractEmploymentRuns(postions: Array<Position>): EmploymentRunList {
+function extractEmployments(postions: Array<Position>): EmploymentsList {
     const sortedPositions = postions.sort(comparePositionsByStartDate);
 
-    const runs: Array<Array<Position>> = sortedPositions.reduce(
+    const groupedByEmployer: Array<Array<Position>> = sortedPositions.reduce(
         (result, position, index, array) => {
             const previousPosition = index > 0 ? array[index - 1] : undefined;
             if (
@@ -87,10 +73,12 @@ function extractEmploymentRuns(postions: Array<Position>): EmploymentRunList {
         [[]] as Array<Array<Position>>
     );
 
-    const employmentRuns = runs.filter((run) => run.length > 0).map(toEmploymentRun);
+    const employments = groupedByEmployer
+        .filter((run) => run.length > 0)
+        .map(toEmployment);
 
     const filterBySkills = (skills: Array<Skill>) =>
-        employmentRuns.map((run) => ({
+        employments.map((run) => ({
             ...run,
             positions: run.positions.filter((position) =>
                 skills.every((skill) =>
@@ -99,9 +87,42 @@ function extractEmploymentRuns(postions: Array<Position>): EmploymentRunList {
             ),
         }));
 
-    return Object.assign(employmentRuns, {
+    return Object.assign(employments, {
         filterBySkills,
     });
+}
+
+function toEmployment(postions: Array<Position>) {
+    const firstPosition = postions[0];
+    const lastPosition = postions[postions.length - 1];
+    return {
+        employer: firstPosition.employer,
+        startDate: firstPosition.startDate,
+        endDate: lastPosition.endDate,
+        positions: postions,
+    };
+}
+
+function comparePositionsByStartDate(left: Position, right: Position) {
+    return compareDesc(left.startDate, right.startDate);
+}
+
+function extractEmployers(positions: Array<Position>): Array<Employer> {
+    const employers: Array<Employer> = [];
+
+    positions.forEach((position) => {
+        const existingEmployer = employers.find(
+            (employer) => position.employer.id === employer.id
+        );
+        if (existingEmployer) {
+            existingEmployer.positions.push(position);
+        } else {
+            const newEmployer: Employer = { ...position.employer, positions: [position] };
+            employers.push(newEmployer);
+        }
+    });
+
+    return employers;
 }
 
 interface Position {
@@ -114,7 +135,7 @@ interface Position {
     keyResponsibilities: Array<string>;
     description?: ContentfulDocument;
     skills: Array<Skill>;
-    employer: Employer;
+    employer: Omit<Employer, "positions">;
 }
 
 interface Employer {
@@ -122,15 +143,16 @@ interface Employer {
     name: string;
     logo: string;
     homepageUrl?: string;
-}
-
-interface EmploymentRun {
-    startDate: Date;
-    endDate?: Date;
-    employer: Employer;
     positions: Array<Position>;
 }
 
-interface EmploymentRunList extends Array<EmploymentRun> {
-    filterBySkills(skills: Array<Skill>): Array<EmploymentRun>;
+interface Employment {
+    startDate: Date;
+    endDate?: Date;
+    employer: Omit<Employer, "positions">;
+    positions: Array<Position>;
+}
+
+interface EmploymentsList extends Array<Employment> {
+    filterBySkills(skills: Array<Skill>): Array<Employment>;
 }
