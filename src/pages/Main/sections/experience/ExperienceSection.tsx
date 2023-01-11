@@ -6,14 +6,16 @@ export const ExperienceSection = function ExperienceSection() {
     console.log(data?.employments);
     console.log(data?.employers);
 
+    const positions = data?.employers.flatMap((employer) => employer.positions);
+
     return (
         <section id="experience">
             <h2>Experience</h2>
-            {!data ? (
+            {!positions ? (
                 <p>Loading...</p>
             ) : (
                 <ul>
-                    {data.positions.map((item) => (
+                    {positions.map((item) => (
                         <li key={item.id}>
                             <>
                                 {item.title}
