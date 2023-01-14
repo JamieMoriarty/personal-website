@@ -30,7 +30,7 @@ function toExperienceModel(
     if (!apiResponse || !skillsModel) {
         return undefined;
     }
-    const positions = toPositions(apiResponse, skillsModel);
+    const positions = toPositions(apiResponse, skillsModel.getSkillById);
 
     return {
         positions: positions.sort(comparePositionsByStartDate),

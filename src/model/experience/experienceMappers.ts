@@ -1,6 +1,6 @@
 import { parseISO, differenceInCalendarDays, compareDesc } from "date-fns";
 import { ExperienceApiResponse, EmployerApiResponse } from "../../api/experience";
-import { Skill, SkillsModel } from "../skills/SkillsModel";
+import { Skill } from "../skills/SkillsModel";
 import { Document as ContentfulDocument } from "@contentful/rich-text-types";
 
 export interface Position {
@@ -18,7 +18,7 @@ export interface Position {
 
 export function toPositions(
     apiExperienceResponse: Array<ExperienceApiResponse>,
-    skillsModel: SkillsModel
+    getSkillById: (id: string) => Skill
 ): Array<Position> {
     return apiExperienceResponse.map((experienceItem) => ({
         ...experienceItem,
@@ -33,7 +33,7 @@ export function toPositions(
             ? experienceItem.description.json
             : undefined,
         skills: experienceItem.skillsCollection.items.map((skillsItem) =>
-            skillsModel.getSkillById(skillsItem.sys.id)
+            getSkillById(skillsItem.sys.id)
         ),
         employer: toEmployer(experienceItem.employer),
     }));

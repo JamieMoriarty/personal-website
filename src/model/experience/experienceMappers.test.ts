@@ -1,17 +1,16 @@
-import { sub } from "date-fns";
+import { add, sub } from "date-fns";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ExperienceApiResponse } from "../../api/experience";
-import { SkillsModel, Skill } from "../skills/SkillsModel";
-import { toPositions } from "./experienceMappers";
+import {
+    extractEmployers,
+    extractEmployments,
+    Position,
+    toPositions,
+} from "./experienceMappers";
+import { apiPositionMock, apiSkillMock, positionMock } from "./mocks";
 
 describe("Experience mapper: toPositions", () => {
     const getSkillByIdMock = vi.fn();
-    const mockSkillsModel: SkillsModel = {
-        skills: [],
-        areas: [],
-        categories: Object.assign([]),
-        getSkillById: getSkillByIdMock,
-    };
 
     afterEach(() => {
         vi.restoreAllMocks();
@@ -21,131 +20,162 @@ describe("Experience mapper: toPositions", () => {
         const today = new Date();
         const yesterday = sub(today, { days: 1 });
         const mockPosition: ExperienceApiResponse = {
-            ...basePosition,
+            ...apiPositionMock,
             startDate: yesterday.toISOString(),
             endDate: today.toISOString(),
         };
-        const position = toPositions([mockPosition], mockSkillsModel)[0];
+        const position = toPositions([mockPosition], getSkillByIdMock)[0];
 
-        expect(position.id).toBe(basePosition.sys.id);
-        expect(position.title).toBe(basePosition.title);
-        expect(position.team).toBe(basePosition.team);
-        expect(position.additionalSpecifier).toBe(basePosition.additionalSpecifier);
+        expect(position.id).toBe(apiPositionMock.sys.id);
+        expect(position.title).toBe(apiPositionMock.title);
+        expect(position.team).toBe(apiPositionMock.team);
+        expect(position.additionalSpecifier).toBe(apiPositionMock.additionalSpecifier);
         expect(position.startDate).toEqual(yesterday);
         expect(position.endDate).toEqual(today);
-        expect(position.keyResponsibilities).toEqual(basePosition.keyResponsibilities);
+        expect(position.keyResponsibilities).toEqual(apiPositionMock.keyResponsibilities);
     });
 
     it("should retrieve skills from skill model", () => {
-        getSkillByIdMock.mockImplementation(() => randomSkill);
+        getSkillByIdMock.mockImplementation(() => apiSkillMock);
 
-        const position = toPositions([basePosition], mockSkillsModel)[0];
+        const position = toPositions([apiPositionMock], getSkillByIdMock)[0];
 
         position.skills.forEach((skill) => {
-            expect(skill).toEqual(randomSkill);
+            expect(skill).toEqual(apiSkillMock);
         });
     });
 
     it("should map missing optional properties to undefined", () => {
         const mockPosition: ExperienceApiResponse = {
-            ...basePosition,
+            ...apiPositionMock,
             additionalSpecifier: null,
             endDate: null,
             description: null,
+            employer: {
+                ...apiPositionMock.employer,
+                homepageUrl: null,
+            },
         };
 
-        const position = toPositions([mockPosition], mockSkillsModel)[0];
+        const position = toPositions([mockPosition], getSkillByIdMock)[0];
 
         expect(position.additionalSpecifier).toBeUndefined();
         expect(position.endDate).toBeUndefined();
         expect(position.description).toBeUndefined();
+        expect(position.employer.homepageUrl).toBeUndefined();
+    });
+
+    it("should map employer correctly", () => {
+        const apiEmployer = apiPositionMock.employer;
+        const position = toPositions([apiPositionMock], getSkillByIdMock)[0];
+
+        expect(position.employer.id).toBe(apiEmployer.sys.id);
+        expect(position.employer.logo).toBe(apiEmployer.logo.url);
+        expect(position.employer.name).toBe(apiEmployer.name);
+        expect(position.employer.homepageUrl).toBe(apiEmployer.homepageUrl);
     });
 });
 
-const randomSkill: Skill = {
-    id: "random",
-    name: "test skill",
-    area: {
-        name: "test area",
-        id: "area id",
-    },
-    category: {
-        name: "test category",
-        id: "category id",
-    },
-};
+describe("extractEmployers", () => {
+    it("Should extract all employers only once", () => {
+        const positionsMock: Array<Position> = [
+            positionMock("position 1", "employer 1"),
+            positionMock("position 2", "employer 1"),
+            positionMock("position 3", "employer 2"),
+        ];
 
-const basePosition = {
-    sys: {
-        id: "12z7n5rmlXl4GZCpnyEtzv",
-    },
-    title: "Back-end developer",
-    team: "B2B mobile voice subscriptions",
-    additionalSpecifier: "TDC erhverv",
-    startDate: "2021-08-15T12:00:00.000+01:00",
-    endDate: null,
-    keyResponsibilities: [
-        "Develop and maintain middle-layer software between front-end and legacy systems",
-        "Transition existing software solution from monolith to microservice architecture",
-        "Develop and maintain CI/CD tools (Jenkins, then Drone and Spinnaker deploying to Openshift later Rancher)",
-    ],
-    description: {
-        json: {
-            data: {},
-            content: [
-                {
-                    data: {},
-                    content: [
-                        {
-                            data: {},
-                            marks: [],
-                            value: "Back-end developer on cross-functional team (front-end, back-end, designers and business) handling mobile voice sales in B2B part of Nuuday. Initially an open-pages shop for new customers (now closed), later self-service for enterprise solutions.",
-                            nodeType: "text",
-                        },
-                    ],
-                    nodeType: "paragraph",
-                },
-            ],
-            nodeType: "document",
-        },
-    },
-    employer: {
-        sys: {
-            id: "4hZbzoTaMCp4SMTNnxfni7",
-        },
-        name: "Nuuday",
-        logo: {
-            url: "https://images.ctfassets.net/24872jp5m9ag/7yXpY0VelozITbfKZuZkU4/472d463af69954f73060212173c66d22/nuuday-logo.svg",
-        },
-        homepageUrl: "https://nuuday.com/",
-    },
-    skillsCollection: {
-        items: [
-            {
-                sys: {
-                    id: "3OaHV910ZNEE62BEzqnJhT",
-                },
-            },
-            {
-                sys: {
-                    id: "4uzrPKBo1965JMAnAEzP4d",
-                },
-            },
-            {
-                sys: {
-                    id: "5hZTYfM0XRirQFsineKALf",
-                },
-            },
-            {
-                sys: {
-                    id: "jdyzEE2HdkTs5DaCIr9MP",
-                },
-            },
-            {
-                sys: {
-                    id: "5ozU5AqiMgmnG2S3sSW6Qa",
-                },
-            },
-        ],
-    },
-} as ExperienceApiResponse;
+        const employers = extractEmployers(positionsMock);
+
+        expect(employers).toHaveLength(2);
+        expect(employers.find((employer) => employer.id === "employer 1")).toBeDefined();
+        expect(employers.find((employer) => employer.id === "employer 2")).toBeDefined();
+    });
+
+    it("Should map all positions to relevant employer", () => {
+        const positionsMock: Array<Position> = [
+            positionMock("position 1", "employer 1"),
+            positionMock("position 2", "employer 1"),
+            positionMock("position 3", "employer 2"),
+            positionMock("position 4", "employer 1"),
+            positionMock("position 5", "employer 2"),
+        ];
+
+        const employers = extractEmployers(positionsMock);
+
+        expect(employers).toHaveLength(2);
+        const firstEmployer = employers.find((employer) => employer.id === "employer 1");
+        const secondEmployer = employers.find((employer) => employer.id === "employer 2");
+
+        expect(firstEmployer?.positions).toHaveLength(3);
+        expect(
+            firstEmployer?.positions.find((position) => position.id === "position 1")
+        ).toBeDefined();
+        expect(
+            firstEmployer?.positions.find((position) => position.id === "position 2")
+        ).toBeDefined();
+        expect(
+            firstEmployer?.positions.find((position) => position.id === "position 4")
+        ).toBeDefined();
+
+        expect(secondEmployer?.positions).toHaveLength(2);
+        expect(
+            secondEmployer?.positions.find((position) => position.id === "position 3")
+        ).toBeDefined();
+        expect(
+            secondEmployer?.positions.find((position) => position.id === "position 5")
+        ).toBeDefined();
+    });
+});
+
+describe("extractEmployments", () => {
+    it("Should extract at least one employment per employer", () => {
+        const positionsMock: Array<Position> = [
+            positionMock("position 1", "employer 1"),
+            positionMock("position 2", "employer 1"),
+            positionMock("position 3", "employer 2"),
+        ];
+
+        const employments = extractEmployments(positionsMock);
+
+        expect(employments.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it("Should extract non-consecutive positions to separate employements", () => {
+        const today = new Date();
+        const positionsMock: Array<Position> = [
+            positionMock(
+                "position 1",
+                "employer 1",
+                sub(today, {
+                    days: 10,
+                }),
+                sub(today, {
+                    days: 8,
+                })
+            ),
+            positionMock(
+                "position 2",
+                "employer 2",
+                sub(today, {
+                    days: 7,
+                }),
+                sub(today, {
+                    days: 5,
+                })
+            ),
+        ];
+        const firstPosition = positionsMock[0];
+        const nonConsecutiveEmployment: Position = {
+            ...firstPosition,
+            startDate: add(firstPosition.endDate ?? new Date(), {
+                days: 2,
+            }),
+            endDate: today,
+        };
+        positionsMock.push(nonConsecutiveEmployment);
+
+        const employments = extractEmployments(positionsMock);
+
+        expect(employments).toHaveLength(3);
+    });
+});
