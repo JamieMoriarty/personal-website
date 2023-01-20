@@ -129,18 +129,50 @@ describe("extractEmployers", () => {
 
 describe("extractEmployments", () => {
     it("Should extract at least one employment per employer", () => {
+        const today = new Date();
         const positionsMock: Array<Position> = [
-            positionMock("position 1", "employer 1"),
-            positionMock("position 2", "employer 1"),
-            positionMock("position 3", "employer 2"),
+            positionMock(
+                "position 1",
+                "employer 1",
+                sub(today, {
+                    days: 10,
+                }),
+                sub(today, {
+                    days: 8,
+                })
+            ),
+            positionMock(
+                "position 2",
+                "employer 1",
+                sub(today, {
+                    days: 7,
+                }),
+                sub(today, {
+                    days: 5,
+                })
+            ),
+            positionMock(
+                "position 3",
+                "employer 2",
+                sub(today, {
+                    days: 3,
+                }),
+                sub(today, {
+                    days: 2,
+                })
+            ),
         ];
+
+        console.log(
+            positionsMock.map((position) => [position.endDate, position.startDate])
+        );
 
         const employments = extractEmployments(positionsMock);
 
         expect(employments.length).toBeGreaterThanOrEqual(2);
     });
 
-    it("Should extract non-consecutive positions to separate employements", () => {
+    it("Should throw an error on non-consecutive positions to separate employements", () => {
         const today = new Date();
         const positionsMock: Array<Position> = [
             positionMock(
@@ -174,8 +206,6 @@ describe("extractEmployments", () => {
         };
         positionsMock.push(nonConsecutiveEmployment);
 
-        const employments = extractEmployments(positionsMock);
-
-        expect(employments).toHaveLength(3);
+        expect(() => extractEmployments(positionsMock)).toThrowError();
     });
 });

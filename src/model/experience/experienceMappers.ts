@@ -1,4 +1,4 @@
-import { parseISO, differenceInCalendarDays, compareDesc } from "date-fns";
+import { parseISO, differenceInCalendarDays, compareDesc, isAfter } from "date-fns";
 import { ExperienceApiResponse, EmployerApiResponse } from "../../api/experience";
 import { Skill } from "../skills/SkillsModel";
 import { Document as ContentfulDocument } from "@contentful/rich-text-types";
@@ -49,7 +49,10 @@ function toEmployer(employer: EmployerApiResponse): Omit<Employer, "positions"> 
 }
 
 export function extractEmployments(postions: Array<Position>): EmploymentsList {
-    const sortedPositions = postions.sort(comparePositionsByStartDate);
+    if (containsOverlappingPositions(postions)) {
+        throw Error("There were overlapping positions in the supplied data");
+    }
+    const sortedPositions = [...postions].sort(comparePositionsByStartDate);
 
     const groupedByEmployer: Array<Array<Position>> = sortedPositions.reduce(
         (result, position, index, array) => {
@@ -85,6 +88,26 @@ export function extractEmployments(postions: Array<Position>): EmploymentsList {
 
     return Object.assign(employments, {
         filterBySkills,
+    });
+}
+
+function containsOverlappingPositions(positions: Array<Position>): boolean {
+    const sortedPositions = [...positions].sort(comparePositionsByStartDate);
+
+    console.log(positions.map((position) => [position.endDate, position.startDate]));
+    console.log(
+        sortedPositions.map((position) => [position.endDate, position.startDate])
+    );
+    return sortedPositions.some((position, index) => {
+        // positions are sorted most to least recent:
+        const previousPosition =
+            index < positions.length - 1 ? positions[index + 1] : undefined;
+
+        return (
+            !!previousPosition &&
+            (!previousPosition.endDate ||
+                isAfter(previousPosition.endDate, position.startDate))
+        );
     });
 }
 
