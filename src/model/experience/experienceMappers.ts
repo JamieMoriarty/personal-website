@@ -92,23 +92,19 @@ export function extractEmployments(postions: Array<Position>): EmploymentsList {
 }
 
 function containsOverlappingPositions(positions: Array<Position>): boolean {
-    const sortedPositions = [...positions].sort(comparePositionsByStartDate);
+    return [...positions]
+        .sort(comparePositionsByStartDate)
+        .some((position, index, array) => {
+            // positions are sorted most to least recent:
+            const previousPosition =
+                index < array.length - 1 ? array[index + 1] : undefined;
 
-    console.log(positions.map((position) => [position.endDate, position.startDate]));
-    console.log(
-        sortedPositions.map((position) => [position.endDate, position.startDate])
-    );
-    return sortedPositions.some((position, index) => {
-        // positions are sorted most to least recent:
-        const previousPosition =
-            index < positions.length - 1 ? positions[index + 1] : undefined;
-
-        return (
-            !!previousPosition &&
-            (!previousPosition.endDate ||
-                isAfter(previousPosition.endDate, position.startDate))
-        );
-    });
+            return (
+                !!previousPosition &&
+                (!previousPosition.endDate ||
+                    isAfter(previousPosition.endDate, position.startDate))
+            );
+        });
 }
 
 function toEmployment(postions: Array<Position>) {
