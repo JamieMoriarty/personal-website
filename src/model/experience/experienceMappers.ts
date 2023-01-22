@@ -1,6 +1,6 @@
 import { parseISO, differenceInCalendarDays, compareDesc, isAfter } from "date-fns";
 import { ExperienceApiResponse, EmployerApiResponse } from "../../api/experience";
-import { Skill } from "../skills/SkillsModel";
+import { Skill } from "../skills/skillMappers";
 import { Document as ContentfulDocument } from "@contentful/rich-text-types";
 
 export interface Position {
