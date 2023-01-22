@@ -119,6 +119,7 @@ export const positionMock = (
     skills: [skillMock("skill id 1"), skillMock("skill id 2"), skillMock("skill id 3")],
 });
 
+export const january = (day: number): Date => new Date(2023, 0, day);
 export const employerMock = (id: string): Omit<Employer, "positions"> => ({
     id,
     name: "Employer",
