@@ -1,5 +1,4 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { ExperienceApiResponse } from "../../api/experience";
 import {
     Employer,
     extractEmployers,
@@ -17,7 +16,7 @@ describe("Experience mapper: toPositions", () => {
     });
 
     it("should map all basic fiels of Position", () => {
-        const mockPosition: ExperienceApiResponse = {
+        const mockPosition = {
             ...apiPositionMock,
             startDate: january(10).toISOString(),
             endDate: january(12).toISOString(),
@@ -44,7 +43,7 @@ describe("Experience mapper: toPositions", () => {
     });
 
     it("should map missing optional properties to undefined", () => {
-        const mockPosition: ExperienceApiResponse = {
+        const mockPosition = {
             ...apiPositionMock,
             additionalSpecifier: null,
             endDate: null,
