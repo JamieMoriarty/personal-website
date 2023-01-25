@@ -1,6 +1,6 @@
 import { parseISO, differenceInCalendarDays, compareDesc, isAfter } from "date-fns";
 import { ExperienceApiResponse, EmployerApiResponse } from "../../api/experience";
-import { Skill } from "../skills/skillMappers";
+import { Skill, SkillsArea } from "../skills/skillMappers";
 import { Document as ContentfulDocument } from "@contentful/rich-text-types";
 
 export interface Position {
@@ -84,17 +84,30 @@ export function extractEmployments(postions: Array<Position>): EmploymentsList {
         .map(toEmployment);
 
     const filterBySkills = (skills: Array<Skill>) =>
-        employments.map((employment) => ({
-            ...employment,
-            positions: employment.positions.filter((position) =>
-                skills.every((skill) =>
-                    position.skills.map((skill) => skill.id).includes(skill.id)
-                )
-            ),
-        }));
+        employments
+            .map((employment) => ({
+                ...employment,
+                positions: employment.positions.filter((position) =>
+                    skills.every((skill) =>
+                        position.skills.map((skill) => skill.id).includes(skill.id)
+                    )
+                ),
+            }))
+            .filter((employment) => employment.positions.length > 0);
+
+    const filterByArea = (area: SkillsArea) =>
+        employments
+            .map((employment) => ({
+                ...employment,
+                positions: employment.positions.filter((position) =>
+                    position.skills.some((skill) => skill.area.id === area.id)
+                ),
+            }))
+            .filter((employment) => employment.positions.length > 0);
 
     return Object.assign(employments, {
         filterBySkills,
+        filterByArea,
     });
 }
 
@@ -162,4 +175,5 @@ interface Employment {
 
 export interface EmploymentsList extends Array<Employment> {
     filterBySkills(skills: Array<Skill>): Array<Employment>;
+    filterByArea(area: Omit<SkillsArea, "skills">): Array<Employment>;
 }

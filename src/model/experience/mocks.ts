@@ -1,15 +1,15 @@
 import { sub } from "date-fns";
 import { ExperienceApiResponse } from "../../api/experience";
 import { Document as ContentfulDocument } from "@contentful/rich-text-types";
-import { Skill } from "../skills/SkillsModel";
+import { Skill } from "../skills/skillMappers";
 import { Employer, Position } from "./experienceMappers";
 
-export const skillMock = (id: string): Skill => ({
+export const skillMock = (id: string, areaId = "area id"): Skill => ({
     id,
     name: "test skill",
     area: {
         name: "test area",
-        id: "area id",
+        id: areaId,
     },
     category: {
         name: "test category",
@@ -118,6 +118,58 @@ export const positionMock = (
     employer: employerMock(employerId),
     skills: [skillMock("skill id 1"), skillMock("skill id 2"), skillMock("skill id 3")],
 });
+
+export const positionWithSkills = (
+    id: string,
+    employerId: string,
+    skills: Array<Skill>
+) => ({
+    id,
+    title: "Back-end developer",
+    team: "B2B mobile voice subscriptions",
+    additionalSpecifier: "TDC erhverv",
+    startDate: new Date(),
+    endDate: sub(new Date(), { days: 1 }),
+    keyResponsibilities: [
+        "Develop and maintain middle-layer software between front-end and legacy systems",
+        "Transition existing software solution from monolith to microservice architecture",
+        "Develop and maintain CI/CD tools (Jenkins, then Drone and Spinnaker deploying to Openshift later Rancher)",
+    ],
+    description: {
+        data: {},
+        content: [
+            {
+                data: {},
+                content: [
+                    {
+                        data: {},
+                        marks: [],
+                        value: "Back-end developer on cross-functional team (front-end, back-end, designers and business) handling mobile voice sales in B2B part of Nuuday. Initially an open-pages shop for new customers (now closed), later self-service for enterprise solutions.",
+                        nodeType: "text",
+                    },
+                ],
+                nodeType: "paragraph",
+            },
+        ],
+        nodeType: "document",
+    } as ContentfulDocument,
+    employer: employerMock(employerId),
+    skills,
+});
+
+export const consecutivePositions = (positions: Array<Position>): Array<Position> => {
+    const positionCount = positions.length;
+
+    if (positionCount > 15) {
+        throw Error("You may want to use fewer positions :)");
+    }
+
+    return positions.map((position, index) => ({
+        ...position,
+        startDate: january(2 * index),
+        endDate: january(2 * index + 1),
+    }));
+};
 
 export const january = (day: number): Date => new Date(2023, 0, day);
 export const employerMock = (id: string): Omit<Employer, "positions"> => ({

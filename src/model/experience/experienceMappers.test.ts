@@ -6,7 +6,15 @@ import {
     Position,
     toPositions,
 } from "./experienceMappers";
-import { apiPositionMock, apiSkillMock, january, positionMock } from "./mocks";
+import {
+    apiPositionMock,
+    apiSkillMock,
+    consecutivePositions,
+    january,
+    positionMock,
+    positionWithSkills,
+    skillMock,
+} from "./mocks";
 
 describe("Experience mapper: toPositions", () => {
     const getSkillByIdMock = vi.fn();
@@ -143,7 +151,7 @@ describe("extractEmployments", () => {
         expect(employmentWithEmployerId("employer 3")?.positions).toHaveLength(3);
     });
 
-    it("Should extract non-consecutive positions to different employement", () => {
+    it("Should extract non-consecutive positions to different employements", () => {
         const positionsMock: Array<Position> = [
             positionMock("position 1", "employer 1", january(10), january(12)),
             positionMock("position 2", "employer 1", january(13), january(14)),
@@ -179,5 +187,99 @@ describe("extractEmployments", () => {
         ];
 
         expect(() => extractEmployments(positionsMock)).toThrow();
+    });
+
+    it("Should be able to filter positions within employer based on a list of skills", () => {
+        const positionsMock = consecutivePositions([
+            positionWithSkills("position1", "employer1", [skillMock("skill1")]),
+            positionWithSkills("position2", "employer1", [
+                skillMock("skill1"),
+                skillMock("skill2"),
+            ]),
+            positionWithSkills("position3", "employer1", [skillMock("skill3")]),
+        ]);
+
+        const filteredEmployments = extractEmployments(positionsMock).filterBySkills([
+            skillMock("skill1"),
+            skillMock("skill2"),
+        ]);
+
+        expect(filteredEmployments).toHaveLength(1);
+        expect(filteredEmployments[0].positions).toHaveLength(1);
+        expect(filteredEmployments[0].positions[0].id).toBe("position2");
+    });
+
+    it("Should be able to filter employments based on a list of skills", () => {
+        const positionsMock = consecutivePositions([
+            positionWithSkills("position1", "employer1", [skillMock("skill1")]),
+            positionWithSkills("position2", "employer2", [
+                skillMock("skill1"),
+                skillMock("skill2"),
+            ]),
+            positionWithSkills("position4", "employer2", [skillMock("skill4")]),
+            positionWithSkills("position3", "employer2", [
+                skillMock("skill1"),
+                skillMock("skill2"),
+                skillMock("skill3"),
+            ]),
+            positionWithSkills("position5", "employer3", [skillMock("skill3")]),
+        ]);
+
+        const filteredEmployments = extractEmployments(positionsMock).filterBySkills([
+            skillMock("skill1"),
+            skillMock("skill2"),
+        ]);
+
+        expect(filteredEmployments).toHaveLength(1);
+        expect(filteredEmployments[0].positions).toHaveLength(2);
+        expect(filteredEmployments[0].positions[0].id).toBe("position3");
+        expect(filteredEmployments[0].positions[1].id).toBe("position2");
+    });
+
+    it("Should be able to filter positions within employer based on an area", () => {
+        const positionsMock = consecutivePositions([
+            positionWithSkills("position1", "employer1", [skillMock("skill1", "area1")]),
+            positionWithSkills("position3", "employer1", [skillMock("skill3", "area3")]),
+            positionWithSkills("position2", "employer1", [
+                skillMock("skill1", "area1"),
+                skillMock("skill2", "area2"),
+            ]),
+        ]);
+
+        const filteredEmployments = extractEmployments(positionsMock).filterByArea({
+            id: "area1",
+            name: "mock area",
+        });
+
+        expect(filteredEmployments).toHaveLength(1);
+        expect(filteredEmployments[0].positions).toHaveLength(2);
+        expect(filteredEmployments[0].positions[0].id).toBe("position2");
+        expect(filteredEmployments[0].positions[1].id).toBe("position1");
+    });
+
+    it("Should be able to filter employments based on an area", () => {
+        const positionsMock = consecutivePositions([
+            positionWithSkills("position1", "employer1", [skillMock("skill1", "area1")]),
+            positionWithSkills("position2", "employer2", [
+                skillMock("skill1", "area1"),
+                skillMock("skill2", "area2"),
+            ]),
+            positionWithSkills("position4", "employer2", [skillMock("skill4", "area4")]),
+            positionWithSkills("position3", "employer2", [
+                skillMock("skill1", "area1"),
+                skillMock("skill2", "area2"),
+                skillMock("skill3", "area3"),
+            ]),
+            positionWithSkills("position5", "employer3", [skillMock("skill3", "area3")]),
+        ]);
+
+        const filteredEmployments = extractEmployments(positionsMock).filterByArea({
+            id: "area4",
+            name: "mock area",
+        });
+
+        expect(filteredEmployments).toHaveLength(1);
+        expect(filteredEmployments[0].positions).toHaveLength(1);
+        expect(filteredEmployments[0].positions[0].id).toBe("position4");
     });
 });
