@@ -1,11 +1,11 @@
-import { MainPageLayout } from "../../components/layouts/MainPage";
+import { MainPageLayout } from "../../modules/layouts/MainPage";
 import classNames from "classnames";
-import { SkillsSection } from "./sections/skills";
+import { ExperienceSection, SkillsSection } from "./components";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "../../api";
-import { ExperienceSection } from "./sections/experience";
 
 import css from "./Main.module.css";
+import { Section } from "../../modules/utility/Section/Section";
 
 export const Main = () => {
     return (
@@ -33,13 +33,13 @@ export const Main = () => {
                 )}
                 main={(c) => (
                     <article className={classNames(css.main, c)}>
-                        <section id="about-me">
+                        <Section id="about-me">
                             <h2>About me</h2>
                             <p>
                                 I'm like super awesome and stuff. Also, I have a PhD in
                                 mathematics and two amazing kids!
                             </p>
-                        </section>
+                        </Section>
                         <SkillsSection />
                         <ExperienceSection />
                     </article>

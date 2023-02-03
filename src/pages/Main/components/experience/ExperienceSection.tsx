@@ -1,3 +1,4 @@
+import { Section } from "../../../../modules/utility/Section/Section";
 import { useExperienceModel } from "../../../../model/experience/ExperienceModel";
 
 export const ExperienceSection = function ExperienceSection() {
@@ -6,7 +7,7 @@ export const ExperienceSection = function ExperienceSection() {
     const positions = data?.employers.flatMap((employer) => employer.positions);
 
     return (
-        <section id="experience">
+        <Section id="experience">
             <h2>Experience</h2>
             {!positions ? (
                 <p>Loading...</p>
@@ -59,6 +60,6 @@ export const ExperienceSection = function ExperienceSection() {
                     ))}
                 </ul>
             )}
-        </section>
+        </Section>
     );
 };
