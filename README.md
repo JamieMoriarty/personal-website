@@ -8,8 +8,8 @@ all you'll get is code :)
 
 ### Build tool
 
-I'm using Vite as build tool (and for the basic scaffold template), instead of
-scaffolding with create-react-app, which is the default as far as I'm aware.
+I'm using [Vite](https://vitejs.dev/) as build tool (and for the basic scaffold template), instead of
+scaffolding with [create-react-app](https://github.com/facebook/create-react-app), which is the default as far as I'm aware.
 
 So far the experience is good. The dev server boots up **a lot** faster! I've yet to actually
 build and push to a produciton environment, so we'll see how it goes when we get there.
@@ -29,4 +29,4 @@ using postcss to extend CSS with some really handy features. More on the below.
 
 ### External integrations
 
-I'm using Contentful for CMS, which is the only external integration for the time being.
+I'm using [Contentful](https://www.contentful.com/) for CMS, which is the only external integration for the time being.
