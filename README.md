@@ -21,11 +21,11 @@ using postcss to extend CSS with some really handy features. More on the below.
 
 ### Noteable libraries
 
--   **vitest:** Since jest (apparently) doesn't mesh well with Vite, I'm using the (vitest)[https://vitest.dev/] library as a drop-in replacement. No complaints so far, seems to work
+-   **vitest:** Since jest (apparently) doesn't mesh well with Vite, I'm using the [vitest](https://vitest.dev/) library as a drop-in replacement. No complaints so far, seems to work
     beautifully!
--   **postcss-preset-env** I'm using (postcss-preset-env)[https://preset-env.cssdb.org/] to
-    easily extend CSS with the features I need. So far this is (Custom Media Queries)[https://preset-env.cssdb.org/features/#custom-media-queries] and (CSS Nesting Rules)[https://preset-env.cssdb.org/features/#nesting-rules]. So far, I'm really happy!
--   **Apollo GraphQL client:** I'm using the (Apollo client)[https://www.apollographql.com/docs/react/] to connect to Contenful which I'm using as CMS. I'm also using (GraphQL codegen)[https://the-guild.dev/graphql/codegen] for autogenerating typescript annotations for the integration. I'm not happy about it though. The Typescript annotations are much more generic than they need to be and the Apollo client only exposes a hook and I'm really not confident it's going to work well if (when) I switch to SSR/SSG. So I'd like to change this part when I have time for it.
+-   **postcss-preset-env** I'm using [postcss-preset-env](https://preset-env.cssdb.org/) to
+    easily extend CSS with the features I need. So far this is [Custom Media Queries](https://preset-env.cssdb.org/features/#custom-media-queries) and [CSS Nesting Rules](https://preset-env.cssdb.org/features/#nesting-rules). So far, I'm really happy!
+-   **Apollo GraphQL client:** I'm using the [Apollo client](https://www.apollographql.com/docs/react/) to connect to Contenful which I'm using as CMS. I'm also using [GraphQL codegen](https://the-guild.dev/graphql/codegen) for autogenerating typescript annotations for the integration. I'm not happy about it though. The Typescript annotations are much more generic than they need to be and the Apollo client only exposes a hook and I'm really not confident it's going to work well if (when) I switch to SSR/SSG. So I'd like to change this part when I have time for it.
 
 ### External integrations
 
