@@ -1,12 +1,12 @@
 import { Fragment } from "react";
-import { Section } from "../../../../modules/utility/Section/Section";
+import { PageSection } from "../../../../modules/utility/Section/PageSection";
 import { useSkillsModel } from "../../../../model/skills/SkillsModel";
 import css from "./SkillsSection.module.css";
 
 export const SkillsSection = function () {
     const skillsModel = useSkillsModel();
     return (
-        <Section id="skills">
+        <PageSection id="skills">
             <h2>Skills</h2>
             {!skillsModel ? (
                 <p>Loading...</p>
@@ -29,6 +29,6 @@ export const SkillsSection = function () {
                     </Fragment>
                 ))
             )}
-        </Section>
+        </PageSection>
     );
 };
