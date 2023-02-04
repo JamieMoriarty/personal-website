@@ -2,6 +2,8 @@ import { Fragment } from "react";
 import { PageSection } from "../../../../modules/utility/Section/PageSection";
 import { useSkillsModel } from "../../../../model/skills/SkillsModel";
 import css from "./SkillsSection.module.css";
+import { FlatList } from "../../../../modules/design/FlatList/FlatList";
+import { Skill } from "../../../../model/skills/skillMappers";
 
 export const SkillsSection = function () {
     const skillsModel = useSkillsModel();
@@ -19,11 +21,12 @@ export const SkillsSection = function () {
                             .map((category) => (
                                 <Fragment key={category.id}>
                                     <h4 className={css.categoryTitle}>{category.name}</h4>
-                                    <ul className={css.list}>
-                                        {category.skills.map((skill) => (
-                                            <li key={skill.id}>{skill.name}</li>
-                                        ))}
-                                    </ul>
+                                    <FlatList className={css.skillList}>
+                                        {category.skills.map((skill) => ({
+                                            node: <SkillName skill={skill} />,
+                                            id: skill.id,
+                                        }))}
+                                    </FlatList>
                                 </Fragment>
                             ))}
                     </Fragment>
@@ -32,3 +35,7 @@ export const SkillsSection = function () {
         </PageSection>
     );
 };
+
+const SkillName = ({ skill }: { skill: Skill }) => (
+    <span className={css.skillName}>{skill.name}</span>
+);

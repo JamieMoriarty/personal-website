@@ -1,19 +1,14 @@
 @custom-media --small-viewport (max-width: 1000px);
 
-.list {
-    list-style: none;
-    margin: 0;
-    padding-block: 0;
-    padding-inline-start: 16px;
-    display: flex;
-    gap: 8px;
+.skillList {
+    --flatlist-padding: 0 16px;
+}
 
-    & li {
-        font-weight: 700;
+.skillName {
+    font-weight: 700;
 
-        @media (--small-viewport) {
-            color: red;
-        }
+    @media (--small-viewport) {
+        color: red;
     }
 }
 

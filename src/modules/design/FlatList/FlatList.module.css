@@ -1,0 +1,17 @@
+/*
+    CSS variables for overriding styles:
+        # --flatlist-padding: sets the padding;
+        # --flatlist-margin: sets the margin;
+        # --flatlist-gap: sets the (flexbox) gap property
+*/
+.container {
+    --internal-margin: var(--flatlist-margin, 0);
+    --internal-padding: var(--flatlist-padding, 0);
+    --internal-flex-gap: var(--flatlist-gap, 8px);
+
+    list-style: none;
+    margin: var(--internal-marging);
+    padding: var(--internal-padding);
+    display: flex;
+    gap: var(--internal-flex-gap);
+}
