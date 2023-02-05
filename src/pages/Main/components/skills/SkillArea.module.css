@@ -1,0 +1,18 @@
+@custom-media --small-viewport (max-width: 1000px);
+
+.skillList {
+    --flatlist-padding: 0 16px;
+}
+
+.skillName {
+    font-weight: 700;
+
+    @media (--small-viewport) {
+        color: red;
+    }
+}
+
+.categoryTitle {
+    margin: 0;
+    padding-block: 16px 4px;
+}

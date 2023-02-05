@@ -165,7 +165,7 @@ export function comparePositionsByStartDate(left: Position, right: Position) {
     return compareDesc(left.startDate, right.startDate);
 }
 
-interface Employment {
+export interface Employment {
     id: string;
     startDate: Date;
     endDate?: Date;
