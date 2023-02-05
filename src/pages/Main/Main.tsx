@@ -5,24 +5,13 @@ import { ApolloProvider } from "@apollo/client";
 import { client } from "../../api";
 
 import css from "./Main.module.css";
+import { Hero } from "./components/hero/Hero";
 
 export const Main = () => {
     return (
         <ApolloProvider client={client}>
             <MainPageLayout
-                header={(c) => (
-                    <header className={classNames(css.header, c)}>
-                        <h1 className={css.headerTitle}>This is a short catchy title</h1>
-                        <p className={css.headerDetails}>
-                            This is slight longer - but still catchy - details text
-                        </p>
-                        <img
-                            className={css.headerImage}
-                            src="#"
-                            alt="There should probably be an image here"
-                        />
-                    </header>
-                )}
+                header={(c) => <Hero className={c} />}
                 nav={(c) => (
                     <nav className={classNames(css.nav, c)}>
                         <a href="#about-me">About me</a>
