@@ -6,6 +6,7 @@ import {
 } from "../../../../model/experience/experienceMappers";
 
 import css from "./Employments.module.css";
+import { PositionDescription } from "./PositionDescription";
 
 interface EmploymentsListProps {
     employmentsList: EmploymentsListModel;
@@ -68,7 +69,9 @@ const Position = ({ position }: PositionProps) => (
         </ul>
         <p>
             <br />
-            <code>{JSON.stringify(position.description)}</code>
+            {position.description ? (
+                <PositionDescription description={position.description} />
+            ) : null}
             <br />
             <a
                 href={position.employer?.homepageUrl ?? "#"}
