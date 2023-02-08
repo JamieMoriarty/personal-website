@@ -5,6 +5,9 @@
         "nav body";
     grid-template-columns: 300px auto;
     grid-template-rows: 150px auto;
+
+    max-width: 1080px;
+    margin: auto;
 }
 
 .header {
