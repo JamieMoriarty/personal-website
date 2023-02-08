@@ -58,17 +58,24 @@ interface PositionProps {
 
 const Position = ({ position }: PositionProps) => (
     <article className={css.position}>
-        {position.startDate.toDateString()} - {position?.endDate?.toDateString() ?? "Now"}
-        <br />
-        <strong>{position.title}</strong> @ {position.team}
-        <br />
         <p>
-            <br />
-            {position.description ? (
-                <PositionDescription description={position.description} />
-            ) : null}
-            <br />
+            {position.startDate.toDateString()} -{" "}
+            {position?.endDate?.toDateString() ?? "Now"}
         </p>
+        <p>
+            <strong>{position.title}</strong> @ {position.team}
+        </p>
+        <br />
+        {position.description ? (
+            <PositionDescription description={position.description} />
+        ) : null}
+        <h4>Key responsibilities:</h4>
+        <ul className={css.keyResponsibilitiesList}>
+            {position.keyResponsibilities.map((respons) => (
+                <li key={respons}>{respons}</li>
+            ))}
+        </ul>
+        <br />
         <h4 className={css.skillsHeading}>Skills:</h4>
         <FlatList className={css.skillsList}>
             {position?.skills?.map((skillItem) => ({
@@ -76,11 +83,5 @@ const Position = ({ position }: PositionProps) => (
                 id: skillItem.id,
             }))}
         </FlatList>
-        <h4>Key responsibilities:</h4>
-        <ul className={css.keyResponsibilitiesList}>
-            {position.keyResponsibilities.map((respons) => (
-                <li key={respons}>{respons}</li>
-            ))}
-        </ul>
     </article>
 );
