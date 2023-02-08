@@ -5,13 +5,10 @@
         # --flatlist-gap: sets the (flexbox) gap property
 */
 .container {
-    --internal-margin: var(--flatlist-margin, 0);
-    --internal-padding: var(--flatlist-padding, 0);
-    --internal-flex-gap: var(--flatlist-gap, 8px);
-
     list-style: none;
-    margin: var(--internal-marging);
-    padding: var(--internal-padding);
-    display: flex;
-    gap: var(--internal-flex-gap);
+    margin: var(--flatlist-margin, 0);
+    padding: var(--flatlist-padding, 0);
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--flatlist-gap, 8px);
 }
