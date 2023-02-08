@@ -1,0 +1,21 @@
+.container {
+    border-top: 1px solid black;
+    padding-block: 16px;
+
+    &:first-child {
+        border: none;
+    }
+}
+
+.skillsHeading {
+    display: inline-block;
+}
+
+.skillsList {
+    --flatlist-padding: 0 16px;
+}
+
+.keyResponsibilitiesList {
+    margin: 0;
+    padding: 0 24px;
+}

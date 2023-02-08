@@ -2,12 +2,10 @@ import { Fragment } from "react";
 import {
     EmploymentsList as EmploymentsListModel,
     Employment as EmploymentModel,
-    Position as PositionModel,
 } from "../../../../model/experience/experienceMappers";
-import { FlatList } from "../../../../modules/design/FlatList/FlatList";
+import { Position } from "./Position";
 
 import css from "./Employments.module.css";
-import { PositionDescription } from "./PositionDescription";
 
 interface EmploymentsListProps {
     employmentsList: EmploymentsListModel;
@@ -51,37 +49,3 @@ function Employment({ employment }: EmploymentProps) {
         </div>
     );
 }
-
-interface PositionProps {
-    position: PositionModel;
-}
-
-const Position = ({ position }: PositionProps) => (
-    <article className={css.position}>
-        <p>
-            {position.startDate.toDateString()} -{" "}
-            {position?.endDate?.toDateString() ?? "Now"}
-        </p>
-        <p>
-            <strong>{position.title}</strong> @ {position.team}
-        </p>
-        <br />
-        {position.description ? (
-            <PositionDescription description={position.description} />
-        ) : null}
-        <h4>Key responsibilities:</h4>
-        <ul className={css.keyResponsibilitiesList}>
-            {position.keyResponsibilities.map((respons) => (
-                <li key={respons}>{respons}</li>
-            ))}
-        </ul>
-        <br />
-        <h4 className={css.skillsHeading}>Skills:</h4>
-        <FlatList className={css.skillsList}>
-            {position?.skills?.map((skillItem) => ({
-                node: <span>{skillItem.name}</span>,
-                id: skillItem.id,
-            }))}
-        </FlatList>
-    </article>
-);

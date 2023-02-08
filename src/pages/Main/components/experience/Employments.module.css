@@ -6,28 +6,9 @@
     row-gap: 8px;
 }
 
-.skillsHeading {
-    display: inline-block;
-    margin-right: 16px;
-}
-
-.keyResponsibilitiesList {
-    margin: 0;
-    padding: 0 24px;
-}
-
 .details {
     padding-block: 8px;
     padding-inline: 16px;
     border: 1px solid black;
     border-radius: 8px;
-}
-
-.position {
-    border-top: 1px solid black;
-    padding-block: 16px;
-
-    &:first-child {
-        border: none;
-    }
 }
