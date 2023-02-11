@@ -7,6 +7,18 @@
     }
 }
 
+.heading {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.description {
+    --description-font-size: 12px;
+
+    --description-base-size: var(--description-font-size);
+    font-size: var(--description-font-size);
+}
+
 .skillsHeading {
     display: inline-block;
 }

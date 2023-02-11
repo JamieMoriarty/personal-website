@@ -7,25 +7,28 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
 import css from "./PositionDescription.module.css";
 import { ReactNode } from "react";
+import classNames from "classnames";
 
 interface PositionDescriptionProps {
+    className?: string;
     description: ContentfulDocument;
 }
 
-export function PositionDescription({ description }: PositionDescriptionProps) {
+export function PositionDescription({
+    className,
+    description,
+}: PositionDescriptionProps) {
     return (
-        <>
+        <section className={classNames(css.container, className)}>
             {documentToReactComponents(description, {
                 renderMark: {
-                    [MARKS.BOLD]: (text) => <span className={css.bold}>{text}</span>,
-                    [MARKS.ITALIC]: (text) => <span className={css.italic}>{text}</span>,
-                    [MARKS.UNDERLINE]: (text) => (
-                        <span className={css.underline}>{text}</span>
-                    ),
+                    [MARKS.BOLD]: (text) => <Bold>{text}</Bold>,
+                    [MARKS.ITALIC]: (text) => <Italic>{text}</Italic>,
+                    [MARKS.UNDERLINE]: (text) => <Underline>{text}</Underline>,
                 },
                 renderNode: {
                     [BLOCKS.PARAGRAPH]: (_, children) => (
-                        <p className={css.paragraph}>{children}</p>
+                        <Paragraph>{children}</Paragraph>
                     ),
                     [BLOCKS.HEADING_1]: (_, children) => (
                         <MainHeading>{children}</MainHeading>
@@ -55,7 +58,7 @@ export function PositionDescription({ description }: PositionDescriptionProps) {
                     [BLOCKS.HR]: () => <hr />,
                 },
             })}
-        </>
+        </section>
     );
 }
 
@@ -64,21 +67,37 @@ interface TextRendererProps {
 }
 
 function MainHeading({ children }: TextRendererProps) {
-    return <h5>{children}</h5>;
+    return <h5 className={css.heading}>{children}</h5>;
 }
 
 function SubHeading({ children }: TextRendererProps) {
-    return <h6>{children}</h6>;
+    return <h6 className={css.subHeading}>{children}</h6>;
+}
+
+function Paragraph({ children }: TextRendererProps) {
+    return <p className={css.paragraph}>{children}</p>;
 }
 
 function OrderedList({ children }: TextRendererProps) {
-    return <ol>{children}</ol>;
+    return <ol className={css.list}>{children}</ol>;
 }
 
 function UnorderedList({ children }: TextRendererProps) {
-    return <ul>{children}</ul>;
+    return <ul className={css.list}>{children}</ul>;
 }
 
 function ListItem({ children }: TextRendererProps) {
     return <li>{children}</li>;
+}
+
+function Bold({ children }: TextRendererProps) {
+    return <span className={css.bold}>{children}</span>;
+}
+
+function Italic({ children }: TextRendererProps) {
+    return <span className={css.italic}>{children}</span>;
+}
+
+function Underline({ children }: TextRendererProps) {
+    return <span className={css.underline}>{children}</span>;
 }

@@ -11,7 +11,7 @@ interface EmploymentsListProps {
     employmentsList: EmploymentsListModel;
 }
 
-export function EmploymentsList({ employmentsList }: EmploymentsListProps) {
+export function EmploymentList({ employmentsList }: EmploymentsListProps) {
     return (
         <section className={css.container}>
             {employmentsList.map((employment) => (

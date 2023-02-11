@@ -1,7 +1,35 @@
+.container {
+    font-size: var(--description-base-size, 12px);
+}
+
 .paragraph {
-    font-size: 12px;
+    padding: 2px;
 }
 
 .bold {
     font-weight: 900;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.heading {
+    font-size: 1.1em;
+    font-weight: 700;
+    padding-block-start: 0.25rem;
+}
+
+.subHeading {
+    font-size: 1.05em;
+    font-weight: 700;
+}
+
+.list {
+    padding: 4px 0 4px 16px;
+    margin: 0;
 }
