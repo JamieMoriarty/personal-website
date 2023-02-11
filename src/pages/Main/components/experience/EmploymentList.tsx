@@ -5,13 +5,13 @@ import {
 } from "../../../../model/experience/experienceMappers";
 import { Position } from "./Position";
 
-import css from "./Employments.module.css";
+import css from "./EmploymentList.module.css";
 
 interface EmploymentsListProps {
     employmentsList: EmploymentsListModel;
 }
 
-export function Employments({ employmentsList }: EmploymentsListProps) {
+export function EmploymentsList({ employmentsList }: EmploymentsListProps) {
     return (
         <section className={css.container}>
             {employmentsList.map((employment) => (

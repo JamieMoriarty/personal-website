@@ -1,6 +1,6 @@
 import { PageSection } from "../../../../modules/utility/Section/PageSection";
 import { useExperienceModel } from "../../../../model/experience/ExperienceModel";
-import { Employments } from "./Employments";
+import { EmploymentsList } from "./EmploymentList";
 
 export function ExperienceSection() {
     const data = useExperienceModel();
@@ -13,7 +13,7 @@ export function ExperienceSection() {
             {!employments ? (
                 <p>Loading...</p>
             ) : (
-                <Employments employmentsList={employments} />
+                <EmploymentsList employmentsList={employments} />
             )}
         </PageSection>
     );
