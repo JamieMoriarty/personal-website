@@ -1,5 +1,13 @@
+@font-face {
+    font-family: "Mona Sans";
+    src: url("./assets/fonts/Mona-Sans.woff2") format("woff2 supports variations"),
+        url("./assets/fonts/Mona-Sans.woff2") format("woff2-variations");
+    font-weight: 200 900;
+    font-stretch: 75% 125%;
+}
+
 :root {
-    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    font-family: "Mona Sans", Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 24px;
     font-weight: 400;
