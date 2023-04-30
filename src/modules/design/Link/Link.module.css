@@ -1,0 +1,14 @@
+.container {
+    color: var(--purple-500);
+    text-decoration: none;
+    display: inline-flex;
+    gap: 2px;
+    align-items: center;
+
+    transition: font-weight var(--animation-default);
+
+    &:hover {
+        text-decoration: underline;
+        font-weight: 500;
+    }
+}
