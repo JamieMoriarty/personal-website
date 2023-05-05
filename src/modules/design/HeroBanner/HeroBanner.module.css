@@ -9,6 +9,10 @@
         flex-direction: column-reverse;
         gap: 16px;
     }
+
+    @media (--small-viewport) {
+        flex-direction: column-reverse;
+    }
 }
 
 .textSection {
@@ -19,6 +23,10 @@
 
     @media (--medium-viewport) {
         padding-inline: 24px;
+    }
+
+    @media (--medium-viewport) {
+        padding-inline: 8px;
     }
 }
 
@@ -42,4 +50,5 @@
 .headerImage {
     grid-area: image;
     align-self: center;
+    max-width: 100%;
 }

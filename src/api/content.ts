@@ -7,9 +7,12 @@ export const CONTENT_QUERY = gql(`query GetContent {
       items {
         title
         description
-        image {
+        squareImage {
           url
         }
+        landscapeImage {
+            url
+          }
       }
     }
   }`);
@@ -42,7 +45,10 @@ export interface ContentApiResponse {
 interface HeroContent {
     title: string;
     description: string;
-    image: {
+    squareImage: {
+        url: string;
+    };
+    landscapeImage: {
         url: string;
     };
 }
@@ -53,7 +59,10 @@ const isContentApiResponse = isShape<ContentApiResponse>({
             isShape({
                 title: isString,
                 description: isString,
-                image: isShape({
+                squareImage: isShape({
+                    url: isString,
+                }),
+                landscapeImage: isShape({
                     url: isString,
                 }),
             })
