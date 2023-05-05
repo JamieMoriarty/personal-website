@@ -1,7 +1,14 @@
+@import "@/imports.css";
+
 .header {
     display: flex;
     align-items: center;
     gap: 32px;
+
+    @media (--medium-viewport) {
+        flex-direction: column-reverse;
+        gap: 16px;
+    }
 }
 
 .textSection {
@@ -9,6 +16,10 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+
+    @media (--medium-viewport) {
+        padding-inline: 24px;
+    }
 }
 
 .linkList {
