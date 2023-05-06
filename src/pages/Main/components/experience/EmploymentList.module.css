@@ -1,9 +1,15 @@
+@import "@/imports.css";
+
 .container {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
     gap: 16px;
     row-gap: 8px;
+
+    @media (--small-viewport) {
+        display: none;
+    }
 }
 
 .details {
