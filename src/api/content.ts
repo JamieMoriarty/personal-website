@@ -7,6 +7,13 @@ export const CONTENT_QUERY = gql(`query GetContent {
       items {
         title
         description
+        shortDescription
+        linksCollection {
+          items {
+            label
+            url
+          }
+        }
         squareImage {
           url
         }
@@ -17,7 +24,7 @@ export const CONTENT_QUERY = gql(`query GetContent {
     }
   }`);
 
-export const useApiContent = function (): { hero: HeroContent } | undefined {
+export const useApiContent = function (): { hero: ApiHeroContent } | undefined {
     const { data, loading, error } = useQuery(CONTENT_QUERY);
 
     if (error !== undefined) {
@@ -29,7 +36,7 @@ export const useApiContent = function (): { hero: HeroContent } | undefined {
     } else {
         const hero = data.heroCollection.items;
         if (hero.length !== 1) {
-            throw Error("unexpected shape of data");
+            throw Error("unexpected shape of data, too many heroes defined");
         }
 
         return { hero: data.heroCollection.items[0] };
@@ -38,13 +45,20 @@ export const useApiContent = function (): { hero: HeroContent } | undefined {
 
 export interface ContentApiResponse {
     heroCollection: {
-        items: Array<HeroContent>;
+        items: Array<ApiHeroContent>;
     };
 }
 
-interface HeroContent {
+export interface ApiHeroContent {
     title: string;
     description: string;
+    shortDescription: string;
+    linksCollection: {
+        items: Array<{
+            label: string;
+            url: string;
+        }>;
+    };
     squareImage: {
         url: string;
     };
@@ -59,6 +73,15 @@ const isContentApiResponse = isShape<ContentApiResponse>({
             isShape({
                 title: isString,
                 description: isString,
+                shortDescription: isString,
+                linksCollection: isShape({
+                    items: isArray(
+                        isShape({
+                            label: isString,
+                            url: isString,
+                        })
+                    ),
+                }),
                 squareImage: isShape({
                     url: isString,
                 }),

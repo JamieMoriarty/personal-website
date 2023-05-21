@@ -2,14 +2,16 @@ import { ReactNode } from "react";
 
 import css from "./Link.module.css";
 
+export type To =
+    | string
+    | {
+          url: string;
+          query: Map<string, string>;
+          hash: string;
+      };
+
 interface LinkProps {
-    to:
-        | string
-        | {
-              url: string;
-              query: Map<string, string>;
-              hash: string;
-          };
+    to: To;
     children: string;
     icon?: ReactNode;
 }
