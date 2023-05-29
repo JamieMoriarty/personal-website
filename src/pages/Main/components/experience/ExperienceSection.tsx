@@ -1,4 +1,4 @@
-import { PageSection } from "../../../../modules/utility/Section/PageSection";
+import { PageSection } from "../../../../modules/layout/Section/PageSection";
 import { useExperienceModel } from "../../../../model/experience/ExperienceModel";
 import { EmploymentList } from "./EmploymentList";
 

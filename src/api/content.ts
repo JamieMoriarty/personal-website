@@ -1,30 +1,52 @@
 import { useQuery } from "@apollo/client";
 import { gql } from "../__generated__";
-import { isShape, isString, isArray } from "../utils/validations";
+import { isShape, isString, isArray, maybeNull } from "../utils/validations";
+import { Document as ContentfulDocument } from "@contentful/rich-text-types";
+import { isContentfulDocument } from "./experience";
 
 export const CONTENT_QUERY = gql(`query GetContent {
-    heroCollection {
+    mainPageCollection {
       items {
-        title
-        description
-        shortDescription
-        linksCollection {
+        hero {
+          title
+          description
+          shortDescription
+          linksCollection (limit:5) {
+            items {
+              label
+              url
+            }
+          }
+          squareImage {
+            url
+          }
+          landscapeImage {
+            url
+          }
+        }
+        sectionsCollection(limit:100) {
           items {
-            label
-            url
+            title
+            description {
+              json
+            }
           }
         }
-        squareImage {
-          url
-        }
-        landscapeImage {
-            url
-          }
       }
     }
   }`);
 
-export const useApiContent = function (): { hero: ApiHeroContent } | undefined {
+export const useApiContent = function ():
+    | {
+          hero: ApiHeroContent;
+          sectionsCollection: {
+              items: Array<{
+                  title: string;
+                  description: { json: ContentfulDocument } | null;
+              }>;
+          };
+      }
+    | undefined {
     const { data, loading, error } = useQuery(CONTENT_QUERY);
 
     if (error !== undefined) {
@@ -34,18 +56,26 @@ export const useApiContent = function (): { hero: ApiHeroContent } | undefined {
     } else if (!isContentApiResponse(data)) {
         throw Error("unexpected shape of data");
     } else {
-        const hero = data.heroCollection.items;
-        if (hero.length !== 1) {
-            throw Error("unexpected shape of data, too many heroes defined");
+        const mainPageCollection = data.mainPageCollection.items;
+        if (mainPageCollection.length !== 1) {
+            throw Error("unexpected shape of data, too many main pages!");
         }
 
-        return { hero: data.heroCollection.items[0] };
+        return data.mainPageCollection.items[0];
     }
 };
 
 export interface ContentApiResponse {
-    heroCollection: {
-        items: Array<ApiHeroContent>;
+    mainPageCollection: {
+        items: Array<{
+            hero: ApiHeroContent;
+            sectionsCollection: {
+                items: Array<{
+                    title: string;
+                    description: { json: ContentfulDocument } | null;
+                }>;
+            };
+        }>;
     };
 }
 
@@ -67,26 +97,45 @@ export interface ApiHeroContent {
     };
 }
 
-const isContentApiResponse = isShape<ContentApiResponse>({
-    heroCollection: isShape({
+interface ApiSectionContent {
+    title: string;
+    description: { json: ContentfulDocument };
+}
+
+const isHeroApiResponse = isShape<ApiHeroContent>({
+    title: isString,
+    description: isString,
+    shortDescription: isString,
+    linksCollection: isShape({
         items: isArray(
             isShape({
-                title: isString,
-                description: isString,
-                shortDescription: isString,
-                linksCollection: isShape({
+                label: isString,
+                url: isString,
+            })
+        ),
+    }),
+    squareImage: isShape({
+        url: isString,
+    }),
+    landscapeImage: isShape({
+        url: isString,
+    }),
+});
+
+const isContentApiResponse = isShape<ContentApiResponse>({
+    mainPageCollection: isShape({
+        items: isArray(
+            isShape({
+                hero: isHeroApiResponse,
+                sectionsCollection: isShape({
                     items: isArray(
                         isShape({
-                            label: isString,
-                            url: isString,
+                            title: isString,
+                            description: maybeNull(
+                                isShape({ json: isContentfulDocument })
+                            ),
                         })
                     ),
-                }),
-                squareImage: isShape({
-                    url: isString,
-                }),
-                landscapeImage: isShape({
-                    url: isString,
                 }),
             })
         ),

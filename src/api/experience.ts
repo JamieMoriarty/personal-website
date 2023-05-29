@@ -107,7 +107,7 @@ const isExperienceApiResponse = isArray(
     })
 );
 
-function isContentfulDocument(value: unknown): value is ContentfulDocument {
+export function isContentfulDocument(value: unknown): value is ContentfulDocument {
     return (
         !!value &&
         typeof value === "object" &&

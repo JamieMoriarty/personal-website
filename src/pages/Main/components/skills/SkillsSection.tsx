@@ -1,4 +1,4 @@
-import { PageSection } from "../../../../modules/utility/Section/PageSection";
+import { PageSection } from "../../../../modules/layout/Section/PageSection";
 import { useSkillsModel } from "../../../../model/skills/SkillsModel";
 import { SkillArea } from "./SkillArea";
 
