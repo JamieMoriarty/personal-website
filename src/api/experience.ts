@@ -92,7 +92,7 @@ const isSkill = isShape({
     sys: hasId,
 });
 
-const isExperienceApiResponse = isArray(
+export const isExperienceApiResponse = isArray(
     isShape<ExperienceApiResponse>({
         title: isString,
         team: isString,

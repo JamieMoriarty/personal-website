@@ -8,7 +8,7 @@ export const Main = () => {
     return !content ? null : (
         <Page>
             <Hero content={content.hero} />
-            <MainContent />
+            <MainContent sections={content.sectionOverviews} />
         </Page>
     );
 };

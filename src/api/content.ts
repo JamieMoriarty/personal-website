@@ -4,50 +4,56 @@ import { isShape, isString, isArray, maybeNull } from "../utils/validations";
 import { Document as ContentfulDocument } from "@contentful/rich-text-types";
 import { isContentfulDocument } from "./experience";
 
-export const CONTENT_QUERY = gql(`query GetContent {
-    mainPageCollection {
-      items {
-        hero {
-          title
-          description
-          shortDescription
-          linksCollection (limit:5) {
-            items {
-              label
-              url
-            }
-          }
-          squareImage {
-            url
-          }
-          landscapeImage {
+export const MAIN_CONTENT_QUERY = gql(`query GetContent {
+  mainPageCollection {
+    items {
+      hero {
+        title
+        description
+        shortDescription
+        linksCollection(limit: 5) {
+          items {
+            label
             url
           }
         }
-        sectionsCollection(limit:100) {
-          items {
-            title
-            description {
-              json
+        squareImage {
+          url
+        }
+        landscapeImage {
+          url
+        }
+      }
+      sectionsCollection(limit: 5) {
+        items {
+          sys {
+            id
+          }
+          title
+          id
+          content {
+            ...on SkillsCollection {
+              type
+            }
+            ...on ExperienceCollection {
+              type
             }
           }
         }
       }
     }
-  }`);
+  }
+}`);
 
-export const useApiContent = function ():
+export const useApiMainContent = function ():
     | {
           hero: ApiHeroContent;
           sectionsCollection: {
-              items: Array<{
-                  title: string;
-                  description: { json: ContentfulDocument } | null;
-              }>;
+              items: Array<SectionOverviewContent>;
           };
       }
     | undefined {
-    const { data, loading, error } = useQuery(CONTENT_QUERY);
+    const { data, loading, error } = useQuery(MAIN_CONTENT_QUERY);
 
     if (error !== undefined) {
         throw error;
@@ -65,20 +71,6 @@ export const useApiContent = function ():
     }
 };
 
-export interface ContentApiResponse {
-    mainPageCollection: {
-        items: Array<{
-            hero: ApiHeroContent;
-            sectionsCollection: {
-                items: Array<{
-                    title: string;
-                    description: { json: ContentfulDocument } | null;
-                }>;
-            };
-        }>;
-    };
-}
-
 export interface ApiHeroContent {
     title: string;
     description: string;
@@ -95,11 +87,6 @@ export interface ApiHeroContent {
     landscapeImage: {
         url: string;
     };
-}
-
-interface ApiSectionContent {
-    title: string;
-    description: { json: ContentfulDocument };
 }
 
 const isHeroApiResponse = isShape<ApiHeroContent>({
@@ -122,22 +109,135 @@ const isHeroApiResponse = isShape<ApiHeroContent>({
     }),
 });
 
+export interface SectionOverviewContent {
+    sys: {
+        id: string;
+    };
+    title: string;
+    id: string;
+    content: null | {
+        type: string;
+    };
+}
+
+const isSectionOverviewContent = isShape<SectionOverviewContent>({
+    sys: isShape({ id: isString }),
+    title: isString,
+    id: isString,
+    content: maybeNull(
+        isShape({
+            type: isString,
+        })
+    ),
+});
+
+export interface ContentApiResponse {
+    mainPageCollection: {
+        items: Array<{
+            hero: ApiHeroContent;
+            sectionsCollection: {
+                items: Array<SectionOverviewContent>;
+            };
+        }>;
+    };
+}
+
 const isContentApiResponse = isShape<ContentApiResponse>({
     mainPageCollection: isShape({
         items: isArray(
             isShape({
                 hero: isHeroApiResponse,
                 sectionsCollection: isShape({
-                    items: isArray(
-                        isShape({
-                            title: isString,
-                            description: maybeNull(
-                                isShape({ json: isContentfulDocument })
-                            ),
-                        })
-                    ),
+                    items: isArray(isSectionOverviewContent),
                 }),
             })
         ),
     }),
 });
+
+const SECTION_QUERY = gql(`query GetSection($id: String!) {
+    section(id: $id) {
+      title
+      description {
+        json
+      }
+      content {
+        ...on SkillsCollection {
+          type
+          skillsCollection {
+            items {
+              ...skillFields
+            }
+          }
+        }
+        ...on ExperienceCollection {
+          type
+          positionsCollection {
+            items {
+              ...positionFields
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  fragment skillFields on Skill {
+    sys {
+      id
+    }
+    name
+    category {
+      sys {
+        id
+      }
+      name
+    }
+    area {
+      sys {
+        id
+      }
+      name
+    }
+  }
+  
+  fragment positionFields on Position {
+    sys {
+      id
+    }
+    title
+    team
+    additionalSpecifier
+    startDate
+    endDate
+    keyResponsibilities
+    description {
+      json
+    }
+    employer {
+      sys {
+        id
+      }
+      name
+      logo {
+        url
+      }
+      homepageUrl
+    }
+    skillsCollection {
+      items {
+        sys {
+          id
+        }
+      }
+    }
+  }`);
+
+export function useSectionContent(id: string) {
+    const section = useQuery(SECTION_QUERY, { variables: { id } });
+}
+
+interface ApiSectionContent {
+    title: string;
+    description: { json: ContentfulDocument };
+}

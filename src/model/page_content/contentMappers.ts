@@ -1,4 +1,4 @@
-import { ApiHeroContent } from "../../api/content";
+import { ApiHeroContent, SectionOverviewContent } from "../../api/content";
 
 export interface HeroContent {
     title: string;
@@ -20,5 +20,27 @@ export function toHeroContent(apiResponse: ApiHeroContent): HeroContent {
         links: apiResponse.linksCollection.items,
         squareImageUrl: apiResponse.squareImage.url,
         landscapeImageUrl: apiResponse.landscapeImage.url,
+    };
+}
+
+export interface SectionOverview {
+    title: string;
+    id: string;
+    externalId: string;
+    contentType?: SectionOverviewContentType;
+}
+
+export type SectionOverviewContentType = "skills" | "experience";
+
+export function toSectionOverview(apiResponse: SectionOverviewContent): SectionOverview {
+    return {
+        title: apiResponse.title,
+        id: apiResponse.id,
+        externalId: apiResponse.sys.id,
+        contentType:
+            apiResponse.content?.type === "skills" ||
+            apiResponse.content?.type === "experience"
+                ? apiResponse.content?.type
+                : undefined,
     };
 }
