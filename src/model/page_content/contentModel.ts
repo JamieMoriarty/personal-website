@@ -1,17 +1,20 @@
-import { useApiMainContent } from "../../api/content";
+import { useApiMainContent, useApiSectionContent } from "../../api/content";
+import { useSkillsModel } from "../skills/SkillsModel";
 import {
     HeroContent,
+    SectionContent,
     SectionOverview,
     toHeroContent,
+    toSection,
     toSectionOverview,
 } from "./contentMappers";
 
-export interface Content {
+export interface OverviewContent {
     hero: HeroContent;
     sectionOverviews: Array<SectionOverview>;
 }
 
-export function useContentModel(): Content | undefined {
+export function useOverviewContentModel(): OverviewContent | undefined {
     const pageContent = useApiMainContent();
 
     return pageContent === undefined
@@ -21,4 +24,11 @@ export function useContentModel(): Content | undefined {
               sectionOverviews:
                   pageContent.sectionsCollection.items.map(toSectionOverview),
           };
+}
+
+export function useSectionContent(id: string | undefined): SectionContent | undefined {
+    const apiResponse = useApiSectionContent(id);
+    const skillsModel = useSkillsModel();
+
+    return apiResponse && skillsModel && toSection(apiResponse, skillsModel.getSkillById);
 }

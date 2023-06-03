@@ -1,8 +1,13 @@
 import { useQuery } from "@apollo/client";
 import { gql } from "../__generated__";
-import { isShape, isString, isArray, maybeNull } from "../utils/validations";
+import { isShape, isString, isArray, maybeNull, isOneOf } from "../utils/validations";
 import { Document as ContentfulDocument } from "@contentful/rich-text-types";
-import { isContentfulDocument } from "./experience";
+import {
+    ExperienceApiResponse,
+    isApiExperience,
+    isContentfulDocument,
+} from "./experience";
+import { ApiSkills, isApiSkills } from "./skills";
 
 export const MAIN_CONTENT_QUERY = gql(`query GetContent {
   mainPageCollection {
@@ -233,11 +238,70 @@ const SECTION_QUERY = gql(`query GetSection($id: String!) {
     }
   }`);
 
-export function useSectionContent(id: string) {
-    const section = useQuery(SECTION_QUERY, { variables: { id } });
+export function useApiSectionContent(
+    id: string | undefined
+): ApiSectionContent | undefined {
+    const { data, loading, error } = useQuery(SECTION_QUERY, {
+        variables: { id: id ?? "3fAnp6zf3b0hxBtTAmJuMz" },
+    });
+
+    if (error !== undefined) {
+        throw error;
+    } else if (loading) {
+        return undefined;
+    } else if (isApiSectionContent(data)) {
+        return data;
+    } else {
+        throw Error("unexpected shape of data");
+    }
 }
 
-interface ApiSectionContent {
-    title: string;
-    description: { json: ContentfulDocument };
+export interface ApiSectionContent {
+    section: {
+        title: string;
+        description: { json: ContentfulDocument } | null;
+        content: ApiSkillsSectionContent | ApiExperienceSectionContent | null;
+    };
 }
+
+export interface ApiSkillsSectionContent {
+    type: string;
+    skillsCollection: {
+        items: Array<ApiSkills>;
+    };
+}
+
+export const isApiSkillsSectionContent = isShape<ApiSkillsSectionContent>({
+    type: isString,
+    skillsCollection: isShape({
+        items: isArray(isApiSkills),
+    }),
+});
+
+export interface ApiExperienceSectionContent {
+    type: string;
+    positionsCollection: {
+        items: Array<ExperienceApiResponse>;
+    };
+}
+
+export const isApiExperienceSectionContent = isShape<ApiExperienceSectionContent>({
+    type: isString,
+    positionsCollection: isShape({
+        items: isArray(isApiExperience),
+    }),
+});
+
+const isApiSectionContent = isShape<ApiSectionContent>({
+    section: isShape({
+        title: isString,
+        description: maybeNull(
+            isShape({
+                json: isContentfulDocument,
+            })
+        ),
+        content: maybeNull(
+            isOneOf(isApiSkillsSectionContent, isApiExperienceSectionContent)
+        ),
+    }),
+});

@@ -27,6 +27,14 @@ export function maybeNull<T>(checker: Checker<T>): Checker<T | null> {
     return (value: unknown): value is T | null => value === null || checker(value);
 }
 
+export function isOneOf<S, T>(
+    firstChecker: Checker<S>,
+    secondChecker: Checker<T>
+): Checker<S | T> {
+    return (value: unknown): value is S | T =>
+        firstChecker(value) || secondChecker(value);
+}
+
 /* eslint-disable @typescript-eslint/no-explicit-any*/
 export function isShape<T extends object>(
     template: CheckerObj<T>
