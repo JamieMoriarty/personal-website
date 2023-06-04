@@ -37,22 +37,28 @@ export function isOneOf<S, T>(
 
 /* eslint-disable @typescript-eslint/no-explicit-any*/
 export function isShape<T extends object>(
-    template: CheckerObj<T>
+    template: CheckerObj<T>,
+    withLogging = false
 ): (value: unknown) => value is T {
     return (value: unknown): value is T => {
         const valid = Object.entries<Checker<any>>(template).every(([key, checker]) => {
+            if (!value || !(key in (value as OfShape<any>))) {
+                return false;
+            }
             return checker((value as OfShape<any>)[key]);
-        });
-
-        if (!valid) {
+        }); /*if (!valid && withLogging) {
             Object.entries<Checker<any>>(template).forEach(([key, checker]) => {
-                if (!checker((value as OfShape<any>)[key])) {
-                    throw Error(`unexpected shape for ${key}`);
+                if (
+                    value &&
+                    key in (value as OfShape<any>) &&
+                    !checker((value as OfShape<any>)[key])
+                ) {
+                    console.error(`unexpected shape for ${key}`);
                 }
             });
-        }
+        }*/
 
-        return valid;
+        return !withLogging && valid;
     };
 }
 /* eslint-enable*/

@@ -1,9 +1,5 @@
 import { SectionOverview } from "../../../model/page_content/contentMappers";
-import {
-    AboutSection,
-    ExperienceSection,
-    SkillsSection,
-} from "../../../pages/Main/components";
+import { PageSection } from "../Section/PageSection";
 import css from "./MainContent.module.css";
 
 interface MainContentProps {
@@ -14,7 +10,7 @@ export function MainContent({ sections }: MainContentProps) {
     return (
         <main className={css.container}>
             <Navigation sections={sections} />
-            <ContentBody />
+            <ContentBody sections={sections} />
         </main>
     );
 }
@@ -35,12 +31,16 @@ function Navigation({ sections }: NavigationProps) {
     );
 }
 
-function ContentBody() {
+interface ContentBodyProps {
+    sections: Array<SectionOverview>;
+}
+
+function ContentBody({ sections }: ContentBodyProps) {
     return (
         <article>
-            <AboutSection />
-            <SkillsSection />
-            <ExperienceSection />
+            {sections.map((section) => (
+                <PageSection key={section.id} section={section} />
+            ))}
         </article>
     );
 }

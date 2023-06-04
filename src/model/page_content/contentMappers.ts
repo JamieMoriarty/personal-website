@@ -54,10 +54,23 @@ export function toSectionOverview(apiResponse: SectionOverviewContent): SectionO
     };
 }
 
-export interface SectionContent {
+export type SectionContent = SectionWithDescriptionOnly | SectionWithReferencedContent;
+
+interface SectionWithDescriptionOnly {
+    title: string;
+    description: ContentfulDocument;
+}
+
+interface SectionWithReferencedContent {
     title: string;
     description?: ContentfulDocument;
-    content?: SkillSectionContent | ExperienceSectionContent;
+    content: SkillSectionContent | ExperienceSectionContent;
+}
+
+export function isSectionWithReferencedContent(
+    sectionContent: SectionContent
+): sectionContent is SectionWithReferencedContent {
+    return "content" in sectionContent && !!sectionContent.content;
 }
 
 interface SkillSectionContent {
@@ -75,13 +88,13 @@ export function toSection(
     getSkillById: (id: string) => Skill
 ): SectionContent | undefined {
     const section = apiResponse.section;
-    if (section.content === null) {
+    if (section.content === null && section.description) {
         return {
             title: section.title,
-            description: section.description?.json,
+            description: section.description.json,
         };
     } else if (
-        section.content.type === "skills" &&
+        section.content?.type === "skills" &&
         isApiSkillsSectionContent(section.content)
     ) {
         return {
@@ -93,7 +106,7 @@ export function toSection(
             },
         };
     } else if (
-        section.content.type === "experience" &&
+        section.content?.type === "experience" &&
         isApiExperienceSectionContent(section.content)
     ) {
         return {
@@ -107,5 +120,7 @@ export function toSection(
                 ),
             },
         };
+    } else {
+        throw Error("section must have description or content (possibly both)");
     }
 }
