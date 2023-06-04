@@ -8,6 +8,10 @@ import {
 import { DocumentDisplay } from "../ContentfulDocument/DocumentDisplay";
 import { Position } from "../../../model/experience/experienceMappers";
 import { Skill } from "../../../model/skills/skillMappers";
+import { SkillsSection } from "../../domain/skills/SkillsSection";
+import { toSkillsModel } from "../../../model/skills/SkillsModel";
+import { toExperienceModel } from "../../../model/experience/ExperienceModel";
+import { EmploymentList } from "../../domain/experience/experience/EmploymentList";
 
 interface PageSectionProps {
     className?: string;
@@ -48,14 +52,16 @@ interface ExperienceListProps {
 }
 
 function ExperienceList({ experience }: ExperienceListProps) {
-    console.log("experience:", experience);
-    return <></>;
+    const experienceModel = toExperienceModel(experience);
+    return experienceModel !== undefined ? (
+        <EmploymentList employmentsList={experienceModel.employments} />
+    ) : null;
 }
 
 interface SkillsListProps {
     skills: Array<Skill>;
 }
 function SkillsList({ skills }: SkillsListProps) {
-    console.log("skills:", skills);
-    return <></>;
+    const skillsModel = toSkillsModel(skills);
+    return skillsModel !== undefined ? <SkillsSection skillsModel={skillsModel} /> : null;
 }

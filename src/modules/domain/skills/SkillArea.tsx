@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import { Skill, SkillsArea, SkillsCategory } from "../../../../model/skills/skillMappers";
-import { FlatList } from "../../../../modules/design/FlatList/FlatList";
+import { Skill, SkillsArea, SkillsCategory } from "../../../model/skills/skillMappers";
+import { FlatList } from "../../design/FlatList/FlatList";
 
 import css from "./SkillArea.module.css";
 

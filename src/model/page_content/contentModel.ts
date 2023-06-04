@@ -1,5 +1,5 @@
 import { useApiMainContent, useApiSectionContent } from "../../api/content";
-import { useSkillsModel } from "../skills/SkillsModel";
+import { useFullSkillsModel } from "../skills/SkillsModel";
 import {
     HeroContent,
     SectionContent,
@@ -28,7 +28,7 @@ export function useOverviewContentModel(): OverviewContent | undefined {
 
 export function useSectionContent(id: string | undefined): SectionContent | undefined {
     const apiResponse = useApiSectionContent(id);
-    const skillsModel = useSkillsModel();
+    const skillsModel = useFullSkillsModel();
 
     return apiResponse && skillsModel && toSection(apiResponse, skillsModel.getSkillById);
 }
