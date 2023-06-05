@@ -1,28 +1,22 @@
-import classnames from "classnames";
-import css from "./PageSection.module.css";
-import { useSectionContent } from "../../../model/page_content/contentModel";
-import {
-    SectionOverview,
-    isSectionWithReferencedContent,
-} from "../../../model/page_content/contentMappers";
-import { DocumentDisplay } from "../ContentfulDocument/DocumentDisplay";
-import { Position } from "../../../model/experience/experienceMappers";
-import { Skill } from "../../../model/skills/skillMappers";
-import { SkillsSection } from "../../domain/skills/SkillsSection";
-import { toSkillsModel } from "../../../model/skills/SkillsModel";
-import { toExperienceModel } from "../../../model/experience/ExperienceModel";
-import { EmploymentList } from "../../domain/experience/experience/EmploymentList";
+import { isSectionWithReferencedContent } from "../../../../model/page_content/contentMappers";
+import { useSectionContent } from "../../../../model/page_content/contentModel";
+import { DocumentDisplay } from "../../../../modules/layout/ContentfulDocument/DocumentDisplay";
 
-interface PageSectionProps {
-    className?: string;
-    section: SectionOverview;
+import { toExperienceModel } from "../../../../model/experience/ExperienceModel";
+import { Position } from "../../../../model/experience/experienceMappers";
+import { EmploymentList } from "../../../../modules/domain/experience/experience/EmploymentList";
+import { Skill } from "../../../../model/skills/skillMappers";
+import { toSkillsModel } from "../../../../model/skills/SkillsModel";
+import { SkillsSection } from "../../../../modules/domain/skills/SkillsSection";
+
+interface SectionProps {
+    externalId: string;
 }
 
-export function PageSection({ className, section }: PageSectionProps) {
-    const sectionContent = useSectionContent(section.externalId);
+export function PageSectionContent({ externalId }: SectionProps) {
+    const sectionContent = useSectionContent(externalId);
     return (
-        <section id={section.id} className={classnames(css.container, className)}>
-            <h2>{section.title}</h2>
+        <>
             {!sectionContent ? (
                 <p>loading...</p>
             ) : (
@@ -43,7 +37,7 @@ export function PageSection({ className, section }: PageSectionProps) {
                     ) : null}
                 </>
             )}
-        </section>
+        </>
     );
 }
 
