@@ -1,6 +1,7 @@
 import { ReactNode, useCallback } from "react";
 import css from "./SectionsWithNav.module.css";
 import { Section } from "../Section/Section";
+import classnames from "classnames";
 
 interface NavigableSection {
     id: string;
@@ -56,5 +57,10 @@ function NavigationLink({ identifier, children }: NavigationLinkProps) {
             behavior: "smooth",
         });
     }, []);
-    return <button onClick={scrollIntoView}>{children}</button>;
+
+    return (
+        <button onClick={scrollIntoView} className={classnames(css.navLink, "body")}>
+            {children}
+        </button>
+    );
 }
