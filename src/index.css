@@ -37,7 +37,7 @@
     --purple-700: hsl(var(--primary-hue), var(--primary-saturation), 70%);
     --purple-800: hsl(var(--primary-hue), var(--primary-saturation), 80%);
     --purple-900: hsl(var(--primary-hue), var(--primary-saturation), 90%);
-    --purple-100: hsl(var(--primary-hue), var(--primary-saturation), 98%);
+    --purple-1000: hsl(var(--primary-hue), var(--primary-saturation), 98%);
 }
 
 *,
@@ -49,6 +49,7 @@
 body {
     margin: 0;
     min-height: 100vh;
+    color: var(--purple-50);
 }
 
 h1,
