@@ -1,5 +1,5 @@
-import { Position as PositionModel } from "../../../../model/experience/experienceMappers";
-import { FlatList } from "../../../design/FlatList/FlatList";
+import { Position as PositionModel } from "../../../model/experience/experienceMappers";
+import { FlatList } from "../../design/FlatList/FlatList";
 import { PositionDescription } from "./PositionDescription";
 
 import css from "./Position.module.css";

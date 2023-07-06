@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import {
     EmploymentsList as EmploymentsListModel,
     Employment as EmploymentModel,
-} from "../../../../model/experience/experienceMappers";
+} from "../../../model/experience/experienceMappers";
 import { Position } from "./Position";
 
 import css from "./EmploymentList.module.css";
