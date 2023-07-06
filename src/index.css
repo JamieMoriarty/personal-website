@@ -26,6 +26,7 @@
 
     --primary-hue: 287;
     --primary-saturation: 90%;
+    --grey-saturation: 5%;
 
     --purple-50: hsl(var(--primary-hue), var(--primary-saturation), 5%);
     --purple-100: hsl(var(--primary-hue), var(--primary-saturation), 10%);
@@ -38,6 +39,18 @@
     --purple-800: hsl(var(--primary-hue), var(--primary-saturation), 80%);
     --purple-900: hsl(var(--primary-hue), var(--primary-saturation), 90%);
     --purple-1000: hsl(var(--primary-hue), var(--primary-saturation), 98%);
+
+    --grey-50: hsl(var(--primary-hue), var(--grey-saturation), 5%);
+    --grey-100: hsl(var(--primary-hue), var(--grey-saturation), 10%);
+    --grey-200: hsl(var(--primary-hue), var(--grey-saturation), 20%);
+    --grey-300: hsl(var(--primary-hue), var(--grey-saturation), 30%);
+    --grey-400: hsl(var(--primary-hue), var(--grey-saturation), 40%);
+    --grey-500: hsl(var(--primary-hue), var(--grey-saturation), 50%);
+    --grey-600: hsl(var(--primary-hue), var(--grey-saturation), 60%);
+    --grey-700: hsl(var(--primary-hue), var(--grey-saturation), 70%);
+    --grey-800: hsl(var(--primary-hue), var(--grey-saturation), 80%);
+    --grey-900: hsl(var(--primary-hue), var(--grey-saturation), 90%);
+    --grey-1000: hsl(var(--primary-hue), var(--grey-saturation), 98%);
 }
 
 *,
@@ -111,7 +124,7 @@ p {
     font-size: 0.79375rem;
     line-height: 0.91875rem;
     font-weight: 900;
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 
 .smallCapsLight {

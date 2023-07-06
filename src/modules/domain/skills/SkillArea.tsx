@@ -1,8 +1,8 @@
-import { Fragment } from "react";
 import { Skill, SkillsArea, SkillsCategory } from "../../../model/skills/skillMappers";
 import { FlatList } from "../../design/FlatList/FlatList";
 
 import css from "./SkillArea.module.css";
+import classNames from "classnames";
 
 interface SkillsCategoryProps {
     area: SkillsArea;
@@ -11,12 +11,12 @@ interface SkillsCategoryProps {
 
 export function SkillArea({ area, categories }: SkillsCategoryProps) {
     return (
-        <>
-            <h3>{area.name}</h3>
+        <section className={css.area}>
+            <h3 className={classNames("smallHeader", css.areaName)}>{area.name}</h3>
             {categories.map((category) => (
                 <SkillCategory key={category.id} category={category} />
             ))}
-        </>
+        </section>
     );
 }
 
@@ -25,15 +25,12 @@ interface SkillCategoryProps {
 }
 
 const SkillCategory = ({ category }: SkillCategoryProps) => (
-    <>
-        <h4 className={css.categoryTitle}>{category.name}</h4>
-        <FlatList className={css.skillList}>
-            {category.skills.map((skill) => ({
-                node: <SkillName skill={skill} />,
-                id: skill.id,
-            }))}
-        </FlatList>
-    </>
+    <FlatList className={css.skillList} title={category.name}>
+        {category.skills.map((skill) => ({
+            node: <SkillName skill={skill} />,
+            id: skill.id,
+        }))}
+    </FlatList>
 );
 
 const SkillName = ({ skill }: { skill: Skill }) => (
