@@ -1,4 +1,13 @@
-@custom-media --small-viewport (max-width: 1000px);
+@import "@/imports.css";
+
+.area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.category {
+}
 
 .skillList {
     --flatlist-padding: 0 16px;
