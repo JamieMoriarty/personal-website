@@ -17,7 +17,7 @@ export function SectionsWithNav({ sections }: SectionsWithNavProps) {
     return (
         <main className={css.container}>
             <Navigation sections={sections} />
-            <div>
+            <div className={css.sectionsContainer}>
                 {sections.map((section) => (
                     <Section key={section.id} id={section.id} title={section.title}>
                         {section.node}

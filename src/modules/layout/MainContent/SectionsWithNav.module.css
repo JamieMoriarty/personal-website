@@ -7,6 +7,21 @@
     @media (--large-viewport) {
         flex-direction: row;
         align-items: flex-start;
+        gap: 64px;
+    }
+}
+
+.sectionsContainer {
+    @media (--large-viewport) {
+        padding-inline: 32px;
+    }
+
+    @media (--medium-viewport) {
+        padding-inline: 24px;
+    }
+
+    @media (--small-viewport) {
+        padding-inline: 8px;
     }
 }
 
@@ -14,7 +29,7 @@
     position: sticky;
     top: 0;
 
-    padding: 16px 32px;
+    padding: 32px 16px;
     text-align: left;
     display: flex;
     flex-direction: row;
@@ -32,12 +47,13 @@
     outline: none;
     border: 1px solid white;
 
+    cursor: pointer;
     color: var(--rgb-purple-100);
     text-align: left;
     padding: 8px 16px;
     border-radius: 4px;
 
-    transition: background 200ms, color 200ms, font-weight 200ms;
+    transition: background-color 200ms, color 200ms, font-weight 200ms;
 
     &:hover,
     &:focus,

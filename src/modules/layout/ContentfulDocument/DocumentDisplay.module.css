@@ -1,9 +1,13 @@
 .paragraph {
-    padding: 2px;
+    padding: 0;
+
+    &:not(first-child) {
+        padding-block-start: 4px;
+    }
 }
 
 .bold {
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .italic {
