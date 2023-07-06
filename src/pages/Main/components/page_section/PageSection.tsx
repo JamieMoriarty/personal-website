@@ -4,7 +4,7 @@ import { DocumentDisplay } from "../../../../modules/layout/ContentfulDocument/D
 
 import { toExperienceModel } from "../../../../model/experience/ExperienceModel";
 import { Position } from "../../../../model/experience/experienceMappers";
-import { EmploymentList } from "../../../../modules/domain/experience/experience/EmploymentList";
+import { EmploymentList } from "../../../../modules/domain/experience/EmploymentList";
 import { Skill } from "../../../../model/skills/skillMappers";
 import { toSkillsModel } from "../../../../model/skills/SkillsModel";
 import { SkillsSection } from "../../../../modules/domain/skills/SkillsSection";
