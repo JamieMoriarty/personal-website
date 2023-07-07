@@ -2,7 +2,7 @@ import { Hero } from "./components/hero/Hero";
 import { useOverviewContentModel } from "../../model/page_content/contentModel";
 import { Page } from "../../modules/layout/Page/Page";
 import { SectionsWithNav } from "../../modules/layout/MainContent/SectionsWithNav";
-import { PageSectionContent } from "./components/page_section/PageSection";
+import { PageSectionContent } from "./components/page_section_content/PageSectionContent";
 
 export const Main = () => {
     const content = useOverviewContentModel();

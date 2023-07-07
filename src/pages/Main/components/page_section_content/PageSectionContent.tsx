@@ -5,15 +5,13 @@ import { DocumentDisplay } from "../../../../modules/layout/ContentfulDocument/D
 import { toExperienceModel } from "../../../../model/experience/ExperienceModel";
 import { Position } from "../../../../model/experience/experienceMappers";
 import { EmploymentList } from "../../../../modules/domain/experience/EmploymentList";
-import { Skill } from "../../../../model/skills/skillMappers";
-import { toSkillsModel } from "../../../../model/skills/SkillsModel";
-import { SkillsSection } from "./SkillsSection";
+import { SkillsList } from "./SkillsList";
 
-interface SectionProps {
+interface SectionContentProps {
     externalId: string;
 }
 
-export function PageSectionContent({ externalId }: SectionProps) {
+export function PageSectionContent({ externalId }: SectionContentProps) {
     const sectionContent = useSectionContent(externalId);
     return (
         <>
@@ -50,12 +48,4 @@ function ExperienceList({ experience }: ExperienceListProps) {
     return experienceModel !== undefined ? (
         <EmploymentList employmentsList={experienceModel.employments} />
     ) : null;
-}
-
-interface SkillsListProps {
-    skills: Array<Skill>;
-}
-function SkillsList({ skills }: SkillsListProps) {
-    const skillsModel = toSkillsModel(skills);
-    return skillsModel !== undefined ? <SkillsSection skillsModel={skillsModel} /> : null;
 }
