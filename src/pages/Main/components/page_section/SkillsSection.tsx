@@ -1,5 +1,5 @@
-import { SkillsModel } from "../../../model/skills/SkillsModel";
-import { SkillArea } from "./SkillArea";
+import { SkillsModel } from "../../../../model/skills/SkillsModel";
+import { SkillArea } from "../../../../modules/domain/skills/SkillArea";
 
 interface SkillsSectionProps {
     skillsModel: SkillsModel;

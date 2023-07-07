@@ -2,7 +2,6 @@ import { Skill, SkillsArea, SkillsCategory } from "../../../model/skills/skillMa
 import { FlatList } from "../../design/FlatList/FlatList";
 
 import css from "./SkillArea.module.css";
-import classNames from "classnames";
 
 interface SkillsCategoryProps {
     area: SkillsArea;
@@ -12,10 +11,12 @@ interface SkillsCategoryProps {
 export function SkillArea({ area, categories }: SkillsCategoryProps) {
     return (
         <section className={css.area}>
-            <h3 className={classNames("smallHeader", css.areaName)}>{area.name}</h3>
-            {categories.map((category) => (
-                <SkillCategory key={category.id} category={category} />
-            ))}
+            <h3 className={"smallHeader"}>{area.name}</h3>
+            <div className={css.areaContent}>
+                {categories.map((category) => (
+                    <SkillCategory key={category.id} category={category} />
+                ))}
+            </div>
         </section>
     );
 }
@@ -25,14 +26,14 @@ interface SkillCategoryProps {
 }
 
 const SkillCategory = ({ category }: SkillCategoryProps) => (
-    <FlatList className={css.skillList} title={category.name}>
+    <FlatList title={category.name}>
         {category.skills.map((skill) => ({
-            node: <SkillName skill={skill} />,
+            node: <SkillBadge skill={skill} />,
             id: skill.id,
         }))}
     </FlatList>
 );
 
-const SkillName = ({ skill }: { skill: Skill }) => (
-    <span className={css.skillName}>{skill.name}</span>
+const SkillBadge = ({ skill }: { skill: Skill }) => (
+    <span className={css.skillBadge}>{skill.name}</span>
 );

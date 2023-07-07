@@ -7,7 +7,7 @@ import { Position } from "../../../../model/experience/experienceMappers";
 import { EmploymentList } from "../../../../modules/domain/experience/EmploymentList";
 import { Skill } from "../../../../model/skills/skillMappers";
 import { toSkillsModel } from "../../../../model/skills/SkillsModel";
-import { SkillsSection } from "../../../../modules/domain/skills/SkillsSection";
+import { SkillsSection } from "./SkillsSection";
 
 interface SectionProps {
     externalId: string;
