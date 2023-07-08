@@ -1,28 +1,23 @@
 @import "@/imports.css";
 
 .nav {
-    position: sticky;
-    top: 0;
-
+    background: inherit;
     margin: 0;
-    padding: 32px 0;
+    padding: 0;
     text-align: left;
-    display: flex;
-    flex-direction: row;
-    list-style: none;
 
-    @media (--large-viewport) {
-        width: fit-content;
-        flex-direction: column;
-        gap: 4px;
-        flex: min-content 0 0;
-    }
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: var(--direction, row);
+    gap: var(--gap, 4px);
+    list-style: none;
 }
 
 .navLink {
     background: inherit;
     outline: none;
-    border: 1px solid white;
+    border: 1px solid transparent;
 
     cursor: pointer;
     color: var(--rgb-purple-100);
