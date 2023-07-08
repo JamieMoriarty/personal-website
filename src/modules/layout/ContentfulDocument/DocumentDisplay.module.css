@@ -1,7 +1,7 @@
 .paragraph {
     padding: 0;
 
-    &:not(first-child) {
+    &:not(:first-of-type) {
         padding-block-start: 4px;
     }
 }
