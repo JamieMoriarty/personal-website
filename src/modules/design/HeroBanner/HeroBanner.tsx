@@ -19,7 +19,7 @@ interface HeroBannerProps {
 
 export function HeroBanner({ className, heading, details, links, img }: HeroBannerProps) {
     return (
-        <header className={classnames(css.header, className)}>
+        <article className={classnames(css.header, className)}>
             <section className={css.textSection}>
                 <h1 className={"header"}>{heading}</h1>
                 <p className={"smallHeader"}>{details}</p>
@@ -36,6 +36,6 @@ export function HeroBanner({ className, heading, details, links, img }: HeroBann
                 </div>
             </section>
             <div className={css.headerImage}>{img}</div>
-        </header>
+        </article>
     );
 }

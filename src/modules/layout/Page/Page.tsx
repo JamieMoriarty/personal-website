@@ -1,11 +1,13 @@
 import { ReactNode } from "react";
 
 import css from "./Page.module.css";
+import classnames from "classnames";
 
 interface PageProps {
+    className?: string;
     children: ReactNode;
 }
 
-export function Page({ children }: PageProps) {
-    return <section className={css.container}>{children}</section>;
+export function Page({ children, className: c }: PageProps) {
+    return <section className={classnames(c, css.container)}>{children}</section>;
 }
