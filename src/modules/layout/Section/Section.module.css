@@ -1,7 +1,8 @@
 @import "@/imports.css";
 
 .container {
-    padding-block-start: 40px;
+    margin-top: -60px;
+    padding-block-start: 60px;
 
     display: flex;
     flex-direction: column;

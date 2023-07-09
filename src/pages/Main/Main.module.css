@@ -43,4 +43,12 @@
 
 .main {
     grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    @media (--medium-viewport) {
+        padding-block: 16px;
+    }
 }
