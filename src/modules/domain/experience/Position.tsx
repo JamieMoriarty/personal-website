@@ -4,6 +4,7 @@ import { PositionDescription } from "./PositionDescription";
 
 import css from "./Position.module.css";
 import { format } from "date-fns";
+import classnames from "classnames";
 
 interface PositionProps {
     position: PositionModel;
@@ -11,32 +12,39 @@ interface PositionProps {
 
 export function Position({ position }: PositionProps) {
     return (
-        <article className={css.container}>
-            <p>
-                {format(position.startDate, "MMMM y")} -{" "}
-                {position.endDate ? format(position.endDate, "MMMM y") : "Now"}
-            </p>
-            <h3 className={css.heading}>
-                <strong>{position.title}</strong> @ {position.team}
-            </h3>
-            <div className={css.description}>
+        <article className={classnames(css.container, "smallBody")}>
+            <header className={css.header}>
+                <h3 className={css.heading}>
+                    <strong className="bodyBold">{position.title} @</strong>{" "}
+                    <span className="body">{position.team}</span>
+                </h3>
+                <p className="smallCapsLight">
+                    {format(position.startDate, "MMMM y")} -{" "}
+                    {position.endDate ? format(position.endDate, "MMMM y") : "Now"}
+                </p>
+            </header>
+            <section>
                 {position.description ? (
                     <PositionDescription description={position.description} />
                 ) : null}
+            </section>
+            <section className={css.responsibilitiesSection}>
                 <h4>Key responsibilities:</h4>
                 <ul className={css.keyResponsibilitiesList}>
                     {position.keyResponsibilities.map((respons) => (
                         <li key={respons}>{respons}</li>
                     ))}
                 </ul>
-            </div>
-            <h4 className={css.skillsHeading}>Skills:</h4>
-            <FlatList className={css.skillsList}>
-                {position?.skills?.map((skillItem) => ({
-                    node: <span>{skillItem.name}</span>,
-                    id: skillItem.id,
-                }))}
-            </FlatList>
+            </section>
+            <section className={css.skillsSection}>
+                <h4 className={"bodyBold"}>Skills:</h4>
+                <FlatList className={css.skillsList}>
+                    {position?.skills?.map((skillItem) => ({
+                        node: <span>{skillItem.name}</span>,
+                        id: skillItem.id,
+                    }))}
+                </FlatList>
+            </section>
         </article>
     );
 }

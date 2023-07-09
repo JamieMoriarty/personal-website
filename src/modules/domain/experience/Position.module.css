@@ -1,10 +1,13 @@
 .container {
-    border-top: 1px solid black;
-    padding-block: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
-    &:first-child {
-        border: none;
-    }
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .heading {
@@ -13,14 +16,20 @@
 }
 
 .description {
-    --description-font-size: 12px;
+    --description-font-size: 0.79375rem;
 
     --description-base-size: var(--description-font-size);
     font-size: var(--description-font-size);
 }
 
-.skillsHeading {
-    display: inline-block;
+.responsibilitiesSection {
+    text-align: left;
+}
+
+.skillsSection {
+    display: flex;
+    gap: 16px;
+    align-items: center;
 }
 
 .skillsList {

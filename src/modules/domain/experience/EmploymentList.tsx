@@ -45,9 +45,7 @@ function Employment({ employment }: EmploymentProps) {
     return (
         <section className={css.details}>
             {employment.positions.map((position) => (
-                <Fragment key={position.id}>
-                    <Position position={position} />
-                </Fragment>
+                <Position key={position.id} position={position} />
             ))}
         </section>
     );

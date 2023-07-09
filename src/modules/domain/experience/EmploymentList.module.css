@@ -5,7 +5,7 @@
     grid-template-columns: auto 1fr;
     align-items: center;
     column-gap: 64px;
-    row-gap: 16px;
+    row-gap: 32px;
 
     @media (--small-viewport) {
         display: none;
@@ -13,6 +13,9 @@
 }
 
 .details {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .splitter {

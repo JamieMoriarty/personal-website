@@ -9,5 +9,5 @@ interface PageProps {
 }
 
 export function Page({ children, className: c }: PageProps) {
-    return <section className={classnames(c, css.container)}>{children}</section>;
+    return <div className={classnames(c, css.container)}>{children}</div>;
 }
