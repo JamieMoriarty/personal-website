@@ -14,7 +14,7 @@ interface EmploymentsListProps {
 export function EmploymentList({ employmentsList }: EmploymentsListProps) {
     return (
         <section className={css.container}>
-            {employmentsList.map((employment) => (
+            {employmentsList.map((employment, index, array) => (
                 <Fragment key={employment.id}>
                     {employment.employer.homepageUrl ? (
                         <a href={employment.employer.homepageUrl}>
@@ -30,6 +30,7 @@ export function EmploymentList({ employmentsList }: EmploymentsListProps) {
                         />
                     )}
                     <Employment employment={employment} />
+                    {index !== array.length - 1 && <div className={css.splitter} />}
                 </Fragment>
             ))}
         </section>
@@ -42,10 +43,12 @@ interface EmploymentProps {
 
 function Employment({ employment }: EmploymentProps) {
     return (
-        <div className={css.details}>
+        <section className={css.details}>
             {employment.positions.map((position) => (
-                <Position key={position.id} position={position} />
+                <Fragment key={position.id}>
+                    <Position position={position} />
+                </Fragment>
             ))}
-        </div>
+        </section>
     );
 }

@@ -4,8 +4,8 @@
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    gap: 16px;
-    row-gap: 8px;
+    column-gap: 64px;
+    row-gap: 16px;
 
     @media (--small-viewport) {
         display: none;
@@ -13,8 +13,10 @@
 }
 
 .details {
-    padding-block: 8px;
-    padding-inline: 16px;
-    border: 1px solid black;
-    border-radius: 8px;
+}
+
+.splitter {
+    grid-column: 1 / -1;
+    margin-inline: 128px;
+    border-top: 1px solid var(--purple-50);
 }
