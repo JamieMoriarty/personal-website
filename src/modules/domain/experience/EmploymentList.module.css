@@ -23,3 +23,7 @@
     margin-inline: 128px;
     border-top: 1px solid var(--purple-50);
 }
+
+.employerLogo {
+    height: 16px;
+}

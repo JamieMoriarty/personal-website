@@ -1,7 +1,8 @@
-import { Skill, SkillsArea, SkillsCategory } from "../../../model/skills/skillMappers";
+import { SkillsArea, SkillsCategory } from "../../../model/skills/skillMappers";
 import { FlatList } from "../../design/FlatList/FlatList";
 
 import css from "./SkillArea.module.css";
+import { SkillBadge } from "./SkillBadge";
 
 interface SkillsCategoryProps {
     area: SkillsArea;
@@ -32,8 +33,4 @@ const SkillCategory = ({ category }: SkillCategoryProps) => (
             id: skill.id,
         }))}
     </FlatList>
-);
-
-const SkillBadge = ({ skill }: { skill: Skill }) => (
-    <span className={css.skillBadge}>{skill.name}</span>
 );

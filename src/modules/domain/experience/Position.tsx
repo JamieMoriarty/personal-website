@@ -5,6 +5,7 @@ import { PositionDescription } from "./PositionDescription";
 import css from "./Position.module.css";
 import { format } from "date-fns";
 import classnames from "classnames";
+import { SkillBadge } from "../skills/SkillBadge";
 
 interface PositionProps {
     position: PositionModel;
@@ -40,7 +41,7 @@ export function Position({ position }: PositionProps) {
                 <h4 className={"bodyBold"}>Skills:</h4>
                 <FlatList className={css.skillsList}>
                     {position?.skills?.map((skillItem) => ({
-                        node: <span>{skillItem.name}</span>,
+                        node: <SkillBadge skill={skillItem} small />,
                         id: skillItem.id,
                     }))}
                 </FlatList>

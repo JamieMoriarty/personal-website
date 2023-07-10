@@ -19,6 +19,7 @@ export function EmploymentList({ employmentsList }: EmploymentsListProps) {
                     {employment.employer.homepageUrl ? (
                         <a href={employment.employer.homepageUrl}>
                             <img
+                                className={css.employerLogo}
                                 src={employment.employer.logo}
                                 alt={`Logo for the company ${employment.employer.name}`}
                             />
