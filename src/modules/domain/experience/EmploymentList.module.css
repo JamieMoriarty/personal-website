@@ -8,7 +8,8 @@
     row-gap: 32px;
 
     @media (--small-viewport) {
-        display: none;
+        grid-template-columns: auto;
+        row-gap: 16px;
     }
 }
 
@@ -24,6 +25,34 @@
     border-top: 1px solid var(--purple-50);
 }
 
+.linkWrapper {
+    text-align: left;
+}
+
+.employerLink {
+    text-decoration: none;
+    color: var(--purple-50);
+
+    transition: color var(--animation-default);
+
+    &:hover,
+    &:focus,
+    &:focus-within {
+        color: var(--purple-500);
+        text-decoration: underline;
+    }
+}
+
 .employerLogo {
     height: 16px;
+
+    @media (--small-viewport) {
+        display: none;
+    }
+}
+
+.employerName {
+    @media (--medium-viewport) {
+        display: none;
+    }
 }

@@ -6,6 +6,7 @@ import {
 import { Position } from "./Position";
 
 import css from "./EmploymentList.module.css";
+import classnames from "classnames";
 
 interface EmploymentsListProps {
     employmentsList: EmploymentsListModel;
@@ -16,20 +17,31 @@ export function EmploymentList({ employmentsList }: EmploymentsListProps) {
         <section className={css.container}>
             {employmentsList.map((employment, index, array) => (
                 <Fragment key={employment.id}>
-                    {employment.employer.homepageUrl ? (
-                        <a href={employment.employer.homepageUrl}>
+                    <div className={css.linkWrapper}>
+                        {employment.employer.homepageUrl ? (
+                            <a
+                                href={employment.employer.homepageUrl}
+                                className={css.employerLink}
+                            >
+                                <img
+                                    className={css.employerLogo}
+                                    src={employment.employer.logo}
+                                    alt={`Logo for the company ${employment.employer.name}`}
+                                />
+                                <span
+                                    className={classnames(css.employerName, "bodyBold")}
+                                >
+                                    {employment.employer.name}
+                                </span>
+                            </a>
+                        ) : (
                             <img
                                 className={css.employerLogo}
                                 src={employment.employer.logo}
                                 alt={`Logo for the company ${employment.employer.name}`}
                             />
-                        </a>
-                    ) : (
-                        <img
-                            src={employment.employer.logo}
-                            alt={`Logo for the company ${employment.employer.name}`}
-                        />
-                    )}
+                        )}
+                    </div>
                     <Employment employment={employment} />
                     {index !== array.length - 1 && <div className={css.splitter} />}
                 </Fragment>
