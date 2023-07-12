@@ -3,12 +3,11 @@
 .header {
     display: flex;
     align-items: center;
-    gap: 16px;
     max-width: 100%;
+    gap: 16px;
 
     @media (--medium-viewport) {
         flex-direction: column-reverse;
-        gap: 16px;
     }
 
     @media (--small-viewport) {
@@ -25,12 +24,13 @@
 
     @media (--medium-viewport) {
         gap: 16px;
-        padding-inline: 24px;
+        padding-inline: 16px;
     }
 
     @media (--small-viewport) {
         gap: 16px;
-        padding-inline: 8px;
+        padding-inline: 0;
+        padding-block: 16px;
     }
 }
 

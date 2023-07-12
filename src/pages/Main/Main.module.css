@@ -7,6 +7,7 @@
         "header"
         "nav"
         "main";
+    row-gap: 32px;
 
     @media (--large-viewport) {
         grid-template-areas:
