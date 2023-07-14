@@ -30,6 +30,7 @@
     height: 60px;
     display: flex;
     align-items: center;
+    border-bottom: 1px solid var(--purple-500);
 
     @media (--large-viewport) {
         align-items: stretch;
@@ -37,6 +38,7 @@
         padding-inline-end: 32px;
         width: fit-content;
         height: fit-content;
+        border-bottom: none;
 
         --direction: column;
     }

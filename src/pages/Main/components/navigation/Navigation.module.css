@@ -8,7 +8,6 @@
 
     width: 100%;
     display: flex;
-    justify-content: space-between;
     flex-direction: var(--direction, row);
     gap: var(--gap, 4px);
     list-style: none;
