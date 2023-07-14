@@ -52,6 +52,9 @@
 }
 
 .employerName {
+    @media (--large-viewport) {
+        display: none;
+    }
     @media (--medium-viewport) {
         display: none;
     }

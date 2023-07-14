@@ -13,7 +13,6 @@
         grid-template-areas:
             "header header"
             "nav main";
-        column-gap: 64px;
     }
 }
 
@@ -34,7 +33,8 @@
 
     @media (--large-viewport) {
         align-items: stretch;
-        padding-block: 32px;
+        padding-block-start: 24px;
+        padding-inline-end: 32px;
         width: fit-content;
         height: fit-content;
 
@@ -45,9 +45,13 @@
 .main {
     grid-area: main;
 
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    & > section {
+        padding-block-start: 32px;
+    }
+
+    @media (--large-viewport) {
+        padding-inline-start: 32px;
+    }
 
     @media (--medium-viewport) {
         padding-block: 16px;

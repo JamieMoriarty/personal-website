@@ -11,4 +11,8 @@
     @media (--medium-viewport) {
         padding-inline: 16px;
     }
+
+    @media (--large-viewport) {
+        margin-top: 0;
+    }
 }
