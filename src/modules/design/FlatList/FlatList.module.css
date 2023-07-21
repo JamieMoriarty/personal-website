@@ -6,7 +6,7 @@
 }
 
 .title {
-    line-height: 24px !important;
+    line-height: 34px !important;
     flex-basis: 150px;
     flex-shrink: 0;
     color: var(--grey-500);
