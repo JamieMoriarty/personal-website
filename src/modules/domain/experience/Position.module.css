@@ -29,7 +29,11 @@
 .skillsSection {
     display: flex;
     gap: 16px;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.skillsSectionTitle {
+    line-height: 25px !important;
 }
 
 .skillsList {

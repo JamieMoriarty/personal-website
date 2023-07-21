@@ -2,10 +2,11 @@
 
 .container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .title {
+    line-height: 24px !important;
     flex-basis: 150px;
     flex-shrink: 0;
     color: var(--grey-500);

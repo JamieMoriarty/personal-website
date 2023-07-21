@@ -38,7 +38,9 @@ export function Position({ position }: PositionProps) {
                 </ul>
             </section>
             <section className={css.skillsSection}>
-                <h4 className={"bodyBold"}>Skills:</h4>
+                <h4 className={classnames("bodyBold", css.skillsSectionTitle)}>
+                    Skills:
+                </h4>
                 <FlatList className={css.skillsList}>
                     {position?.skills?.map((skillItem) => ({
                         node: <SkillBadge skill={skillItem} small />,

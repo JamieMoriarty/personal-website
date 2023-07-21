@@ -29,7 +29,10 @@ export function EmploymentList({ employmentsList }: EmploymentsListProps) {
                                     alt={`Logo for the company ${employment.employer.name}`}
                                 />
                                 <span
-                                    className={classnames(css.employerName, "bodyBold")}
+                                    className={classnames(
+                                        css.employerName,
+                                        "smallHeader"
+                                    )}
                                 >
                                     {employment.employer.name}
                                 </span>

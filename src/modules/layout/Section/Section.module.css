@@ -8,9 +8,7 @@
     flex-direction: column;
     gap: 16px;
 
-    &:not(:first-child) {
-        padding-block-start: calc(60px + 16px);
-    }
+    padding-block-start: calc(60px + 24px);
 
     @media (--medium-viewport) {
         padding-inline: 16px;

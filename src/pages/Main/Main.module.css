@@ -18,6 +18,14 @@
 .header {
     grid-area: header;
     padding-block-end: 32px;
+
+    @media (--medium-viewport) {
+        padding-block-end: 16px;
+    }
+
+    @media (--small-viewport) {
+        padding-block-end: 0;
+    }
 }
 
 .nav {
