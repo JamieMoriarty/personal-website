@@ -197,6 +197,7 @@ const SECTION_QUERY = gql(`query GetSection($id: String!) {
         id
       }
       name
+      sortOrder
     }
     area {
       sys {

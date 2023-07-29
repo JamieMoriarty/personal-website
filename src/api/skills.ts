@@ -60,6 +60,7 @@ export type ApiSkills = {
 
 type ApiSkillsCategory = {
     name: string;
+    sortOrder?: number;
 } & WithSysId;
 
 type ApiSkillsArea = {

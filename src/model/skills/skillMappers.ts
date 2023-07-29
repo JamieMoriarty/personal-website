@@ -15,6 +15,7 @@ export interface SkillCategories extends Array<SkillsCategory> {
 export interface SkillsCategory {
     id: string;
     name: string;
+    sortOrder: number;
     skills: Array<Skill>;
 }
 
@@ -34,6 +35,7 @@ export function toSkills(apiSkills: ApiSkillsResponse): Array<Skill> {
                       category: {
                           id: item.category.sys.id,
                           name: item.category.name,
+                          sortOrder: item.category.sortOrder ?? 0,
                       },
                       area: {
                           id: item.area.sys.id,
@@ -77,6 +79,7 @@ export function extractSkillCategories(skills: Array<Skill>): SkillCategories {
             categoryArray.push(area);
         }
     });
+    categoryArray.sort((left, right) => left.sortOrder - right.sortOrder);
 
     const filterSkillsByArea = (area: SkillsArea) => {
         return categoryArray.map((category) => ({
