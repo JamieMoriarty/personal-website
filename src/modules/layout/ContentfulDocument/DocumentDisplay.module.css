@@ -1,3 +1,17 @@
+a {
+    color: var(--purple-500);
+    text-decoration: none;
+
+    transition: font-weight var(--animation-default);
+
+    &:hover,
+    &:focus,
+    &:focus-within {
+        text-decoration: underline;
+        font-weight: 500;
+    }
+}
+
 .paragraph {
     padding: 0;
 
