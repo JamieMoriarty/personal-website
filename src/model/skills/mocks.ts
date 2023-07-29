@@ -4,6 +4,7 @@ import { Skill, SkillsArea, SkillsCategory } from "./skillMappers";
 export const categoryMock = (id: string): Omit<SkillsCategory, "skills"> => ({
     id,
     name: "random name",
+    sortOrder: 0,
 });
 
 export const areaMock = (id: string): Omit<SkillsArea, "skills"> => ({
