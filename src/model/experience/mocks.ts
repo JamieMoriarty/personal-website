@@ -14,6 +14,7 @@ export const skillMock = (id: string, areaId = "area id"): Skill => ({
     category: {
         name: "test category",
         id: "category id",
+        sortOrder: 0,
     },
 });
 
