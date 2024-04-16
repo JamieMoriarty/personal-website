@@ -14,6 +14,8 @@ scaffolding with [create-react-app](https://github.com/facebook/create-react-app
 So far the experience is good. The dev server boots up **a lot** faster! I've yet to actually
 build and push to a produciton environment, so we'll see how it goes when we get there.
 
+test update
+
 ### Frameworks, language, etc.
 
 I'm using React with typescript and CSS modules for styling. No CSS preprocessor, but I _am_
