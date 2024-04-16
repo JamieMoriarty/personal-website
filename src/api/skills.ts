@@ -52,7 +52,7 @@ export const useApiSkills = (): ApiSkillsResponse => {
     }
 };
 
-type ApiSkills = {
+export type ApiSkills = {
     name: string;
     category: ApiSkillsCategory;
     area: ApiSkillsArea;
@@ -60,6 +60,7 @@ type ApiSkills = {
 
 type ApiSkillsCategory = {
     name: string;
+    sortOrder?: number;
 } & WithSysId;
 
 type ApiSkillsArea = {
@@ -76,11 +77,11 @@ const isValidSkillsArea = isShape<ApiSkillsArea>({
     sys: hasId,
 });
 
-const isValidSkillsResponse = isArray(
-    isShape<ApiSkills>({
-        sys: hasId,
-        name: isString,
-        category: isValidSkillsCategory,
-        area: isValidSkillsArea,
-    })
-);
+export const isApiSkills = isShape<ApiSkills>({
+    sys: hasId,
+    name: isString,
+    category: isValidSkillsCategory,
+    area: isValidSkillsArea,
+});
+
+const isValidSkillsResponse = isArray(isApiSkills);

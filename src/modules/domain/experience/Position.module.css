@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.heading {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.description {
+    --description-font-size: 0.79375rem;
+
+    --description-base-size: var(--description-font-size);
+    font-size: var(--description-font-size);
+}
+
+.responsibilitiesSection {
+    text-align: left;
+}
+
+.skillsSection {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.skillsSectionTitle {
+    line-height: 25px !important;
+}
+
+.skillsList {
+    --flatlist-padding: 0 16px;
+}
+
+.keyResponsibilitiesList {
+    margin: 0;
+    padding: 0 24px;
+}

@@ -4,15 +4,29 @@ import css from "./FlatList.module.css";
 
 interface FlatListProps {
     className?: string;
+    title?: string;
     children: Array<{ node: ReactNode; id: string }>;
 }
 
-export function FlatList({ className, children }: FlatListProps) {
+function FlatListC({ className, title, children }: FlatListProps) {
     return (
-        <ul className={classnames(className, css.container)}>
-            {children.map((child) => (
-                <li key={child.id}>{child.node}</li>
-            ))}
-        </ul>
+        <article className={css.container}>
+            {title && <Title title={title} />}
+            <ul className={classnames(className, css.list)}>
+                {children.map((child) => (
+                    <li key={child.id}>{child.node}</li>
+                ))}
+            </ul>
+        </article>
     );
 }
+
+interface TitleProps {
+    title: string;
+}
+
+function Title({ title }: TitleProps) {
+    return <h4 className={classnames("smallCaps", css.title)}>{title}</h4>;
+}
+
+export const FlatList = Object.assign(FlatListC, { Title });

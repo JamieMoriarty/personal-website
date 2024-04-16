@@ -1,0 +1,20 @@
+@import "@/imports.css";
+
+.container {
+    margin-top: -60px;
+    padding-block-start: 60px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding-block-start: calc(60px + 24px);
+
+    @media (--medium-viewport) {
+        padding-inline: 16px;
+    }
+
+    @media (--large-viewport) {
+        margin-top: 0;
+    }
+}

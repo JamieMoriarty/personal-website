@@ -1,12 +1,13 @@
-import "./App.css";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "./api";
 import { Main } from "./pages/Main";
 
 function App() {
-  return (
-    <div className="App">
-      <Main />
-    </div>
-  );
+    return (
+        <ApolloProvider client={client}>
+            <Main />
+        </ApolloProvider>
+    );
 }
 
 export default App;

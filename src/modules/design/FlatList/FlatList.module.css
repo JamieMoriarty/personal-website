@@ -1,10 +1,18 @@
-/*
-    CSS variables for overriding styles:
-        # --flatlist-padding: sets the padding;
-        # --flatlist-margin: sets the margin;
-        # --flatlist-gap: sets the (flexbox) gap property
-*/
+@import "@/imports.css";
+
 .container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.title {
+    line-height: 34px !important;
+    flex-basis: 150px;
+    flex-shrink: 0;
+    color: var(--grey-500);
+}
+
+.list {
     list-style: none;
     margin: var(--flatlist-margin, 0);
     padding: var(--flatlist-padding, 0);

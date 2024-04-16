@@ -1,0 +1,8 @@
+@import "@/imports.css";
+
+.container {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--purple-500);
+}

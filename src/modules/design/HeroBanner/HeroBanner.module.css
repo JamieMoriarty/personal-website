@@ -1,10 +1,42 @@
+@import "@/imports.css";
+
 .header {
-    padding: 16px 32px;
-    display: grid;
-    grid-template-columns: auto 100px;
-    grid-template-areas:
-        "title image"
-        "details image";
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    gap: 16px;
+
+    @media (--medium-viewport) {
+        flex-direction: column-reverse;
+    }
+
+    @media (--small-viewport) {
+        flex-direction: column-reverse;
+    }
+}
+
+.textSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    padding-inline: 16px 0;
+
+    @media (--medium-viewport) {
+        gap: 16px;
+        padding-inline: 16px;
+    }
+
+    @media (--small-viewport) {
+        gap: 16px;
+        padding-inline: 0;
+        padding-block: 16px;
+    }
+}
+
+.linkList {
+    display: flex;
+    gap: 8px;
 }
 
 .headerTitle {
@@ -22,4 +54,9 @@
 .headerImage {
     grid-area: image;
     align-self: center;
+    max-width: 100%;
+
+    @media (--small-viewport) {
+        align-self: center;
+    }
 }

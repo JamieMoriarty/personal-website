@@ -1,5 +1,5 @@
-import { ExperienceApiResponse, useApiExperience } from "../../api/experience";
-import { SkillsModel, useSkillsModel } from "../skills/SkillsModel";
+import { useApiExperience } from "../../api/experience";
+import { useFullSkillsModel } from "../skills/SkillsModel";
 import {
     Position,
     Employer,
@@ -16,22 +16,20 @@ interface ExperienceModel {
     employers: Array<Employer>;
 }
 
-export const useExperienceModel = () => {
+export const useFullExperienceModel = () => {
     const experienceApiResponse = useApiExperience();
-    const skillsModel = useSkillsModel();
+    const skillsModel = useFullSkillsModel();
 
-    return toExperienceModel(experienceApiResponse, skillsModel);
+    return (
+        experienceApiResponse &&
+        skillsModel &&
+        toExperienceModel(toPositions(experienceApiResponse, skillsModel.getSkillById))
+    );
 };
 
-function toExperienceModel(
-    apiResponse: Array<ExperienceApiResponse> | undefined,
-    skillsModel: SkillsModel | undefined
+export function toExperienceModel(
+    positions: Array<Position>
 ): ExperienceModel | undefined {
-    if (!apiResponse || !skillsModel) {
-        return undefined;
-    }
-    const positions = toPositions(apiResponse, skillsModel.getSkillById);
-
     return {
         positions: positions.sort(comparePositionsByStartDate),
         employments: extractEmployments(positions),

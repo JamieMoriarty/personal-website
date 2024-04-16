@@ -1,0 +1,54 @@
+a {
+    color: var(--purple-500);
+    text-decoration: none;
+
+    transition: font-weight var(--animation-default);
+
+    &:hover,
+    &:focus,
+    &:focus-within {
+        text-decoration: underline;
+        font-weight: 500;
+    }
+}
+
+.paragraph {
+    padding: 0;
+
+    &:not(:first-of-type) {
+        padding-block-start: 4px;
+    }
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.heading3 {
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.heading5 {
+    font-size: 1.1em;
+    font-weight: 700;
+    padding-block-start: 0.25rem;
+}
+
+.heading6 {
+    font-size: 1.05em;
+    font-weight: 700;
+}
+
+.list {
+    padding: 4px 0 4px 16px;
+    margin: 0;
+}

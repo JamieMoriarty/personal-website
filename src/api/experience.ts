@@ -92,22 +92,22 @@ const isSkill = isShape({
     sys: hasId,
 });
 
-const isExperienceApiResponse = isArray(
-    isShape<ExperienceApiResponse>({
-        title: isString,
-        team: isString,
-        additionalSpecifier: maybeNull(isString),
-        startDate: isString,
-        endDate: maybeNull(isString),
-        keyResponsibilities: isArray(isString),
-        sys: hasId,
-        description: maybeNull(isShape({ json: isContentfulDocument })),
-        employer: isEmployer,
-        skillsCollection: isShape({ items: isArray(isSkill) }),
-    })
-);
+export const isApiExperience = isShape<ExperienceApiResponse>({
+    title: isString,
+    team: isString,
+    additionalSpecifier: maybeNull(isString),
+    startDate: isString,
+    endDate: maybeNull(isString),
+    keyResponsibilities: isArray(isString),
+    sys: hasId,
+    description: maybeNull(isShape({ json: isContentfulDocument })),
+    employer: isEmployer,
+    skillsCollection: isShape({ items: isArray(isSkill) }),
+});
 
-function isContentfulDocument(value: unknown): value is ContentfulDocument {
+export const isExperienceApiResponse = isArray(isApiExperience);
+
+export function isContentfulDocument(value: unknown): value is ContentfulDocument {
     return (
         !!value &&
         typeof value === "object" &&

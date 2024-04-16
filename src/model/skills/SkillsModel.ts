@@ -1,4 +1,4 @@
-import { ApiSkillsResponse, useApiSkills } from "../../api/skills";
+import { useApiSkills } from "../../api/skills";
 import {
     extractSkillAreas,
     extractSkillCategories,
@@ -15,21 +15,20 @@ export interface SkillsModel {
     getSkillById: (id: string) => Skill;
 }
 
+export const useSkillsModel = function (skills: Array<Skill>): SkillsModel | undefined {
+    return toSkillsModel(skills);
+};
+
 /**
  * @returns skills model (including convenience methods) IF api data is loaded, otherwise undefined
  */
-export const useSkillsModel = function (): SkillsModel | undefined {
+export const useFullSkillsModel = function (): SkillsModel | undefined {
     const apiSkills = useApiSkills();
 
-    return toSkillsModel(apiSkills);
+    return !apiSkills ? undefined : toSkillsModel(toSkills(apiSkills));
 };
 
-export function toSkillsModel(apiSkills: ApiSkillsResponse): SkillsModel | undefined {
-    if (!apiSkills) {
-        return undefined;
-    }
-
-    const skills = toSkills(apiSkills);
+export function toSkillsModel(skills: Array<Skill>): SkillsModel | undefined {
     const areas = extractSkillAreas(skills);
     const categories = extractSkillCategories(skills);
 

@@ -1,15 +1,73 @@
-.mainText {
-    text-align: left;
+@import "@/imports.css";
+
+.container {
+    display: grid;
+
+    grid-template-areas:
+        "header"
+        "nav"
+        "main";
+
+    @media (--large-viewport) {
+        grid-template-areas:
+            "header header"
+            "nav main";
+    }
+}
+
+.header {
+    grid-area: header;
+    padding-block-end: 32px;
+
+    @media (--medium-viewport) {
+        padding-block-end: 16px;
+    }
+
+    @media (--small-viewport) {
+        padding-block-end: 0;
+    }
 }
 
 .nav {
-    padding: 16px 32px;
-    text-align: left;
+    grid-area: nav;
+
+    position: sticky;
+    top: 0;
+    background: white;
+
+    height: 60px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid var(--purple-500);
+
+    @media (--large-viewport) {
+        align-items: stretch;
+        padding-block-start: 24px;
+        padding-inline-end: 32px;
+        width: fit-content;
+        height: fit-content;
+        border-bottom: none;
+
+        --direction: column;
+    }
+
+    @media (--small-viewport) {
+        margin-inline: -16px;
+    }
 }
 
 .main {
-    padding-inline: 32px;
-    text-align: left;
+    grid-area: main;
+
+    @media (--large-viewport) {
+        padding-inline-start: 32px;
+
+        & > section {
+            padding-block-start: 32px;
+        }
+    }
+
+    @media (--medium-viewport) {
+        padding-block: 16px;
+    }
 }
