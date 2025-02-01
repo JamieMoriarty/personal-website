@@ -16,7 +16,7 @@ a {
     padding: 0;
 
     &:not(:first-of-type) {
-        padding-block-start: 4px;
+        padding-block-start: 8px;
     }
 }
 

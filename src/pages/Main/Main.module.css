@@ -2,6 +2,7 @@
 
 .container {
     display: grid;
+    text-wrap: pretty;
 
     grid-template-areas:
         "header"
@@ -64,6 +65,10 @@
 
         & > section {
             padding-block-start: 32px;
+
+            &:not(:last-of-type) {
+                padding-block-end: 32px;
+            }
         }
     }
 
