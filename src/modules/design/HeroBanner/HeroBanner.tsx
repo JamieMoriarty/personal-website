@@ -18,11 +18,18 @@ interface HeroBannerProps {
 }
 
 export function HeroBanner({ className, heading, details, links, img }: HeroBannerProps) {
+    const detailParts = details?.split(/\n+/) ?? [];
     return (
         <article className={classnames(css.header, className)}>
             <section className={css.textSection}>
                 <h1 className={"header"}>{heading}</h1>
-                <p className={"smallHeader"}>{details}</p>
+                <p className={classnames("smallHeader", css.details)}>
+                    {detailParts.map((part, index) => (
+                        <span key={`detail_part_${index}`} className={css.detailsPart}>
+                            {part}
+                        </span>
+                    ))}
+                </p>
                 <div className={css.linkList}>
                     {links.map((linkDescriptor) => (
                         <Link

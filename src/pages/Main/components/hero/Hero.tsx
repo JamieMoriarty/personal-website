@@ -23,9 +23,7 @@ export function Hero({ className, content }: HeroProps) {
                     />
                     <source
                         media="(max-width: 1087px)"
-                        srcSet={`${
-                            content.landscapeImageUrl
-                        }?&fit=fill&w=${736}&h=${Math.round(736 / 1.71)}`}
+                        srcSet={`${content.squareImageUrl}?fit=fill&w=${240}&h=${240}`}
                     />
                     <img
                         className={css.image}

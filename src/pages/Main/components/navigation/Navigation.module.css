@@ -26,6 +26,8 @@
 
     transition: background-color 200ms, color 200ms, font-weight 200ms;
 
+    white-space: nowrap;
+
     &:hover,
     &:focus,
     &:focus-within {

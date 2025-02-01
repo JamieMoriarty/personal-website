@@ -6,13 +6,17 @@
     max-width: 100%;
     gap: 16px;
 
-    @media (--medium-viewport) {
+    /*@media (--medium-viewport) {
         flex-direction: column-reverse;
-    }
+    }*/
 
     @media (--small-viewport) {
         flex-direction: column-reverse;
     }
+}
+
+.detailsPart {
+    display: block;
 }
 
 .textSection {
@@ -22,15 +26,14 @@
     gap: 32px;
     padding-inline: 16px 0;
 
-    @media (--medium-viewport) {
-        gap: 16px;
-        padding-inline: 16px;
-    }
+    flex-grow: 1;
 
     @media (--small-viewport) {
         gap: 16px;
         padding-inline: 0;
         padding-block: 16px;
+
+        width: 330px;
     }
 }
 
@@ -58,5 +61,6 @@
 
     @media (--small-viewport) {
         align-self: center;
+        width: 330px;
     }
 }
