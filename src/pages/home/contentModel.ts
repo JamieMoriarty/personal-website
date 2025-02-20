@@ -1,5 +1,5 @@
 import { useApiMainContent, useApiSectionContent } from "../../api/content";
-import { useFullSkillsModel } from "../skills/SkillsModel";
+import { useFullSkillsModel } from "../../model/skills/SkillsModel";
 import {
     HeroContent,
     SectionContent,
@@ -7,11 +7,11 @@ import {
     toHeroContent,
     toSection,
     toSectionOverview,
-} from "./contentMappers";
+} from "../../model/page_content/contentMappers";
 
 export interface OverviewContent {
     hero: HeroContent;
-    sectionOverviews: Array<SectionOverview>;
+    sections: Array<SectionOverview>;
 }
 
 export function useOverviewContentModel(): OverviewContent | undefined {
@@ -21,8 +21,7 @@ export function useOverviewContentModel(): OverviewContent | undefined {
         ? undefined
         : {
               hero: toHeroContent(pageContent.hero),
-              sectionOverviews:
-                  pageContent.sectionsCollection.items.map(toSectionOverview),
+              sections: pageContent.sectionsCollection.items.map(toSectionOverview),
           };
 }
 

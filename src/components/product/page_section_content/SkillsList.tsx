@@ -1,6 +1,6 @@
-import { SkillsModel, toSkillsModel } from "../../../../model/skills/SkillsModel";
-import { Skill } from "../../../../model/skills/skillMappers";
-import { SkillArea } from "../../../../modules/domain/skills/SkillArea";
+import { SkillsModel, toSkillsModel } from "../../../model/skills/SkillsModel";
+import { Skill } from "../../../model/skills/skillMappers";
+import { SkillArea } from "../skills/SkillArea";
 
 interface SkillsListProps {
     skills: Array<Skill>;

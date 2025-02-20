@@ -1,11 +1,11 @@
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./api";
-import { Main } from "./pages/Main";
+import { Home } from "./pages/home";
 
 function App() {
     return (
         <ApolloProvider client={client}>
-            <Main />
+            <Home />
         </ApolloProvider>
     );
 }

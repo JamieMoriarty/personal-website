@@ -1,10 +1,10 @@
-import { isSectionWithReferencedContent } from "../../../../model/page_content/contentMappers";
-import { useSectionContent } from "../../../../model/page_content/contentModel";
-import { DocumentDisplay } from "../../../../modules/layout/ContentfulDocument/DocumentDisplay";
+import { isSectionWithReferencedContent } from "../../../model/page_content/contentMappers";
+import { useSectionContent } from "../../../pages/home/contentModel";
+import { DocumentDisplay } from "../../design/layout/ContentfulDocument/DocumentDisplay";
 
-import { toExperienceModel } from "../../../../model/experience/ExperienceModel";
-import { Position } from "../../../../model/experience/experienceMappers";
-import { EmploymentList } from "../../../../modules/domain/experience/EmploymentList";
+import { toExperienceModel } from "../../../model/experience/ExperienceModel";
+import { Position } from "../../../model/experience/experienceMappers";
+import { EmploymentList } from "../experience/EmploymentList";
 import { SkillsList } from "./SkillsList";
 
 interface SectionContentProps {
