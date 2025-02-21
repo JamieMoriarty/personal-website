@@ -1,5 +1,5 @@
 import { SkillsArea, SkillsCategory } from "../../../model/skills/skillMappers";
-import { FlatList } from "../../design/FlatList/FlatList";
+import { FlatList } from "../../presentation/FlatList/FlatList";
 
 import css from "./SkillArea.module.css";
 import { SkillBadge } from "./SkillBadge";

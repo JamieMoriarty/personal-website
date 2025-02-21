@@ -1,6 +1,6 @@
 import { isSectionWithReferencedContent } from "../../../model/page_content/contentMappers";
 import { useSectionContent } from "../../../pages/home/contentModel";
-import { DocumentDisplay } from "../../design/layout/ContentfulDocument/DocumentDisplay";
+import { DocumentDisplay } from "../../presentation/layout/ContentfulDocument/DocumentDisplay";
 
 import { toExperienceModel } from "../../../model/experience/ExperienceModel";
 import { Position } from "../../../model/experience/experienceMappers";

@@ -1,5 +1,5 @@
 import { HeroContent } from "../../../model/page_content/contentMappers";
-import { HeroBanner } from "../../design/HeroBanner/HeroBanner";
+import { HeroBanner } from "../../presentation/HeroBanner/HeroBanner";
 
 import css from "./Hero.module.css";
 
